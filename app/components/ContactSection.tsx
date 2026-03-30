@@ -11,8 +11,18 @@ const contactMethods = [
     href: "tel:+966544868983",
     description: "متاح على مدار الساعة",
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+        />
       </svg>
     ),
   },
@@ -23,8 +33,18 @@ const contactMethods = [
     href: "tel:+966112408697",
     description: "أوقات العمل الرسمية",
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
       </svg>
     ),
   },
@@ -35,8 +55,18 @@ const contactMethods = [
     href: "mailto:Nasejalnahdat@gmail.com",
     description: "نرد خلال 24 ساعة",
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
       </svg>
     ),
   },
@@ -47,9 +77,24 @@ const contactMethods = [
     href: "https://maps.app.goo.gl/FkTH7ep39PhjsEV6A",
     description: "مبنى 8986 - شارع عبدالله بن مسعود",
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+        />
       </svg>
     ),
   },
@@ -58,7 +103,11 @@ const contactMethods = [
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeMethod, setActiveMethod] = useState<string | null>(null);
-  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    message: "",
+  });
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
@@ -70,7 +119,7 @@ export default function ContactSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -182,23 +231,26 @@ export default function ContactSection() {
           {/* Logo */}
           <div className="flex justify-center mb-6">
             <div
-              className="relative p-4 rounded-2xl"
+              className="relative p-2 rounded-2xl transition-all duration-500 hover:scale-110"
               style={{
-                background: "linear-gradient(135deg, rgba(200,150,62,0.1), rgba(27,42,74,0.2))",
+                background:
+                  "linear-gradient(135deg, rgba(200,150,62,0.1), rgba(27,42,74,0.2))",
                 border: "1px solid rgba(200,150,62,0.2)",
               }}
             >
               <Image
-                src="/images/logo.png"
+                src="/images/mainLogo.jpeg"
                 alt="شركة خياط نسيج النهضة"
                 width={80}
                 height={80}
-                className="object-contain"
+                className="object-contain rounded-xl transition-all duration-500 transform hover:scale-105"
               />
               {/* Glow Effect */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-50 blur-xl -z-10"
-                style={{ background: "radial-gradient(circle, #C8963E, transparent)" }}
+                style={{
+                  background: "radial-gradient(circle, #C8963E, transparent)",
+                }}
               />
             </div>
           </div>
@@ -206,7 +258,8 @@ export default function ContactSection() {
           <span
             className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4"
             style={{
-              background: "linear-gradient(135deg, rgba(200,150,62,0.2), rgba(200,150,62,0.1))",
+              background:
+                "linear-gradient(135deg, rgba(200,150,62,0.2), rgba(200,150,62,0.1))",
               color: "#C8963E",
               border: "1px solid rgba(200,150,62,0.3)",
             }}
@@ -222,7 +275,8 @@ export default function ContactSection() {
             <span
               className="relative inline-block"
               style={{
-                background: "linear-gradient(135deg, #C8963E, #E8B86D, #C8963E)",
+                background:
+                  "linear-gradient(135deg, #C8963E, #E8B86D, #C8963E)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundSize: "200% 100%",
@@ -233,7 +287,8 @@ export default function ContactSection() {
               <span
                 className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
                 style={{
-                  background: "linear-gradient(90deg, transparent, #C8963E, transparent)",
+                  background:
+                    "linear-gradient(90deg, transparent, #C8963E, transparent)",
                   animation: "expandWidth 2s ease-out forwards",
                 }}
               />
@@ -244,7 +299,8 @@ export default function ContactSection() {
             className="text-lg max-w-2xl mx-auto text-pretty"
             style={{ color: "rgba(255,255,255,0.6)" }}
           >
-            شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في تقديم أفضل الحلول
+            شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في
+            تقديم أفضل الحلول
           </p>
         </div>
 
@@ -253,13 +309,12 @@ export default function ContactSection() {
           {/* Contact Methods */}
           <div
             className={`space-y-4 transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+              isVisible
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-10"
             }`}
           >
-            <h3
-              className="text-xl font-bold mb-6"
-              style={{ color: "#ffffff" }}
-            >
+            <h3 className="text-xl font-bold mb-6" style={{ color: "#ffffff" }}>
               طرق التواصل
             </h3>
 
@@ -268,16 +323,22 @@ export default function ContactSection() {
                 key={method.id}
                 href={method.href}
                 target={method.id === "location" ? "_blank" : undefined}
-                rel={method.id === "location" ? "noopener noreferrer" : undefined}
+                rel={
+                  method.id === "location" ? "noopener noreferrer" : undefined
+                }
                 onMouseEnter={() => setActiveMethod(method.id)}
                 onMouseLeave={() => setActiveMethod(null)}
                 className="group relative block p-5 rounded-2xl transition-all duration-500"
                 style={{
-                  background: activeMethod === method.id
-                    ? "linear-gradient(135deg, rgba(200,150,62,0.15), rgba(27,42,74,0.3))"
-                    : "rgba(255,255,255,0.03)",
+                  background:
+                    activeMethod === method.id
+                      ? "linear-gradient(135deg, rgba(200,150,62,0.15), rgba(27,42,74,0.3))"
+                      : "rgba(255,255,255,0.03)",
                   border: `1px solid ${activeMethod === method.id ? "rgba(200,150,62,0.4)" : "rgba(255,255,255,0.08)"}`,
-                  transform: activeMethod === method.id ? "translateX(-8px) scale(1.02)" : "translateX(0) scale(1)",
+                  transform:
+                    activeMethod === method.id
+                      ? "translateX(-8px) scale(1.02)"
+                      : "translateX(0) scale(1)",
                   animationDelay: `${index * 100}ms`,
                 }}
               >
@@ -294,11 +355,15 @@ export default function ContactSection() {
                   <div
                     className="relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-500"
                     style={{
-                      background: activeMethod === method.id
-                        ? "linear-gradient(135deg, #C8963E, #E8B86D)"
-                        : "rgba(200,150,62,0.1)",
+                      background:
+                        activeMethod === method.id
+                          ? "linear-gradient(135deg, #C8963E, #E8B86D)"
+                          : "rgba(200,150,62,0.1)",
                       color: activeMethod === method.id ? "#0F1829" : "#C8963E",
-                      transform: activeMethod === method.id ? "rotate(-5deg)" : "rotate(0)",
+                      transform:
+                        activeMethod === method.id
+                          ? "rotate(-5deg)"
+                          : "rotate(0)",
                     }}
                   >
                     {method.icon}
@@ -322,7 +387,8 @@ export default function ContactSection() {
                     <p
                       className="text-lg font-bold transition-colors duration-300"
                       style={{
-                        color: activeMethod === method.id ? "#C8963E" : "#ffffff",
+                        color:
+                          activeMethod === method.id ? "#C8963E" : "#ffffff",
                         direction: method.id === "email" ? "ltr" : "rtl",
                       }}
                     >
@@ -340,12 +406,28 @@ export default function ContactSection() {
                   <div
                     className="transition-all duration-500"
                     style={{
-                      color: activeMethod === method.id ? "#C8963E" : "rgba(255,255,255,0.3)",
-                      transform: activeMethod === method.id ? "translateX(-8px)" : "translateX(0)",
+                      color:
+                        activeMethod === method.id
+                          ? "#C8963E"
+                          : "rgba(255,255,255,0.3)",
+                      transform:
+                        activeMethod === method.id
+                          ? "translateX(-8px)"
+                          : "translateX(0)",
                     }}
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
                     </svg>
                   </div>
                 </div>
@@ -368,60 +450,32 @@ export default function ContactSection() {
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
-                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
                   animation: "shine 1.5s ease-in-out infinite",
                 }}
               />
 
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
               </svg>
               <span>تواصل معنا عبر واتساب</span>
             </a>
-
-            {/* Address Card */}
-            <div
-              className="mt-6 p-5 rounded-2xl"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
-              <div className="flex items-start gap-3">
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg"
-                  style={{ background: "rgba(200,150,62,0.1)", color: "#C8963E" }}
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-bold" style={{ color: "#ffffff" }}>العنوان الكامل</p>
-                  <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    مبنى رقم 8986 - شارع عبدالله بن مسعود
-                  </p>
-                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    حي النسيم الغربي - الرياض
-                  </p>
-                  <p className="text-sm mt-2" style={{ color: "#C8963E" }}>
-                    الرقم البريدي: 14225 | الرقم الفرعي: 4444
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Contact Form */}
           <div
             className={`transition-all duration-1000 delay-400 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              isVisible
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-10"
             }`}
           >
             <div
               className="relative p-8 rounded-3xl overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, rgba(27,42,74,0.5), rgba(15,24,41,0.8))",
+                background:
+                  "linear-gradient(135deg, rgba(27,42,74,0.5), rgba(15,24,41,0.8))",
                 border: "1px solid rgba(200,150,62,0.2)",
               }}
             >
@@ -429,13 +483,15 @@ export default function ContactSection() {
               <div
                 className="absolute top-0 left-0 w-32 h-32 opacity-20"
                 style={{
-                  background: "radial-gradient(circle at top left, #C8963E, transparent 70%)",
+                  background:
+                    "radial-gradient(circle at top left, #C8963E, transparent 70%)",
                 }}
               />
               <div
                 className="absolute bottom-0 right-0 w-32 h-32 opacity-20"
                 style={{
-                  background: "radial-gradient(circle at bottom right, #C8963E, transparent 70%)",
+                  background:
+                    "radial-gradient(circle at bottom right, #C8963E, transparent 70%)",
                 }}
               />
 
@@ -465,7 +521,9 @@ export default function ContactSection() {
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       onFocus={() => setFocusedInput("name")}
                       onBlur={() => setFocusedInput(null)}
                       placeholder="أدخل اسمك"
@@ -474,7 +532,10 @@ export default function ContactSection() {
                         background: "rgba(255,255,255,0.05)",
                         border: `2px solid ${focusedInput === "name" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
                         color: "#ffffff",
-                        boxShadow: focusedInput === "name" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                        boxShadow:
+                          focusedInput === "name"
+                            ? "0 0 20px rgba(200,150,62,0.2)"
+                            : "none",
                       }}
                     />
                     {focusedInput === "name" && (
@@ -498,7 +559,9 @@ export default function ContactSection() {
                     <input
                       type="tel"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
                       onFocus={() => setFocusedInput("phone")}
                       onBlur={() => setFocusedInput(null)}
                       placeholder="05xxxxxxxx"
@@ -508,7 +571,10 @@ export default function ContactSection() {
                         background: "rgba(255,255,255,0.05)",
                         border: `2px solid ${focusedInput === "phone" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
                         color: "#ffffff",
-                        boxShadow: focusedInput === "phone" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                        boxShadow:
+                          focusedInput === "phone"
+                            ? "0 0 20px rgba(200,150,62,0.2)"
+                            : "none",
                       }}
                     />
                   </div>
@@ -525,7 +591,9 @@ export default function ContactSection() {
                   <div className="relative">
                     <textarea
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
                       onFocus={() => setFocusedInput("message")}
                       onBlur={() => setFocusedInput(null)}
                       placeholder="أخبرنا عن احتياجك..."
@@ -535,7 +603,10 @@ export default function ContactSection() {
                         background: "rgba(255,255,255,0.05)",
                         border: `2px solid ${focusedInput === "message" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
                         color: "#ffffff",
-                        boxShadow: focusedInput === "message" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                        boxShadow:
+                          focusedInput === "message"
+                            ? "0 0 20px rgba(200,150,62,0.2)"
+                            : "none",
                       }}
                     />
                   </div>
@@ -555,14 +626,25 @@ export default function ContactSection() {
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
                       animation: "shine 1.5s ease-in-out infinite",
                     }}
                   />
                   <span className="relative flex items-center justify-center gap-2">
                     إرسال الرسالة
-                    <svg className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    <svg
+                      className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
                     </svg>
                   </span>
                 </button>
@@ -588,7 +670,8 @@ export default function ContactSection() {
             <div
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: "linear-gradient(180deg, rgba(15,24,41,0.3) 0%, transparent 30%, transparent 70%, rgba(15,24,41,0.5) 100%)",
+                background:
+                  "linear-gradient(180deg, rgba(15,24,41,0.3) 0%, transparent 30%, transparent 70%, rgba(15,24,41,0.5) 100%)",
               }}
             />
 
@@ -616,9 +699,24 @@ export default function ContactSection() {
                 boxShadow: "0 10px 40px rgba(200,150,62,0.4)",
               }}
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
               </svg>
               <span className="font-bold">افتح في خرائط جوجل</span>
             </a>
@@ -629,7 +727,8 @@ export default function ContactSection() {
       {/* CSS Animations */}
       <style jsx>{`
         @keyframes floatParticle {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0) translateX(0);
             opacity: 0.3;
           }
