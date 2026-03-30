@@ -1,265 +1,673 @@
-const contactInfo = [
-  { icon: "📞", label: "رقم الجوال", value: "+966 50 000 0000", href: "tel:+966500000000" },
-  { icon: "✉️", label: "البريد الإلكتروني", value: "info@uniforms.sa", href: "mailto:info@uniforms.sa" },
-  { icon: "📍", label: "العنوان", value: "الرياض، المملكة العربية السعودية", href: "#" },
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+
+const contactMethods = [
+  {
+    id: "mobile",
+    label: "الجوال",
+    value: "0544868983",
+    href: "tel:+966544868983",
+    description: "متاح على مدار الساعة",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+  },
+  {
+    id: "landline",
+    label: "الهاتف الأرضي",
+    value: "0112408697",
+    href: "tel:+966112408697",
+    description: "أوقات العمل الرسمية",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    ),
+  },
+  {
+    id: "email",
+    label: "البريد الإلكتروني",
+    value: "Nasejalnahdat@gmail.com",
+    href: "mailto:Nasejalnahdat@gmail.com",
+    description: "نرد خلال 24 ساعة",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    id: "location",
+    label: "العنوان",
+    value: "حي النسيم الغربي - الرياض",
+    href: "https://maps.app.goo.gl/FkTH7ep39PhjsEV6A",
+    description: "مبنى 8986 - شارع عبدالله بن مسعود",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function ContactSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeMethod, setActiveMethod] = useState<string | null>(null);
+  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
+  const [focusedInput, setFocusedInput] = useState<string | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    setMousePosition({
+      x: (e.clientX - rect.left) / rect.width,
+      y: (e.clientY - rect.top) / rect.height,
+    });
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
-      style={{
-        width: "100%",
-        backgroundColor: "#ffffff",
-        padding: "96px 0",
-      }}
+      onMouseMove={handleMouseMove}
+      className="relative w-full py-24 md:py-32 overflow-hidden"
+      style={{ backgroundColor: "#0F1829" }}
     >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 24px",
-        }}
-      >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient Orbs */}
         <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-3xl transition-transform duration-1000"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "64px",
-            alignItems: "start",
+            background: "radial-gradient(circle, #C8963E 0%, transparent 70%)",
+            top: "-200px",
+            right: "-200px",
+            transform: `translate(${mousePosition.x * -30}px, ${mousePosition.y * -30}px)`,
           }}
-        >
-          {/* Left — Info */}
-          <div>
-            <span
-              style={{
-                color: "#C8963E",
-                fontWeight: 600,
-                fontSize: "12px",
-                textTransform: "uppercase",
-                letterSpacing: "2px",
-              }}
-            >
-              تواصل معنا
-            </span>
-            <h2
-              style={{
-                fontSize: "clamp(26px, 3vw, 38px)",
-                fontWeight: 900,
-                color: "#1B2A4A",
-                marginTop: "12px",
-                marginBottom: "20px",
-                lineHeight: 1.3,
-              }}
-            >
-              نحن هنا لمساعدتك
-            </h2>
-            <p
-              style={{
-                color: "#6b7280",
-                fontSize: "15px",
-                lineHeight: 1.9,
-                marginBottom: "40px",
-              }}
-            >
-              هل تحتاج إلى زيٍّ موحّد لشركتك أو مدرستك؟ تواصل معنا اليوم
-              وسنقدّم لك أفضل الحلول المناسبة لاحتياجاتك.
-            </p>
+        />
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-3xl transition-transform duration-1000"
+          style={{
+            background: "radial-gradient(circle, #1B2A4A 0%, transparent 70%)",
+            bottom: "-150px",
+            left: "-150px",
+            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
+          }}
+        />
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-              {contactInfo.map((info) => (
-                <a
-                  key={info.label}
-                  href={info.href}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "16px",
-                    textDecoration: "none",
-                  }}
-                >
+        {/* Animated Grid */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, #C8963E 1px, transparent 1px),
+              linear-gradient(to bottom, #C8963E 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
+            transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+          }}
+        />
+
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full"
+            style={{
+              backgroundColor: i % 2 === 0 ? "#C8963E" : "#ffffff",
+              opacity: 0.3,
+              left: `${(i * 17) % 100}%`,
+              top: `${(i * 23) % 100}%`,
+              animation: `floatParticle ${4 + (i % 3)}s ease-in-out infinite`,
+              animationDelay: `${i * 0.2}s`,
+            }}
+          />
+        ))}
+
+        {/* Animated Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10">
+          <line
+            x1="0%"
+            y1="30%"
+            x2="100%"
+            y2="30%"
+            stroke="#C8963E"
+            strokeWidth="0.5"
+            className="animate-pulse"
+          />
+          <line
+            x1="0%"
+            y1="70%"
+            x2="100%"
+            y2="70%"
+            stroke="#C8963E"
+            strokeWidth="0.5"
+            className="animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <div
+              className="relative p-4 rounded-2xl"
+              style={{
+                background: "linear-gradient(135deg, rgba(200,150,62,0.1), rgba(27,42,74,0.2))",
+                border: "1px solid rgba(200,150,62,0.2)",
+              }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt="شركة خياط نسيج النهضة"
+                width={80}
+                height={80}
+                className="object-contain"
+              />
+              {/* Glow Effect */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-50 blur-xl -z-10"
+                style={{ background: "radial-gradient(circle, #C8963E, transparent)" }}
+              />
+            </div>
+          </div>
+
+          <span
+            className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4"
+            style={{
+              background: "linear-gradient(135deg, rgba(200,150,62,0.2), rgba(200,150,62,0.1))",
+              color: "#C8963E",
+              border: "1px solid rgba(200,150,62,0.3)",
+            }}
+          >
+            تواصل معنا
+          </span>
+
+          <h2
+            className="text-3xl md:text-5xl font-black mb-4 text-balance"
+            style={{ color: "#ffffff" }}
+          >
+            نحن هنا{" "}
+            <span
+              className="relative inline-block"
+              style={{
+                background: "linear-gradient(135deg, #C8963E, #E8B86D, #C8963E)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundSize: "200% 100%",
+                animation: "shimmer 3s linear infinite",
+              }}
+            >
+              لخدمتك
+              <span
+                className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
+                style={{
+                  background: "linear-gradient(90deg, transparent, #C8963E, transparent)",
+                  animation: "expandWidth 2s ease-out forwards",
+                }}
+              />
+            </span>
+          </h2>
+
+          <p
+            className="text-lg max-w-2xl mx-auto text-pretty"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في تقديم أفضل الحلول
+          </p>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Contact Methods */}
+          <div
+            className={`space-y-4 transition-all duration-1000 delay-200 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+            }`}
+          >
+            <h3
+              className="text-xl font-bold mb-6"
+              style={{ color: "#ffffff" }}
+            >
+              طرق التواصل
+            </h3>
+
+            {contactMethods.map((method, index) => (
+              <a
+                key={method.id}
+                href={method.href}
+                target={method.id === "location" ? "_blank" : undefined}
+                rel={method.id === "location" ? "noopener noreferrer" : undefined}
+                onMouseEnter={() => setActiveMethod(method.id)}
+                onMouseLeave={() => setActiveMethod(null)}
+                className="group relative block p-5 rounded-2xl transition-all duration-500"
+                style={{
+                  background: activeMethod === method.id
+                    ? "linear-gradient(135deg, rgba(200,150,62,0.15), rgba(27,42,74,0.3))"
+                    : "rgba(255,255,255,0.03)",
+                  border: `1px solid ${activeMethod === method.id ? "rgba(200,150,62,0.4)" : "rgba(255,255,255,0.08)"}`,
+                  transform: activeMethod === method.id ? "translateX(-8px) scale(1.02)" : "translateX(0) scale(1)",
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                {/* Animated Border Glow */}
+                {activeMethod === method.id && (
                   <div
+                    className="absolute inset-0 rounded-2xl opacity-30 blur-xl -z-10"
+                    style={{ background: "#C8963E" }}
+                  />
+                )}
+
+                <div className="flex items-center gap-4">
+                  {/* Icon Container */}
+                  <div
+                    className="relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-500"
                     style={{
-                      width: "48px",
-                      height: "48px",
-                      backgroundColor: "#F7F8FA",
-                      borderRadius: "14px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "20px",
-                      flexShrink: 0,
+                      background: activeMethod === method.id
+                        ? "linear-gradient(135deg, #C8963E, #E8B86D)"
+                        : "rgba(200,150,62,0.1)",
+                      color: activeMethod === method.id ? "#0F1829" : "#C8963E",
+                      transform: activeMethod === method.id ? "rotate(-5deg)" : "rotate(0)",
                     }}
                   >
-                    {info.icon}
+                    {method.icon}
+                    {/* Pulse Ring */}
+                    {activeMethod === method.id && (
+                      <div
+                        className="absolute inset-0 rounded-xl animate-ping opacity-30"
+                        style={{ background: "#C8963E" }}
+                      />
+                    )}
                   </div>
-                  <div>
-                    <p style={{ fontSize: "12px", color: "#9ca3af", fontWeight: 500 }}>
-                      {info.label}
+
+                  {/* Text Content */}
+                  <div className="flex-1">
+                    <p
+                      className="text-sm font-medium mb-1"
+                      style={{ color: "rgba(255,255,255,0.5)" }}
+                    >
+                      {method.label}
                     </p>
                     <p
+                      className="text-lg font-bold transition-colors duration-300"
                       style={{
-                        fontSize: "14px",
-                        color: "#1B2A4A",
-                        fontWeight: 700,
-                        marginTop: "2px",
+                        color: activeMethod === method.id ? "#C8963E" : "#ffffff",
+                        direction: method.id === "email" ? "ltr" : "rtl",
                       }}
                     >
-                      {info.value}
+                      {method.value}
+                    </p>
+                    <p
+                      className="text-xs mt-1"
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                    >
+                      {method.description}
                     </p>
                   </div>
-                </a>
-              ))}
-            </div>
+
+                  {/* Arrow */}
+                  <div
+                    className="transition-all duration-500"
+                    style={{
+                      color: activeMethod === method.id ? "#C8963E" : "rgba(255,255,255,0.3)",
+                      transform: activeMethod === method.id ? "translateX(-8px)" : "translateX(0)",
+                    }}
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            ))}
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/966500000000"
+              href="https://wa.me/966544868983"
               target="_blank"
               rel="noopener noreferrer"
+              className="group relative flex items-center justify-center gap-3 mt-8 p-4 rounded-2xl font-bold text-lg overflow-hidden transition-all duration-500 hover:scale-105"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                marginTop: "40px",
-                backgroundColor: "#25D366",
+                background: "linear-gradient(135deg, #25D366, #128C7E)",
                 color: "#ffffff",
-                fontWeight: 700,
-                fontSize: "14px",
-                padding: "14px 28px",
-                borderRadius: "50px",
-                textDecoration: "none",
-                boxShadow: "0 4px 16px rgba(37,211,102,0.3)",
+                boxShadow: "0 10px 40px rgba(37,211,102,0.3)",
               }}
             >
-              <span>💬</span>
-              تواصل عبر واتساب
+              {/* Shine Effect */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                  animation: "shine 1.5s ease-in-out infinite",
+                }}
+              />
+
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              <span>تواصل معنا عبر واتساب</span>
             </a>
+
+            {/* Address Card */}
+            <div
+              className="mt-6 p-5 rounded-2xl"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <div className="flex items-start gap-3">
+                <div
+                  className="flex items-center justify-center w-10 h-10 rounded-lg"
+                  style={{ background: "rgba(200,150,62,0.1)", color: "#C8963E" }}
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-bold" style={{ color: "#ffffff" }}>العنوان الكامل</p>
+                  <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    مبنى رقم 8986 - شارع عبدالله بن مسعود
+                  </p>
+                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    حي النسيم الغربي - الرياض
+                  </p>
+                  <p className="text-sm mt-2" style={{ color: "#C8963E" }}>
+                    الرقم البريدي: 14225 | الرقم الفرعي: 4444
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Right — Form */}
+          {/* Contact Form */}
           <div
-            style={{
-              backgroundColor: "#F7F8FA",
-              borderRadius: "20px",
-              padding: "36px",
-            }}
+            className={`transition-all duration-1000 delay-400 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+            }`}
           >
-            <h3
+            <div
+              className="relative p-8 rounded-3xl overflow-hidden"
               style={{
-                fontSize: "20px",
-                fontWeight: 800,
-                color: "#1B2A4A",
-                marginBottom: "28px",
+                background: "linear-gradient(135deg, rgba(27,42,74,0.5), rgba(15,24,41,0.8))",
+                border: "1px solid rgba(200,150,62,0.2)",
               }}
             >
-              أرسل لنا رسالة
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {[
-                { label: "الاسم", type: "text", placeholder: "اسمك الكريم" },
-                { label: "رقم الجوال", type: "tel", placeholder: "05xxxxxxxx" },
-              ].map((field) => (
-                <div key={field.label}>
+              {/* Decorative Corner */}
+              <div
+                className="absolute top-0 left-0 w-32 h-32 opacity-20"
+                style={{
+                  background: "radial-gradient(circle at top left, #C8963E, transparent 70%)",
+                }}
+              />
+              <div
+                className="absolute bottom-0 right-0 w-32 h-32 opacity-20"
+                style={{
+                  background: "radial-gradient(circle at bottom right, #C8963E, transparent 70%)",
+                }}
+              />
+
+              <h3
+                className="relative text-2xl font-bold mb-2"
+                style={{ color: "#ffffff" }}
+              >
+                أرسل لنا رسالة
+              </h3>
+              <p
+                className="relative text-sm mb-8"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                سنرد عليك في أقرب وقت ممكن
+              </p>
+
+              <form className="relative space-y-5">
+                {/* Name Field */}
+                <div className="relative">
                   <label
-                    style={{
-                      display: "block",
-                      fontSize: "13px",
-                      fontWeight: 600,
-                      color: "#374151",
-                      marginBottom: "6px",
-                    }}
+                    className="block text-sm font-semibold mb-2"
+                    style={{ color: "rgba(255,255,255,0.7)" }}
                   >
-                    {field.label}
+                    الاسم الكريم
                   </label>
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    style={{
-                      width: "100%",
-                      border: "1.5px solid #e5e7eb",
-                      borderRadius: "12px",
-                      padding: "12px 16px",
-                      fontSize: "14px",
-                      color: "#1B2A4A",
-                      backgroundColor: "#ffffff",
-                      outline: "none",
-                      fontFamily: "inherit",
-                      boxSizing: "border-box",
-                    }}
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onFocus={() => setFocusedInput("name")}
+                      onBlur={() => setFocusedInput(null)}
+                      placeholder="أدخل اسمك"
+                      className="w-full px-5 py-4 rounded-xl text-base outline-none transition-all duration-300"
+                      style={{
+                        background: "rgba(255,255,255,0.05)",
+                        border: `2px solid ${focusedInput === "name" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
+                        color: "#ffffff",
+                        boxShadow: focusedInput === "name" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                      }}
+                    />
+                    {focusedInput === "name" && (
+                      <div
+                        className="absolute inset-0 rounded-xl opacity-20 blur-xl -z-10"
+                        style={{ background: "#C8963E" }}
+                      />
+                    )}
+                  </div>
                 </div>
-              ))}
-              <div>
-                <label
+
+                {/* Phone Field */}
+                <div className="relative">
+                  <label
+                    className="block text-sm font-semibold mb-2"
+                    style={{ color: "rgba(255,255,255,0.7)" }}
+                  >
+                    رقم الجوال
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onFocus={() => setFocusedInput("phone")}
+                      onBlur={() => setFocusedInput(null)}
+                      placeholder="05xxxxxxxx"
+                      dir="ltr"
+                      className="w-full px-5 py-4 rounded-xl text-base outline-none transition-all duration-300 text-right"
+                      style={{
+                        background: "rgba(255,255,255,0.05)",
+                        border: `2px solid ${focusedInput === "phone" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
+                        color: "#ffffff",
+                        boxShadow: focusedInput === "phone" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Message Field */}
+                <div className="relative">
+                  <label
+                    className="block text-sm font-semibold mb-2"
+                    style={{ color: "rgba(255,255,255,0.7)" }}
+                  >
+                    رسالتك
+                  </label>
+                  <div className="relative">
+                    <textarea
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onFocus={() => setFocusedInput("message")}
+                      onBlur={() => setFocusedInput(null)}
+                      placeholder="أخبرنا عن احتياجك..."
+                      rows={4}
+                      className="w-full px-5 py-4 rounded-xl text-base outline-none transition-all duration-300 resize-none"
+                      style={{
+                        background: "rgba(255,255,255,0.05)",
+                        border: `2px solid ${focusedInput === "message" ? "#C8963E" : "rgba(255,255,255,0.1)"}`,
+                        color: "#ffffff",
+                        boxShadow: focusedInput === "message" ? "0 0 20px rgba(200,150,62,0.2)" : "none",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="group relative w-full py-4 rounded-xl font-bold text-lg overflow-hidden transition-all duration-500 hover:scale-[1.02]"
                   style={{
-                    display: "block",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    color: "#374151",
-                    marginBottom: "6px",
+                    background: "linear-gradient(135deg, #C8963E, #E8B86D)",
+                    color: "#0F1829",
+                    boxShadow: "0 10px 40px rgba(200,150,62,0.3)",
                   }}
                 >
-                  رسالتك
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="أخبرنا عن احتياجك..."
-                  style={{
-                    width: "100%",
-                    border: "1.5px solid #e5e7eb",
-                    borderRadius: "12px",
-                    padding: "12px 16px",
-                    fontSize: "14px",
-                    color: "#1B2A4A",
-                    backgroundColor: "#ffffff",
-                    outline: "none",
-                    resize: "none",
-                    fontFamily: "inherit",
-                    boxSizing: "border-box",
-                  }}
-                />
-              </div>
-              <button
-                style={{
-                  width: "100%",
-                  backgroundColor: "#1B2A4A",
-                  color: "#ffffff",
-                  fontWeight: 700,
-                  fontSize: "15px",
-                  padding: "14px",
-                  borderRadius: "12px",
-                  border: "none",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  marginTop: "8px",
-                }}
-              >
-                إرسال الرسالة
-              </button>
+                  {/* Animated Background */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                      animation: "shine 1.5s ease-in-out infinite",
+                    }}
+                  />
+                  <span className="relative flex items-center justify-center gap-2">
+                    إرسال الرسالة
+                    <svg className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </button>
+              </form>
             </div>
           </div>
         </div>
 
-        {/* Map placeholder */}
+        {/* Map Section */}
         <div
-          style={{
-            marginTop: "64px",
-            borderRadius: "20px",
-            overflow: "hidden",
-            height: "220px",
-            backgroundColor: "#E8EDF5",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#9aa8c0",
-            fontSize: "14px",
-            fontWeight: 500,
-          }}
+          className={`mt-16 transition-all duration-1000 delay-600 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
         >
-          📍 موقعنا على الخريطة — يمكن إضافة Google Maps هنا
+          <div
+            className="relative rounded-3xl overflow-hidden"
+            style={{
+              border: "1px solid rgba(200,150,62,0.2)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            }}
+          >
+            {/* Map Overlay Gradient */}
+            <div
+              className="absolute inset-0 z-10 pointer-events-none"
+              style={{
+                background: "linear-gradient(180deg, rgba(15,24,41,0.3) 0%, transparent 30%, transparent 70%, rgba(15,24,41,0.5) 100%)",
+              }}
+            />
+
+            {/* Google Maps Embed */}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.9654!2d46.7633!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDUnNDcuOSJF!5e0!3m2!1sen!2ssa!4v1635000000000!5m2!1sen!2ssa"
+              width="100%"
+              height="350"
+              style={{ border: 0, filter: "grayscale(30%) brightness(0.9)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="موقع شركة خياط نسيج النهضة"
+            />
+
+            {/* Location Pin Overlay */}
+            <a
+              href="https://maps.app.goo.gl/FkTH7ep39PhjsEV6A"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-300 hover:scale-110"
+              style={{
+                background: "linear-gradient(135deg, #C8963E, #E8B86D)",
+                color: "#0F1829",
+                boxShadow: "0 10px 40px rgba(200,150,62,0.4)",
+              }}
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="font-bold">افتح في خرائط جوجل</span>
+            </a>
+          </div>
         </div>
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes floatParticle {
+          0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px);
+            opacity: 0.6;
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: 200% 0;
+          }
+          100% {
+            background-position: -200% 0;
+          }
+        }
+
+        @keyframes expandWidth {
+          0% {
+            width: 0;
+            opacity: 0;
+          }
+          100% {
+            width: 100%;
+            opacity: 1;
+          }
+        }
+
+        @keyframes shine {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+      `}</style>
     </section>
   );
 }

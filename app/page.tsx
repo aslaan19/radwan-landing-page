@@ -1,5 +1,7 @@
 import AboutSection from "./components/AboutSection";
+import HeroSection from "./components/HeroSection";
 import ProductsSection from "./components/ProductsSection";
+import StatsSection from "./components/StatsSection";
 
 export const metadata = {
   title: "يونيفورمز | خياطة زي موحّد احترافي",
@@ -11,8 +13,10 @@ export default function Home() {
   return (
     <div dir="rtl" className="font-sans antialiased">
       <main>
-        <AboutSection/>
-        <ProductsSection/>
+        <HeroSection />
+        <AboutSection />
+        <ProductsSection />
+        <StatsSection />
       </main>
     </div>
   );

@@ -3,20 +3,20 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const highlights = [
-  { 
-    icon: "01", 
-    label: "جودة استثنائية", 
-    desc: "نستخدم أفضل الخامات المستوردة والمحلية المعتمدة عالمياً" 
+  {
+    icon: "01",
+    label: "جودة استثنائية",
+    desc: "نستخدم أفضل الخامات المستوردة والمحلية المعتمدة عالمياً",
   },
-  { 
-    icon: "02", 
-    label: "خبرة عميقة", 
-    desc: "أكثر من 10 سنوات من الإبداع والتميز في صناعة الأزياء" 
+  {
+    icon: "02",
+    label: "خبرة عميقة",
+    desc: "أكثر من 10 سنوات من الإبداع والتميز في صناعة الأزياء",
   },
-  { 
-    icon: "03", 
-    label: "التزام مطلق", 
-    desc: "نضمن تسليم طلباتك في الموعد المحدد دون أي تأخير" 
+  {
+    icon: "03",
+    label: "التزام مطلق",
+    desc: "نضمن تسليم طلباتك في الموعد المحدد دون أي تأخير",
   },
 ];
 
@@ -33,7 +33,7 @@ export default function AboutSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -64,12 +64,13 @@ export default function AboutSection() {
       id="about"
       onMouseMove={handleMouseMove}
       className="relative w-full overflow-hidden py-24 md:py-32"
-      style={{ 
-        background: "linear-gradient(135deg, #0a0f1a 0%, #1B2A4A 50%, #0a0f1a 100%)",
+      style={{
+        background:
+          "linear-gradient(135deg, #0a0f1a 0%, #1B2A4A 50%, #0a0f1a 100%)",
       }}
     >
       {/* Animated Background Grid */}
-      <div 
+      <div
         className="pointer-events-none absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
@@ -84,19 +85,21 @@ export default function AboutSection() {
 
       {/* Floating Orbs */}
       <div className="pointer-events-none absolute inset-0">
-        <div 
+        <div
           className="absolute h-[500px] w-[500px] rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(200,150,62,0.15) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(200,150,62,0.15) 0%, transparent 70%)",
             top: "-10%",
             right: "-10%",
             animation: "floatOrb1 15s ease-in-out infinite",
           }}
         />
-        <div 
+        <div
           className="absolute h-[300px] w-[300px] rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(200,150,62,0.1) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(200,150,62,0.1) 0%, transparent 70%)",
             bottom: "10%",
             left: "5%",
             animation: "floatOrb2 12s ease-in-out infinite",
@@ -106,36 +109,78 @@ export default function AboutSection() {
 
       <style jsx>{`
         @keyframes floatOrb1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(-30px, 30px) scale(1.1); }
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(-30px, 30px) scale(1.1);
+          }
         }
         @keyframes floatOrb2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(20px, -20px) scale(0.9); }
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(20px, -20px) scale(0.9);
+          }
         }
         @keyframes slideUp {
-          from { opacity: 0; transform: translateY(60px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes slideRight {
-          from { opacity: 0; transform: translateX(-60px); }
-          to { opacity: 1; transform: translateX(0); }
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
         }
         @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.8); }
-          to { opacity: 1; transform: scale(1); }
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
         }
         @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
         }
         @keyframes pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(200,150,62,0.4); }
-          50% { box-shadow: 0 0 0 20px rgba(200,150,62,0); }
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(200, 150, 62, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 0 20px rgba(200, 150, 62, 0);
+          }
         }
         @keyframes borderGlow {
-          0%, 100% { border-color: rgba(200,150,62,0.3); }
-          50% { border-color: rgba(200,150,62,0.6); }
+          0%,
+          100% {
+            border-color: rgba(200, 150, 62, 0.3);
+          }
+          50% {
+            border-color: rgba(200, 150, 62, 0.6);
+          }
         }
         .highlight-card {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -144,8 +189,12 @@ export default function AboutSection() {
           transform: translateX(-10px);
         }
         .highlight-card.active {
-          background: linear-gradient(135deg, rgba(200,150,62,0.15) 0%, rgba(200,150,62,0.05) 100%);
-          border-color: rgba(200,150,62,0.5);
+          background: linear-gradient(
+            135deg,
+            rgba(200, 150, 62, 0.15) 0%,
+            rgba(200, 150, 62, 0.05) 100%
+          );
+          border-color: rgba(200, 150, 62, 0.5);
         }
         .image-container {
           transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -156,9 +205,8 @@ export default function AboutSection() {
       `}</style>
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-16 px-6 lg:flex-row lg:items-center lg:gap-20">
-        
         {/* Image Side - Creative Composition */}
-        <div 
+        <div
           className="relative flex-1"
           style={{
             animation: isVisible ? "slideRight 1s ease-out forwards" : "none",
@@ -168,41 +216,42 @@ export default function AboutSection() {
           {/* Main Image Container */}
           <div className="image-container relative">
             {/* Decorative Frame */}
-            <div 
+            <div
               className="absolute -left-4 -top-4 h-full w-full rounded-3xl border-2"
               style={{
                 borderColor: "rgba(200,150,62,0.3)",
                 animation: "borderGlow 3s ease-in-out infinite",
               }}
             />
-            
+
             {/* Main Image */}
-            <div 
+            <div
               className="relative overflow-hidden rounded-3xl"
               style={{
                 boxShadow: "0 25px 80px -20px rgba(0,0,0,0.5)",
               }}
             >
               <Image
-                src="/images/sewing-workshop.jpg"
+                src="/images/machine.png"
                 alt="ورشة الخياطة"
                 width={600}
                 height={450}
                 className="h-auto w-full object-cover"
                 style={{ aspectRatio: "4/3" }}
               />
-              
+
               {/* Overlay Gradient */}
-              <div 
+              <div
                 className="absolute inset-0"
                 style={{
-                  background: "linear-gradient(45deg, rgba(27,42,74,0.4) 0%, transparent 60%)",
+                  background:
+                    "linear-gradient(45deg, rgba(27,42,74,0.4) 0%, transparent 60%)",
                 }}
               />
             </div>
 
             {/* Floating Stats Badge */}
-            <div 
+            <div
               className="absolute -bottom-6 -right-6 rounded-2xl px-6 py-4"
               style={{
                 background: "linear-gradient(135deg, #C8963E 0%, #9a7430 100%)",
@@ -210,7 +259,10 @@ export default function AboutSection() {
                 animation: "pulse 3s ease-in-out infinite",
               }}
             >
-              <p className="text-4xl font-black text-white" style={{ lineHeight: 1 }}>
+              <p
+                className="text-4xl font-black text-white"
+                style={{ lineHeight: 1 }}
+              >
                 +10
               </p>
               <p className="mt-1 text-sm font-semibold text-white/80">
@@ -219,7 +271,7 @@ export default function AboutSection() {
             </div>
 
             {/* Corner Accent */}
-            <div 
+            <div
               className="absolute -right-2 -top-2 flex h-16 w-16 items-center justify-center rounded-full"
               style={{
                 background: "linear-gradient(135deg, #1B2A4A 0%, #2a3f6a 100%)",
@@ -231,7 +283,7 @@ export default function AboutSection() {
           </div>
 
           {/* Floating Elements */}
-          <div 
+          <div
             className="absolute -left-10 top-1/2 hidden h-20 w-20 items-center justify-center rounded-2xl lg:flex"
             style={{
               background: "rgba(200,150,62,0.1)",
@@ -245,7 +297,7 @@ export default function AboutSection() {
         </div>
 
         {/* Content Side */}
-        <div 
+        <div
           className="flex-1"
           style={{
             animation: isVisible ? "slideUp 1s ease-out 0.3s forwards" : "none",
@@ -253,34 +305,37 @@ export default function AboutSection() {
           }}
         >
           {/* Badge */}
-          <div 
+          <div
             className="mb-6 inline-flex items-center gap-3 rounded-full px-5 py-2"
             style={{
               background: "rgba(200,150,62,0.1)",
               border: "1px solid rgba(200,150,62,0.3)",
             }}
           >
-            <span 
+            <span
               className="h-2 w-2 rounded-full"
-              style={{ 
+              style={{
                 background: "#C8963E",
                 boxShadow: "0 0 10px rgba(200,150,62,0.5)",
-              }} 
+              }}
             />
-            <span className="text-sm font-bold tracking-wider" style={{ color: "#C8963E" }}>
+            <span
+              className="text-sm font-bold tracking-wider"
+              style={{ color: "#C8963E" }}
+            >
               من نحن
             </span>
           </div>
 
           {/* Title with Gradient */}
-          <h2 
+          <h2
             className="mb-6 text-3xl font-black leading-tight md:text-4xl lg:text-5xl"
             style={{ color: "#ffffff" }}
           >
-            نصنع 
-            <span 
+            نصنع
+            <span
               className="relative mx-2"
-              style={{ 
+              style={{
                 background: "linear-gradient(90deg, #C8963E, #e8b85e, #C8963E)",
                 backgroundSize: "200% auto",
                 WebkitBackgroundClip: "text",
@@ -294,13 +349,13 @@ export default function AboutSection() {
           </h2>
 
           {/* Description */}
-          <p 
+          <p
             className="mb-10 max-w-lg text-lg leading-relaxed"
             style={{ color: "rgba(255,255,255,0.6)" }}
           >
-            محل يونيفورمز هو وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة والجودة. 
-            نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية، مع الاهتمام بأدق 
-            التفاصيل وضمان رضا العملاء في كل مرحلة.
+            محل يونيفورمز هو وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
+            والجودة. نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية،
+            مع الاهتمام بأدق التفاصيل وضمان رضا العملاء في كل مرحلة.
           </p>
 
           {/* Animated Highlights */}
@@ -313,34 +368,36 @@ export default function AboutSection() {
                 }`}
                 style={{
                   borderColor: "rgba(255,255,255,0.1)",
-                  background: activeHighlight === index 
-                    ? "linear-gradient(135deg, rgba(200,150,62,0.15) 0%, rgba(200,150,62,0.05) 100%)"
-                    : "rgba(255,255,255,0.02)",
+                  background:
+                    activeHighlight === index
+                      ? "linear-gradient(135deg, rgba(200,150,62,0.15) 0%, rgba(200,150,62,0.05) 100%)"
+                      : "rgba(255,255,255,0.02)",
                 }}
                 onClick={() => setActiveHighlight(index)}
               >
                 {/* Number Badge */}
-                <div 
+                <div
                   className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl font-black"
                   style={{
-                    background: activeHighlight === index 
-                      ? "linear-gradient(135deg, #C8963E 0%, #9a7430 100%)"
-                      : "rgba(200,150,62,0.15)",
+                    background:
+                      activeHighlight === index
+                        ? "linear-gradient(135deg, #C8963E 0%, #9a7430 100%)"
+                        : "rgba(200,150,62,0.15)",
                     color: activeHighlight === index ? "#ffffff" : "#C8963E",
                     transition: "all 0.5s ease",
                   }}
                 >
                   {item.icon}
                 </div>
-                
+
                 <div className="flex-1">
-                  <p 
+                  <p
                     className="mb-1 text-lg font-bold"
                     style={{ color: "#ffffff" }}
                   >
                     {item.label}
                   </p>
-                  <p 
+                  <p
                     className="text-sm leading-relaxed"
                     style={{ color: "rgba(255,255,255,0.5)" }}
                   >
@@ -349,22 +406,24 @@ export default function AboutSection() {
                 </div>
 
                 {/* Active Indicator */}
-                <div 
+                <div
                   className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-500"
                   style={{
-                    background: activeHighlight === index 
-                      ? "rgba(200,150,62,0.2)" 
-                      : "transparent",
-                    transform: activeHighlight === index ? "scale(1)" : "scale(0.5)",
+                    background:
+                      activeHighlight === index
+                        ? "rgba(200,150,62,0.2)"
+                        : "transparent",
+                    transform:
+                      activeHighlight === index ? "scale(1)" : "scale(0.5)",
                     opacity: activeHighlight === index ? 1 : 0,
                   }}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path 
-                      d="M6 12L10 8L6 4" 
-                      stroke="#C8963E" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
+                    <path
+                      d="M6 12L10 8L6 4"
+                      stroke="#C8963E"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
@@ -383,21 +442,24 @@ export default function AboutSection() {
             }}
           >
             <span className="relative z-10 text-white">اكتشف المزيد عنّا</span>
-            <svg 
-              className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1" 
-              width="20" height="20" viewBox="0 0 20 20" fill="none"
+            <svg
+              className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
             >
-              <path 
-                d="M12 4L6 10L12 16" 
-                stroke="white" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
+              <path
+                d="M12 4L6 10L12 16"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            
+
             {/* Hover Glow Effect */}
-            <div 
+            <div
               className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               style={{
                 background: "linear-gradient(135deg, #e8b85e 0%, #C8963E 100%)",
