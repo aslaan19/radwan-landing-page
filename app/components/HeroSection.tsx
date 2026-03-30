@@ -292,7 +292,10 @@ export default function HeroSection() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8963E] opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8963E]" />
                   </span>
-                  محل خياطة يونيفورمز
+                  <span className="text-xl text-[#1b1c13]">
+                    {" "}
+                    شركة خياط نسيج النهضة للخياطة والزي الموحد
+                  </span>
                 </div>
               </div>
             </div>
