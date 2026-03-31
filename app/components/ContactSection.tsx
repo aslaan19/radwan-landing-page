@@ -146,7 +146,7 @@ export default function ContactSection() {
       className="relative w-full py-24 md:py-32 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
+          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
       }}
     >
       {/* Animated Background Elements */}
@@ -272,7 +272,7 @@ export default function ContactSection() {
 
           <h2
             className="text-3xl md:text-5xl font-black mb-4 text-balance"
-            style={{ color: "#ffffff" }}
+            style={{ color: "#fffff0" }}
           >
             نحن هنا{" "}
             <span
@@ -300,7 +300,7 @@ export default function ContactSection() {
 
           <p
             className="text-lg max-w-2xl mx-auto text-pretty"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: "rgba(20,20,20,0.9)" }}
           >
             شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في
             تقديم أفضل الحلول
@@ -323,6 +323,7 @@ export default function ContactSection() {
 
             {contactMethods.map((method, index) => (
               <a
+                
                 key={method.id}
                 href={method.href}
                 target={method.id === "location" ? "_blank" : undefined}
@@ -331,7 +332,7 @@ export default function ContactSection() {
                 }
                 onMouseEnter={() => setActiveMethod(method.id)}
                 onMouseLeave={() => setActiveMethod(null)}
-                className="group relative block p-5 rounded-2xl transition-all duration-500"
+                className="group relative max block p-5 rounded-2xl transition-all duration-500"
                 style={{
                   background:
                     activeMethod === method.id

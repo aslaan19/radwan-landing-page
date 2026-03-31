@@ -66,7 +66,7 @@ export default function AboutSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
+          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
       }}
     >
       {/* Animated Background Grid */}
@@ -330,7 +330,7 @@ export default function AboutSection() {
           {/* Title with Gradient */}
           <h2
             className="mb-6 text-3xl font-black leading-tight md:text-4xl lg:text-5xl"
-            style={{ color: "#ffffff" }}
+            style={{ color: "#1A5F7A" }}
           >
             نصنع
             <span
@@ -351,7 +351,7 @@ export default function AboutSection() {
           {/* Description */}
           <p
             className="mb-10 max-w-lg text-lg leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: "#1A5F7A" }}
           >
             محل يونيفورمز هو وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
             والجودة. نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية،
@@ -393,13 +393,13 @@ export default function AboutSection() {
                 <div className="flex-1">
                   <p
                     className="mb-1 text-lg font-bold"
-                    style={{ color: "#ffffff" }}
+                    style={{ color: "#5C3D1E" }}
                   >
                     {item.label}
                   </p>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
+                    style={{ color: "#D4B896" }}
                   >
                     {item.desc}
                   </p>

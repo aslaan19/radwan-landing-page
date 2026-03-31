@@ -39,7 +39,7 @@ export default function HeroSection() {
       style={{
         direction: "rtl",
         background:
-          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
+          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
       }}
     >
       {/* Animated gradient orbs */}
@@ -480,7 +480,7 @@ export default function HeroSection() {
 
             {/* Description */}
             <p
-              className="text-base md:text-lg text-white/60 leading-relaxed max-w-lg"
+              className="text-base md:text-lg  leading-relaxed max-w-lg"
               style={{
                 animation: isLoaded
                   ? "slideUp 0.8s ease-out 0.6s both"
@@ -552,7 +552,7 @@ export default function HeroSection() {
                     <span className="text-2xl font-black text-[#C8963E]">
                       {stat.num}
                     </span>
-                    <span className="text-xs text-white/50 font-medium">
+                    <span className="text-xs text-white/20 font-medium">
                       {stat.label}
                     </span>
                   </div>
@@ -663,7 +663,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <span className="text-white/40 text-xs tracking-widest uppercase">
+        <span className="text-white/15 text-xs tracking-widest uppercase">
           اكتشف أكثر
         </span>
         <div className="relative w-6 h-10 border-2 border-white/20 rounded-full flex justify-center">

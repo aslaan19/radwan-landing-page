@@ -12,7 +12,7 @@ const navLinks = [
 
 const GOLD = "#C8963E";
 const GOLD_LT = "#f4d03f";
-const NAV_BG = "rgba(18,34,66,0.97)";
+const NAV_BG = "#7EC8E3";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);

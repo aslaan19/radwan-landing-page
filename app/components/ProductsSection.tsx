@@ -114,7 +114,8 @@ export default function ProductsSection() {
       id="products"
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
-        background: "linear-gradient(135deg, #6f8fc4, #e4efff)",
+        background:
+          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
         direction: "rtl",
       }}
       onMouseEnter={() => setIsPaused(true)}
