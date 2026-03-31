@@ -66,7 +66,7 @@ export default function AboutSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #0a0f1a 0%, #1B2A4A 50%, #0a0f1a 100%)",
+          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
       }}
     >
       {/* Animated Background Grid */}

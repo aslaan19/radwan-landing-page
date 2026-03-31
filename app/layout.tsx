@@ -1,45 +1,51 @@
-import type { Metadata } from 'next'
-import { Cairo } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from "next";
+import { Cairo } from "next/font/google";
+import { Tajawal, Playpen_Sans_Arabic } from "next/font/google";
 
-const cairo = Cairo({ 
+import "./globals.css";
+
+const cairo = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-cairo",
 });
 
+const tajawal = Tajawal({
+  subsets: ["arabic"],
+  weight: ["400", "700", "900"],
+  variable: "--font-heading",
+});
+
+const plex = Playpen_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500"],
+  variable: "--font-body",
+});
+
 export const metadata: Metadata = {
-  title: 'يونيفورمز | خياطة زي موحّد احترافي',
-  description: 'خدمات خياطة يونيفورمز للمدارس والشركات والمنشآت الطبية بجودة عالية واحتراف.',
-  generator: 'v0.app',
+  title: "شركة خياط نسيج النهضة للخياطة",
+  description:
+    "خدمات خياطة يونيفورمز للمدارس والشركات والمنشآت الطبية بجودة عالية واحتراف.",
+  generator: "v0.app",
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: "/favicon.ico",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${cairo.variable} font-sans antialiased`} style={{ fontFamily: "'Cairo', sans-serif" }}>
+    <html lang="ar" dir="rtl">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body
+        className={`${cairo.variable} ${tajawal.variable} ${plex.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
-  )
+  );
 }

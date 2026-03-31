@@ -39,7 +39,7 @@ export default function HeroSection() {
       style={{
         direction: "rtl",
         background:
-          "linear-gradient(135deg, #0f172a 0%, #1B2A4A 50%, #1e3a5f 100%)",
+          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
       }}
     >
       {/* Animated gradient orbs */}
@@ -294,7 +294,7 @@ export default function HeroSection() {
                   </span>
                   <span className="text-xl text-[#1b1c13]">
                     {" "}
-                    شركة خياط نسيج النهضة للخياطة والزي الموحد
+                    شركة خياط نسيج النهضة للخياطة
                   </span>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function HeroSection() {
                   alignItems: "center",
                   gap: 14,
                   flexWrap: "wrap",
-                  margin: 0,
+                  marginBottom: 14,
                 }}
               >
                 {/* نصنع — letter by letter bounce */}
@@ -414,9 +414,10 @@ export default function HeroSection() {
                   style={{
                     display: "inline-block",
                     overflow: "hidden",
-                    height: "1.2em",
+                    height: "1.4em",
                     verticalAlign: "top",
                     minWidth: 130,
+                    paddingBottom: "4px",
                   }}
                 >
                   <span
@@ -424,9 +425,9 @@ export default function HeroSection() {
                     className="gold-shimmer"
                     style={{
                       display: "inline-block",
-                      fontSize: "clamp(30px,5vw,56px)",
+                      fontSize: "clamp(28px,6vw,56px)", // عدلت للموبايل كمان
                       fontWeight: 900,
-                      lineHeight: "1.2em",
+                      lineHeight: "1.4em",
                     }}
                   >
                     {words[activeWord]}

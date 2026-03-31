@@ -144,7 +144,10 @@ export default function ContactSection() {
       id="contact"
       onMouseMove={handleMouseMove}
       className="relative w-full py-24 md:py-32 overflow-hidden"
-      style={{ backgroundColor: "#0F1829" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #24324a 0%, #3a4f7a 50%, #4a6fa5 100%)",
+      }}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -231,7 +234,7 @@ export default function ContactSection() {
           {/* Logo */}
           <div className="flex justify-center mb-6">
             <div
-              className="relative p-2 rounded-2xl transition-all duration-500 hover:scale-110"
+              className="relative p-4 rounded-2xl transition-all duration-500 hover:scale-110"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(200,150,62,0.1), rgba(27,42,74,0.2))",

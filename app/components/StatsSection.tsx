@@ -12,15 +12,30 @@ const stats = [
     featured: true,
     icon: (
       <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-        <rect x="10" y="20" width="60" height="50" rx="4" stroke="#C8963E" strokeWidth="2"/>
-        <rect x="28" y="34" width="10" height="10" rx="1" fill="#C8963E"/>
-        <rect x="42" y="34" width="10" height="10" rx="1" fill="#C8963E"/>
-        <rect x="28" y="48" width="10" height="10" rx="1" fill="#C8963E"/>
-        <rect x="42" y="48" width="10" height="10" rx="1" fill="#C8963E"/>
-        <rect x="32" y="58" width="16" height="12" rx="1" fill="#C8963E"/>
-        <line x1="10" y1="28" x2="70" y2="28" stroke="#C8963E" strokeWidth="1.5"/>
-        <circle cx="20" cy="24" r="3" fill="#C8963E"/>
-        <circle cx="60" cy="24" r="3" fill="#C8963E"/>
+        <rect
+          x="10"
+          y="20"
+          width="60"
+          height="50"
+          rx="4"
+          stroke="#C8963E"
+          strokeWidth="2"
+        />
+        <rect x="28" y="34" width="10" height="10" rx="1" fill="#C8963E" />
+        <rect x="42" y="34" width="10" height="10" rx="1" fill="#C8963E" />
+        <rect x="28" y="48" width="10" height="10" rx="1" fill="#C8963E" />
+        <rect x="42" y="48" width="10" height="10" rx="1" fill="#C8963E" />
+        <rect x="32" y="58" width="16" height="12" rx="1" fill="#C8963E" />
+        <line
+          x1="10"
+          y1="28"
+          x2="70"
+          y2="28"
+          stroke="#C8963E"
+          strokeWidth="1.5"
+        />
+        <circle cx="20" cy="24" r="3" fill="#C8963E" />
+        <circle cx="60" cy="24" r="3" fill="#C8963E" />
       </svg>
     ),
   },
@@ -34,11 +49,44 @@ const stats = [
     featured: false,
     icon: (
       <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-        <path d="M36 8L64 22V34" stroke="#C8963E" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M36 8L8 22V34" stroke="#C8963E" strokeWidth="2" strokeLinecap="round"/>
-        <rect x="16" y="30" width="40" height="28" rx="2" stroke="#C8963E" strokeWidth="1.5"/>
-        <rect x="28" y="42" width="16" height="16" rx="1" fill="#C8963E" fillOpacity="0.3"/>
-        <line x1="36" y1="8" x2="36" y2="22" stroke="#C8963E" strokeWidth="1.5"/>
+        <path
+          d="M36 8L64 22V34"
+          stroke="#C8963E"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M36 8L8 22V34"
+          stroke="#C8963E"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <rect
+          x="16"
+          y="30"
+          width="40"
+          height="28"
+          rx="2"
+          stroke="#C8963E"
+          strokeWidth="1.5"
+        />
+        <rect
+          x="28"
+          y="42"
+          width="16"
+          height="16"
+          rx="1"
+          fill="#C8963E"
+          fillOpacity="0.3"
+        />
+        <line
+          x1="36"
+          y1="8"
+          x2="36"
+          y2="22"
+          stroke="#C8963E"
+          strokeWidth="1.5"
+        />
       </svg>
     ),
   },
@@ -52,9 +100,14 @@ const stats = [
     featured: false,
     icon: (
       <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-        <circle cx="36" cy="28" r="16" stroke="#C8963E" strokeWidth="1.5"/>
-        <circle cx="36" cy="28" r="6" fill="#C8963E" fillOpacity="0.4"/>
-        <path d="M36 44C36 44 18 56 36 64C54 56 36 44 36 44Z" stroke="#C8963E" strokeWidth="1.5" fill="none"/>
+        <circle cx="36" cy="28" r="16" stroke="#C8963E" strokeWidth="1.5" />
+        <circle cx="36" cy="28" r="6" fill="#C8963E" fillOpacity="0.4" />
+        <path
+          d="M36 44C36 44 18 56 36 64C54 56 36 44 36 44Z"
+          stroke="#C8963E"
+          strokeWidth="1.5"
+          fill="none"
+        />
       </svg>
     ),
   },
@@ -68,19 +121,35 @@ const stats = [
     featured: false,
     icon: (
       <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-        <path d="M36 10 L46 26 L64 30 L52 44 L56 62 L36 54 L16 62 L20 44 L8 30 L26 26 Z" stroke="#C8963E" strokeWidth="1.5" fill="none"/>
-        <circle cx="36" cy="36" r="8" fill="#C8963E" fillOpacity="0.3"/>
+        <path
+          d="M36 10 L46 26 L64 30 L52 44 L56 62 L36 54 L16 62 L20 44 L8 30 L26 26 Z"
+          stroke="#C8963E"
+          strokeWidth="1.5"
+          fill="none"
+        />
+        <circle cx="36" cy="36" r="8" fill="#C8963E" fillOpacity="0.3" />
       </svg>
     ),
   },
 ];
 
-function AnimatedCounter({ target, suffix, isVisible, delay }: { target: number; suffix: string; isVisible: boolean; delay: number }) {
+function AnimatedCounter({
+  target,
+  suffix,
+  isVisible,
+  delay,
+}: {
+  target: number;
+  suffix: string;
+  isVisible: boolean;
+  delay: number;
+}) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!isVisible) return;
     const timer = setTimeout(() => {
-      const dur = 1800, steps = 60;
+      const dur = 1800,
+        steps = 60;
       let cur = 0;
       const step = target / steps;
       const iv = setInterval(() => {
@@ -92,7 +161,12 @@ function AnimatedCounter({ target, suffix, isVisible, delay }: { target: number;
     }, delay);
     return () => clearTimeout(timer);
   }, [isVisible, target, delay]);
-  return <>{count}{suffix}</>;
+  return (
+    <>
+      {count}
+      {suffix}
+    </>
+  );
 }
 
 export default function StatsSection() {
@@ -102,8 +176,13 @@ export default function StatsSection() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
-      { threshold: 0.25 }
+      ([e]) => {
+        if (e.isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25 },
     );
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
@@ -115,7 +194,10 @@ export default function StatsSection() {
       id="stats"
       dir="rtl"
       className="relative w-full py-24 overflow-hidden"
-      style={{ backgroundColor: "#080f1e" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #5f7fa6 0%, #8faed6 50%, #c3d4f2 100%)",
+      }}
     >
       <style>{`
         @keyframes shimGold { 0%{background-position:200% center} 100%{background-position:-200% center} }
@@ -146,15 +228,46 @@ export default function StatsSection() {
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0">
         {/* Top-right gold sweep */}
-        <div className="absolute top-0 right-0 w-72 h-72" style={{ background: "linear-gradient(225deg,rgba(200,150,62,0.12) 0%,transparent 65%)" }} />
+        <div
+          className="absolute top-0 right-0 w-72 h-72"
+          style={{
+            background:
+              "linear-gradient(225deg,rgba(200,150,62,0.12) 0%,transparent 65%)",
+          }}
+        />
         {/* Bottom-left gold sweep */}
-        <div className="absolute bottom-0 left-0 w-52 h-52" style={{ background: "linear-gradient(45deg,rgba(200,150,62,0.07) 0%,transparent 65%)" }} />
+        <div
+          className="absolute bottom-0 left-0 w-52 h-52"
+          style={{
+            background:
+              "linear-gradient(45deg,rgba(200,150,62,0.07) 0%,transparent 65%)",
+          }}
+        />
         {/* Horizontal gold lines */}
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(200,150,62,0.4),transparent)" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(200,150,62,0.4),transparent)" }} />
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg,transparent,rgba(200,150,62,0.4),transparent)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg,transparent,rgba(200,150,62,0.4),transparent)",
+          }}
+        />
         {/* Big watermark number */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 font-black leading-none select-none whitespace-nowrap"
-          style={{ fontSize: 320, color: "rgba(200,150,62,0.022)", letterSpacing: -20, lineHeight: 1 }}>
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 font-black leading-none select-none whitespace-nowrap"
+          style={{
+            fontSize: 320,
+            color: "rgba(200,150,62,0.022)",
+            letterSpacing: -20,
+            lineHeight: 1,
+          }}
+        >
           10+
         </div>
       </div>
@@ -163,26 +276,50 @@ export default function StatsSection() {
         {/* Header */}
         <div
           className="text-center mb-14"
-          style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? "none" : "translateY(30px)", transition: "all .8s cubic-bezier(.16,1,.3,1)" }}
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "none" : "translateY(30px)",
+            transition: "all .8s cubic-bezier(.16,1,.3,1)",
+          }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-5"
-            style={{ borderColor: "rgba(200,150,62,0.25)", background: "rgba(200,150,62,0.1)" }}>
-            <span className="w-2 h-2 rounded-full bg-[#C8963E]" style={{ animation: "pulseDot 1.6s ease-in-out infinite" }} />
-            <span className="text-[#C8963E] text-xs font-bold tracking-wider">إنجازاتنا بالأرقام</span>
-          </div>
-          <h2 className="font-black text-white mb-3 leading-tight" style={{ fontSize: "clamp(26px,4vw,46px)" }}>
-            أرقام{" "}
-            <span style={{
-              background: "linear-gradient(90deg,#C8963E,#f4d03f,#C8963E)",
-              backgroundSize: "200% auto",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-              animation: "shimGold 2.5s linear infinite",
-            }}>
-              تتحدث
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-5"
+            style={{
+              borderColor: "rgba(200,150,62,0.25)",
+              background: "rgba(200,150,62,0.1)",
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full bg-[#C8963E]"
+              style={{ animation: "pulseDot 1.6s ease-in-out infinite" }}
+            />
+            <span className="text-[#C8963E] text-xs font-bold tracking-wider">
+              إنجازاتنا بالأرقام
             </span>
-            {" "}عن تجربتنا
+          </div>
+          <h2
+            className="font-black text-white mb-3 leading-tight"
+            style={{ fontSize: "clamp(26px,4vw,46px)" }}
+          >
+            أرقام{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg,#C8963E,#f4d03f,#C8963E)",
+                backgroundSize: "200% auto",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                animation: "shimGold 2.5s linear infinite",
+              }}
+            >
+              تتحدث
+            </span>{" "}
+            عن تجربتنا
           </h2>
-          <p className="text-sm font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <p
+            className="text-sm font-normal"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
             سنوات من الخبرة والتميز في خدمة عملائنا الكرام
           </p>
         </div>
@@ -197,8 +334,8 @@ export default function StatsSection() {
                 background: stat.featured
                   ? "linear-gradient(135deg,rgba(200,150,62,0.18),rgba(200,150,62,0.04))"
                   : hovered === stat.id
-                  ? "rgba(200,150,62,0.06)"
-                  : "rgba(255,255,255,0.025)",
+                    ? "rgba(200,150,62,0.06)"
+                    : "rgba(255,255,255,0.025)",
                 border: `1px solid ${stat.featured || hovered === stat.id ? "rgba(200,150,62,0.35)" : "rgba(255,255,255,0.06)"}`,
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "none" : "translateY(40px) scale(0.96)",
@@ -208,9 +345,7 @@ export default function StatsSection() {
               onMouseLeave={() => setHovered(null)}
             >
               {/* Geometric icon watermark */}
-              <div className="stat-icon absolute top-5 left-5">
-                {stat.icon}
-              </div>
+              <div className="stat-icon absolute top-5 left-5">{stat.icon}</div>
 
               {/* Counter */}
               <div
@@ -219,17 +354,32 @@ export default function StatsSection() {
                   fontSize: "clamp(52px,7vw,78px)",
                   letterSpacing: -2,
                   background: "linear-gradient(135deg,#C8963E,#f4d03f)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}
               >
-                <AnimatedCounter target={stat.target} suffix={stat.suffix} isVisible={isVisible} delay={i * 150} />
+                <AnimatedCounter
+                  target={stat.target}
+                  suffix={stat.suffix}
+                  isVisible={isVisible}
+                  delay={i * 150}
+                />
               </div>
 
               <p className="font-black text-white text-lg mb-1">{stat.label}</p>
-              <p className="text-xs font-normal leading-relaxed" style={{ color: "rgba(255,255,255,0.38)" }}>{stat.desc}</p>
+              <p
+                className="text-xs font-normal leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.38)" }}
+              >
+                {stat.desc}
+              </p>
 
               {/* Progress bar */}
-              <div className="mt-5 h-[3px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.07)" }}>
+              <div
+                className="mt-5 h-[3px] rounded-full overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.07)" }}
+              >
                 <div
                   className="h-full rounded-full"
                   style={{
@@ -246,30 +396,50 @@ export default function StatsSection() {
         {/* CTA */}
         <div
           className="mt-14 text-center flex items-center justify-center gap-4 flex-wrap"
-          style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? "none" : "translateY(20px)", transition: "all .8s ease .9s" }}
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "none" : "translateY(20px)",
+            transition: "all .8s ease .9s",
+          }}
         >
           <a
             href="#contact"
             className="cta-shine inline-flex items-center gap-2 font-black rounded-full"
             style={{
-              background: "#C8963E", color: "#0a0f1a",
-              fontSize: 14, padding: "14px 32px",
+              background: "#C8963E",
+              color: "#0a0f1a",
+              fontSize: 14,
+              padding: "14px 32px",
               boxShadow: "0 8px 32px rgba(200,150,62,0.3)",
-              textDecoration: "none", transition: "all .3s",
+              textDecoration: "none",
+              transition: "all .3s",
             }}
           >
             انضم إلى عملائنا
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M7 17l9.5-9.5M17 17V7H7"/>
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M7 17l9.5-9.5M17 17V7H7"
+              />
             </svg>
           </a>
           <a
             href="#contact"
             className="inline-flex items-center font-semibold rounded-full"
             style={{
-              color: "rgba(255,255,255,0.55)", fontSize: 13,
+              color: "rgba(255,255,255,0.55)",
+              fontSize: 13,
               border: "1px solid rgba(255,255,255,0.12)",
-              padding: "13px 28px", textDecoration: "none",
+              padding: "13px 28px",
+              textDecoration: "none",
               transition: "all .3s",
             }}
           >

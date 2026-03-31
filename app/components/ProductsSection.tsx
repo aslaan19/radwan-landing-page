@@ -114,8 +114,7 @@ export default function ProductsSection() {
       id="products"
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
-        background:
-          "linear-gradient(180deg, #ffffff 0%, #f8f9fc 50%, #ffffff 100%)",
+        background: "linear-gradient(135deg, #6f8fc4, #e4efff)",
         direction: "rtl",
       }}
       onMouseEnter={() => setIsPaused(true)}
@@ -635,14 +634,11 @@ export default function ProductsSection() {
                       <span
                         className="text-sm font-medium"
                         style={{ color: "rgba(27,42,74,0.5)" }}
-                      >
-                      </span>
+                      ></span>
                       <p
                         className="text-3xl font-black"
                         style={{ color: "#C8963E" }}
-                      >
-                        
-                      </p>
+                      ></p>
                     </div>
 
                     <button
@@ -834,7 +830,8 @@ export default function ProductsSection() {
             }}
           >
             <span className="relative z-10 text-lg text-white">
-اطلب الآن      !      </span>
+              اطلب الآن !{" "}
+            </span>
             <div
               className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
               style={{ background: "rgba(255,255,255,0.2)" }}
