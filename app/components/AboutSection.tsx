@@ -11,7 +11,7 @@ const highlights = [
   {
     icon: "02",
     label: "خبرة عميقة",
-    desc: "أكثر من 10 سنوات من الإبداع والتميز في صناعة الأزياء",
+    desc: "أكثر من 5 سنوات من الإبداع والتميز في صناعة الأزياء",
   },
   {
     icon: "03",
@@ -260,10 +260,10 @@ export default function AboutSection() {
               }}
             >
               <p
-                className="text-4xl font-black text-white"
+                className="text-4xl font-black text-center text-white"
                 style={{ lineHeight: 1 }}
               >
-                +10
+                +5
               </p>
               <p className="mt-1 text-sm font-semibold text-white/80">
                 سنوات من التميز
@@ -289,7 +289,7 @@ export default function AboutSection() {
               background: "rgba(200,150,62,0.1)",
               border: "1px solid rgba(200,150,62,0.3)",
               backdropFilter: "blur(10px)",
-              animation: "floatOrb2 8s ease-in-out infinite",
+              animation: "floatOrb2 5s ease-in-out infinite",
             }}
           >
             <span className="text-3xl">🧵</span>
@@ -353,7 +353,7 @@ export default function AboutSection() {
             className="mb-10 max-w-lg text-lg leading-relaxed"
             style={{ color: "#1A5F7A" }}
           >
-            محل يونيفورمز هو وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
+            شركتنا هي وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
             والجودة. نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية،
             مع الاهتمام بأدق التفاصيل وضمان رضا العملاء في كل مرحلة.
           </p>
@@ -399,7 +399,7 @@ export default function AboutSection() {
                   </p>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "#D4B896" }}
+                    style={{ color: "#000012" }}
                   >
                     {item.desc}
                   </p>

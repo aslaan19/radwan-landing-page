@@ -323,7 +323,6 @@ export default function ContactSection() {
 
             {contactMethods.map((method, index) => (
               <a
-                
                 key={method.id}
                 href={method.href}
                 target={method.id === "location" ? "_blank" : undefined}
@@ -384,7 +383,7 @@ export default function ContactSection() {
                   <div className="flex-1">
                     <p
                       className="text-sm font-medium mb-1"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
+                      style={{ color: "rgba(15,10,12,1)" }}
                     >
                       {method.label}
                     </p>

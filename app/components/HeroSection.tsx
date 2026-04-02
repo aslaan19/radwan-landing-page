@@ -7,7 +7,7 @@ export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeWord, setActiveWord] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
-  const words = ["بإتقان", "باحتراف", "بإبداع"];
+  const words = ["بإتقان", "باحتراف", "بإبداع", "بتميز"];
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -416,7 +416,7 @@ export default function HeroSection() {
                     overflow: "hidden",
                     height: "1.4em",
                     verticalAlign: "top",
-                    minWidth: 130,
+                    minWidth: 60,
                     paddingBottom: "4px",
                   }}
                 >
@@ -425,7 +425,7 @@ export default function HeroSection() {
                     className="gold-shimmer"
                     style={{
                       display: "inline-block",
-                      fontSize: "clamp(28px,6vw,56px)", // عدلت للموبايل كمان
+                      fontSize: "clamp(28px,6vw,56px)",
                       fontWeight: 900,
                       lineHeight: "1.4em",
                     }}
@@ -487,8 +487,9 @@ export default function HeroSection() {
                   : "none",
               }}
             >
-              من المدارس إلى الشركات والمنشآت الطبية — نقدّم يونيفورمات راقية
-              تعكس هوية مؤسستك وتُبهر من يراها بجودة استثنائية وتصاميم عصرية.
+              من المدارس إلى الشركات الصناعية والتجارية والمنشآت الطبية — نقدّم
+              يونيفورم راقي يعكس هويتك ويُبهر من يراه بجودة استثنائية وتصاميم
+              عصرية.
             </p>
 
             {/* CTA Buttons */}
@@ -539,9 +540,9 @@ export default function HeroSection() {
               }}
             >
               {[
-                { num: "+100", label: "شركة خدمناها", icon: "🏢" },
-                { num: "+10", label: "سنوات خبرة", icon: "⏳" },
-                { num: "15", label: "فرع نشط", icon: "📍" },
+                { num: "+50", label: "شركة خدمناها", icon: "🏢" },
+                { num: "+5", label: "سنوات خبرة", icon: "⏳" },
+                { num: "4", label: "فروع نشطة", icon: "📍" },
               ].map((stat, i) => (
                 <div
                   key={stat.num}
@@ -552,7 +553,7 @@ export default function HeroSection() {
                     <span className="text-2xl font-black text-[#C8963E]">
                       {stat.num}
                     </span>
-                    <span className="text-xs text-white/20 font-medium">
+                    <span className=" text-black text-wrap  ">
                       {stat.label}
                     </span>
                   </div>

@@ -439,7 +439,7 @@ export default function ProductsSection() {
           </h2>
 
           <p
-            className="mx-auto max-w-2xl text-lg leading-relaxed md:text-xl"
+            className="mx-auto max-w-xl font-bold text-lg leading-relaxed md:text-xl "
             style={{ color: "rgba(27,42,74,0.6)" }}
           >
             نفخر بتقديم أرقى أنواع الأزياء الموحدة المصنعة بأيدٍ ماهرة وخامات
