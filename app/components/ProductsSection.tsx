@@ -326,6 +326,51 @@ const CategoryIcon = ({ type }: { type: string }) => {
           <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01" />
         </svg>
       );
+    case "food":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M3 2v6a3 3 0 0 0 6 0V2" />
+          <path d="M6 2v20" />
+          <path d="M14 2v20" />
+          <path d="M14 2a4 4 0 0 1 4 4v16" />
+        </svg>
+      );
+    case "factory":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M3 21V10l7-4v4l7-4v15H3z" />
+          <path d="M13 21V13h3v8" />
+        </svg>
+      );
+    case "mall":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M3 9l1-4h16l1 4" />
+          <rect x="4" y="9" width="16" height="11" rx="2" />
+          <path d="M9 20v-6h6v6" />
+        </svg>
+      );
     case "medical":
       return (
         <svg
@@ -724,7 +769,7 @@ export default function ProductsSection() {
               onMouseLeave={() => setHoveredProduct(null)}
             >
               {/* Image Container */}
-              <div className="relative h-82 max-w-max overflow-hidden">
+              <div className="relative h-82 w-full overflow-hidden">
                 <Image
                   src={product.image}
                   alt={product.name}
