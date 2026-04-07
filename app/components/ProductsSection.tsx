@@ -1,64 +1,362 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
+const categories = [
+  { id: "all", name: "الكل", icon: "grid" },
+  { id: "schools", name: "مدارس", icon: "school" },
+  { id: "coffee", name: "مطاعم ومقاهي ", icon: "food" },
+  { id: "factory", name: "شركات ومصانع", icon: "factory" },
+  { id: "shops", name: "محلات تجارية ", icon: "mall" },
+];
+
 const products = [
+  // Schools - مدارس
   {
     id: 1,
     name: "زي مدرسي فاخر",
-    category: "المدارس",
-    image: "/images/sample.png",
-    description: "تصميم عصري يجمع بين الأناقة والراحة للطلاب",
-    features: ["قماش مقاوم للتجاعيد", "ألوان ثابتة", "راحة طوال اليوم"],
+    category: "schools",
+    categoryName: "مدارس",
+    image: "/images/products/schools/sample.png",
+    description: "تصميم عصري يجمع بين الأناقة والراحة للطلاب مع أجود الخامات",
+    features: ["قماش مقاوم للتجاعيد", "ألوان ثابتة", "راحة "],
   },
   {
     id: 2,
     name: "ماريول بناتي أنيق",
-    category: "المدارس",
-    image: "/images/sample2.png",
-    description: "تصميم عصري يجمع بين الأناقة والراحة للطلاب",
-    features: ["مضاد للبكتيريا", "سهل الغسيل", "عصري"],
+    category: "schools",
+    categoryName: "مدارس",
+    image: "/images/products/schools/sample2.png",
+    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
+    features: ["مضاد للبكتيريا", "سهل الغسيل", "تصميم عصري"],
   },
   {
     id: 3,
-    name: "زي فندقي راقي",
-    category: "الفنادق",
-    image: "/images/sample3.png",
-    description: "أناقة تليق بضيافتكم المميزة",
-    features: ["تصميم أنيق", "مريح للعمل", "مظهر احترافي"],
+    name: "ماريول بناتي أنيق",
+    category: "schools",
+    categoryName: "مدارس",
+    image: "/images/products/schools/sample3.png",
+    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
+    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
   },
+  {
+    id: 4,
+    name: "ماريول بناتي أنيق",
+    category: "schools",
+    categoryName: "مدارس",
+    image: "/images/products/schools/sample4.png",
+    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
+    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
+  },
+  // Commercial - شركات تجارية
+  {
+    id: 5,
+    name: "ماريول بناتي أنيق",
+    category: "schools",
+    categoryName: "مدارس",
+    image: "/images/products/schools/sample5.png",
+    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
+    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
+  },
+  {
+    id: 6,
+    name: "يونيفورم قشطية",
+    category: "coffee",
+    categoryName: "مطاعم ومقاهي",
+    image: "/images/products/coffee/coffee1.jpeg",
+    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+    features: ["قماش مرن", "جودة مضمونة", "متانة عالية"],
+  },
+  {
+    id: 7,
+    name: "يونيفورم مارتي",
+    category: "coffee",
+    categoryName: "مطاعم ومقاهي",
+    image: "/images/products/coffee/coffee2.jpeg",
+    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+    features: ["قماش مرن", "جودة مضمونة", "تصميم أنيق"],
+  },
+  {
+    id: 8,
+    name: "يونيفورم عنوان القهوة",
+    category: "coffee",
+    categoryName: "مطاعم ومقاهي",
+    image: "/images/products/coffee/coffee3.png",
+    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+    features: ["قماش ممتاز", "جودة مضمونة", "تصميم راقي"],
+  },
+  {
+    id: 9,
+    name: "يونيفورم مصنع",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory1.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية التحمل",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية المؤسسية",
+    ],
+  },
+  {
+    id: 10,
+    name: "يونيفورم الهيئة السعودية للسياحة",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory2.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية التحمل",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية المؤسسية",
+    ],
+  },
+  {
+    id: 11,
+    name: "يونيفورم فريق تقني",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory3.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية التحمل",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية المؤسسية",
+    ],
+  },
+  {
+    id: 12,
+    name: "يونيفورم عمال مصانع",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory4.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية التحمل",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية المؤسسية",
+    ],
+  },
+  {
+    id: 13,
+    name: "يونيفورم قوات الدفاع الجوي الملكي السعودي",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory5.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية الجودة",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية ",
+    ],
+  },
+  {
+    id: 14,
+    name: "يونيفورم وزارة السياحة",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory6.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية الجودة",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية ",
+    ],
+  },
+  {
+    id: 15,
+    name: "يونيفورم شركة كرام السياحية",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory7.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: ["خامات عالية الجودة", "جودة صناعية فائقة", "تصميم يعكس الهوية "],
+  },
+  {
+    id: 17,
+    name: "يونيفورم شركة RS للالكترونيات",
+    category: "factory",
+    categoryName: "شركات ومصانع",
+    image: "/images/products/factory/factory8.jpeg",
+    description:
+      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+    features: [
+      "خامات عالية التحمل",
+      "جودة صناعية معتمدة",
+      "تصميم يعكس الهوية المؤسسية",
+    ],
+  },
+  {
+    id: 20,
+    name: "يونيفورم محل",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops1.jpeg",
+    description:
+      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
+    features: [
+      "تصميم جذاب يلفت الانتباه",
+      "راحة طوال ساعات العمل",
+      "يعكس هوية المحل بشكل مميز",
+    ],
+  },
+  {
+    id: 21,
+    name: "يونيفورم عالم جمولي",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops2.jpeg",
+    description:
+      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
+    features: [
+      "تصميم جذاب يلفت الانتباه",
+      "راحة طوال ساعات العمل",
+      "يعكس هوية المحل بشكل مميز",
+    ],
+  },
+  {
+    id: 22,
+    name: "يونيفورم دكنة للعطور",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops3.jpeg",
+    description:
+      "نقدم ملابس عمل أنيقة للمحلات تجمع بين الراحة والمظهر الاحترافي لتعزيز حضور علامتك التجارية أمام العملاء",
+    features: [
+      "مظهر عصري وأنيق",
+      "خامات مريحة للاستخدام اليومي",
+      "تصميم متناسق مع هوية البراند",
+    ],
+  },
+  {
+    id: 23,
+    name: "uniform A. Abo abaid",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops4.jpeg",
+    description:
+      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
+    features: [
+      "تصميم جذاب يلفت الانتباه",
+      "راحة طوال ساعات العمل",
+      "يعكس هوية المحل بشكل مميز",
+    ],
+  },
+  {
+    id: 24,
+    name: "يونيفورم مخازن",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops5.jpeg",
+    description:
+      "يونيفورم عملي وأنيق مصمم ليتحمل طبيعة العمل اليومية داخل المحلات مع الحفاظ على مظهر احترافي مميز",
+    features: [
+      "مناسب للاستخدام اليومي",
+      "خامات مريحة وعملية",
+      "مظهر احترافي للعملاء",
+    ],
+  },
+  {
+    id: 28,
+    name: "يونيفورم اّني وداني للحلويات",
+    category: "shops",
+    categoryName: "محلات تجارية",
+    image: "/images/products/shops/shops6.jpeg",
+    description:
+      "ملابس عمل أنيقة ومريحة للمحلات توفر مظهراً موحداً يعكس الاحترافية ويساعد على تنظيم بيئة العمل",
+    features: [
+      "راحة في الحركة طوال اليوم",
+      "مظهر موحد للفريق",
+      "تصميم بسيط وأنيق",
+    ],
+  },
+  // Medical - مستشفيات ومستلزمات طبية
 ];
 
+const CategoryIcon = ({ type }: { type: string }) => {
+  switch (type) {
+    case "grid":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+      );
+    case "school":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+          <path d="M6 12v5c3 3 9 3 12 0v-5" />
+        </svg>
+      );
+    case "building":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01" />
+        </svg>
+      );
+    case "medical":
+      return (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M8 2v4M16 2v4" />
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <path d="M12 9v6M9 12h6" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 export default function ProductsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("all");
   const [isVisible, setIsVisible] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const goToNext = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev + 1) % products.length);
-    setTimeout(() => setIsAnimating(false), 800);
-  }, [isAnimating]);
-
-  const goToPrev = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev - 1 + products.length) % products.length);
-    setTimeout(() => setIsAnimating(false), 800);
-  }, [isAnimating]);
-
-  const goToIndex = (index: number) => {
-    if (isAnimating || index === activeIndex) return;
-    setIsAnimating(true);
-    setActiveIndex(index);
-    setTimeout(() => setIsAnimating(false), 800);
-  };
+  const filteredProducts =
+    activeCategory === "all"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   // Intersection Observer
   useEffect(() => {
@@ -78,24 +376,6 @@ export default function ProductsSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-rotate
-  useEffect(() => {
-    if (isPaused) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      return;
-    }
-
-    intervalRef.current = setInterval(goToNext, 5000);
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isPaused, goToNext]);
-
   // Mouse tracking
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!sectionRef.current) return;
@@ -106,8 +386,6 @@ export default function ProductsSection() {
     });
   };
 
-  const activeProduct = products[activeIndex];
-
   return (
     <section
       ref={sectionRef}
@@ -115,18 +393,16 @@ export default function ProductsSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
+          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);  ",
         direction: "rtl",
       }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onMouseMove={handleMouseMove}
     >
       <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(60px);
+            transform: translateY(40px);
           }
           to {
             opacity: 1;
@@ -136,7 +412,7 @@ export default function ProductsSection() {
         @keyframes scaleIn {
           from {
             opacity: 0;
-            transform: scale(0.8);
+            transform: scale(0.9);
           }
           to {
             opacity: 1;
@@ -179,30 +455,6 @@ export default function ProductsSection() {
             opacity: 0;
           }
         }
-        @keyframes glow {
-          0%,
-          100% {
-            box-shadow:
-              0 0 30px rgba(200, 150, 62, 0.2),
-              0 20px 60px rgba(27, 42, 74, 0.15);
-          }
-          50% {
-            box-shadow:
-              0 0 50px rgba(200, 150, 62, 0.4),
-              0 30px 80px rgba(27, 42, 74, 0.25);
-          }
-        }
-        @keyframes borderDance {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
         @keyframes morphShape {
           0%,
           100% {
@@ -218,86 +470,37 @@ export default function ProductsSection() {
             border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%;
           }
         }
-        @keyframes rotateGlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        @keyframes slideInLeft {
+        @keyframes cardAppear {
           from {
             opacity: 0;
-            transform: translateX(-100px);
+            transform: translateY(30px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
           }
           to {
             opacity: 1;
             transform: translateX(0);
           }
         }
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+        .morph-blob {
+          animation: morphShape 15s ease-in-out infinite;
         }
-        @keyframes revealText {
-          from {
-            clip-path: inset(0 100% 0 0);
-          }
-          to {
-            clip-path: inset(0 0 0 0);
-          }
-        }
-        @keyframes bounceIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.3);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-          70% {
-            transform: scale(0.9);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        .card-3d {
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-          transform-style: preserve-3d;
-        }
-        .card-3d:hover {
-          transform: translateY(-10px) rotateX(5deg);
-        }
-        .nav-btn {
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nav-btn:hover {
-          transform: scale(1.15);
-          background: linear-gradient(135deg, #c8963e 0%, #e8b85e 100%);
-        }
-        .nav-btn:hover svg {
-          stroke: white;
-        }
-        .nav-btn:active {
-          transform: scale(0.95);
-        }
-        .dot-indicator {
+        .product-card {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .dot-indicator.active {
-          width: 40px;
-          background: linear-gradient(90deg, #c8963e, #e8b85e, #c8963e);
-          background-size: 200% 100%;
-          animation: shimmer 2s linear infinite;
+        .product-card:hover {
+          transform: translateY(-12px);
+        }
+        .category-tab {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .feature-tag {
           transition: all 0.3s ease;
@@ -305,15 +508,6 @@ export default function ProductsSection() {
         .feature-tag:hover {
           transform: translateY(-2px);
           background: rgba(200, 150, 62, 0.15);
-        }
-        .product-card {
-          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .product-card.active {
-          animation: glow 3s ease-in-out infinite;
-        }
-        .morph-blob {
-          animation: morphShape 15s ease-in-out infinite;
         }
       `}</style>
 
@@ -378,7 +572,7 @@ export default function ProductsSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Header */}
         <div
-          className="mb-20 text-center"
+          className="mb-16 text-center"
           style={{
             animation: isVisible ? "fadeInUp 0.8s ease-out forwards" : "none",
             opacity: isVisible ? 1 : 0,
@@ -419,8 +613,8 @@ export default function ProductsSection() {
           </div>
 
           <h2
-            className="mb-6 text-4xl font-black leading-tight md:text-5xl lg:text-6xl"
-            style={{ color: "#1B2A4A" }}
+            className="mb-6 text-4xl text-cyan-900 font-bold tight md:text-5xl lg:text-6xl"
+            style={{ color: "#1B2A4A", fontFamily: "Tajawal" }}
           >
             منتجاتنا
             <span
@@ -439,7 +633,7 @@ export default function ProductsSection() {
           </h2>
 
           <p
-            className="mx-auto max-w-xl font-bold text-lg leading-relaxed md:text-xl "
+            className="mx-auto max-w-xl text-lg font-bold leading-relaxed md:text-xl"
             style={{ color: "rgba(27,42,74,0.6)" }}
           >
             نفخر بتقديم أرقى أنواع الأزياء الموحدة المصنعة بأيدٍ ماهرة وخامات
@@ -447,349 +641,55 @@ export default function ProductsSection() {
           </p>
         </div>
 
-        {/* Main Product Showcase */}
-        <div className="relative mb-16">
-          {/* Large Featured Card */}
-          <div
-            className="mx-auto max-w-5xl"
-            style={{
-              animation: isVisible
-                ? "scaleIn 1s ease-out 0.3s forwards"
-                : "none",
-              opacity: isVisible ? 1 : 0,
-            }}
-          >
-            <div
-              className="product-card active relative overflow-hidden rounded-[2rem]"
-              style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%)",
-                border: "1px solid rgba(27,42,74,0.1)",
-              }}
-            >
-              {/* Animated border */}
-              <div
-                className="absolute inset-0 rounded-[2rem] p-[2px]"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(200,150,62,0.5), transparent)",
-                  backgroundSize: "200% 100%",
-                  animation: "borderDance 4s linear infinite",
-                  mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                  maskComposite: "xor",
-                  WebkitMaskComposite: "xor",
-                }}
-              />
-
-              <div className="flex flex-col lg:flex-row">
-                {/* Image Side */}
-                <div className="relative h-[400px] w-full lg:h-[550px] lg:w-1/2">
-                  {products.map((product, index) => (
-                    <div
-                      key={product.id}
-                      className="absolute inset-0 transition-all duration-700"
-                      style={{
-                        opacity: index === activeIndex ? 1 : 0,
-                        transform:
-                          index === activeIndex ? "scale(1)" : "scale(1.1)",
-                        zIndex: index === activeIndex ? 10 : 0,
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover"
-                        style={{
-                          borderRadius: "2rem 0 0 2rem",
-                        }}
-                      />
-
-                      {/* Overlay gradient */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, transparent 60%, rgba(255,255,255,0.95) 100%)",
-                          borderRadius: "2rem 0 0 2rem",
-                        }}
-                      />
-                    </div>
-                  ))}
-
-                  {/* Category badge */}
-                  <div
-                    className="absolute right-6 top-6 z-20 rounded-full px-5 py-2.5"
-                    style={{
-                      background: "rgba(27,42,74,0.95)",
-                      backdropFilter: "blur(10px)",
-                      animation: "bounceIn 0.6s ease-out",
-                    }}
-                  >
-                    <span className="text-sm font-bold text-white">
-                      {activeProduct.category}
-                    </span>
-                  </div>
-
-                  {/* Rotating glow */}
-                  <div
-                    className="absolute bottom-10 left-10 z-20 h-20 w-20"
-                    style={{
-                      background:
-                        "conic-gradient(from 0deg, transparent, rgba(200,150,62,0.3), transparent)",
-                      borderRadius: "50%",
-                      animation: "rotateGlow 4s linear infinite",
-                    }}
-                  />
-                </div>
-
-                {/* Content Side */}
-                <div className="relative flex flex-1 flex-col justify-center p-8 lg:p-12">
-                  {/* Product counter */}
-                  <div className="mb-6 flex items-center gap-3">
-                    <span
-                      className="text-6xl font-black"
-                      style={{
-                        color: "rgba(27,42,74,0.08)",
-                        fontFamily: "monospace",
-                      }}
-                    >
-                      0{activeIndex + 1}
-                    </span>
-                    <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent to-[#C8963E]/30" />
-                    <span
-                      className="text-sm font-medium"
-                      style={{ color: "rgba(27,42,74,0.4)" }}
-                    >
-                      / 0{products.length}
-                    </span>
-                  </div>
-
-                  {/* Product name with animation */}
-                  <div className="overflow-hidden">
-                    <h3
-                      key={activeIndex}
-                      className="mb-4 text-3xl font-black md:text-4xl"
-                      style={{
-                        color: "#1B2A4A",
-                        animation: "slideInRight 0.6s ease-out",
-                      }}
-                    >
-                      {activeProduct.name}
-                    </h3>
-                  </div>
-
-                  <p
-                    key={`desc-${activeIndex}`}
-                    className="mb-6 text-lg leading-relaxed"
-                    style={{
-                      color: "rgba(27,42,74,0.6)",
-                      animation: "fadeInUp 0.6s ease-out 0.1s both",
-                    }}
-                  >
-                    {activeProduct.description}
-                  </p>
-
-                  {/* Features */}
-                  <div
-                    key={`features-${activeIndex}`}
-                    className="mb-8 flex flex-wrap gap-3"
-                    style={{ animation: "fadeInUp 0.6s ease-out 0.2s both" }}
-                  >
-                    {activeProduct.features.map((feature, i) => (
-                      <span
-                        key={feature}
-                        className="feature-tag flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-                        style={{
-                          background: "rgba(200,150,62,0.08)",
-                          color: "#1B2A4A",
-                          animationDelay: `${i * 0.1}s`,
-                        }}
-                      >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          style={{ color: "#C8963E" }}
-                        >
-                          <path
-                            d="M11.5 3.5L5.5 10L2.5 7"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Price and CTA */}
-                  <div
-                    key={`cta-${activeIndex}`}
-                    className="flex flex-wrap items-center gap-6"
-                    style={{ animation: "fadeInUp 0.6s ease-out 0.3s both" }}
-                  >
-                    <div>
-                      <span
-                        className="text-sm font-medium"
-                        style={{ color: "rgba(27,42,74,0.5)" }}
-                      ></span>
-                      <p
-                        className="text-3xl font-black"
-                        style={{ color: "#C8963E" }}
-                      ></p>
-                    </div>
-
-                    <button
-                      className="group relative flex items-center gap-3 overflow-hidden rounded-full px-8 py-4 font-bold text-white transition-all duration-300 hover:scale-105"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #1B2A4A 0%, #2a3f6a 100%)",
-                        boxShadow: "0 10px 30px rgba(27,42,74,0.3)",
-                      }}
-                    >
-                      <span className="relative z-10">اطلب الآن</span>
-                      <svg
-                        className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M12 4L6 10L12 16"
-                          stroke="white"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-
-                      {/* Shine effect */}
-                      <div
-                        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #2a3f6a 0%, #3a5080 100%)",
-                        }}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Controls */}
-          <div className="absolute left-4 top-1/2 z-30 -translate-y-1/2 md:left-0">
-            <button
-              onClick={goToNext}
-              className="nav-btn flex h-14 w-14 items-center justify-center rounded-full md:h-16 md:w-16"
-              style={{
-                background: "#ffffff",
-                boxShadow: "0 10px 40px rgba(27,42,74,0.15)",
-                border: "1px solid rgba(27,42,74,0.1)",
-              }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M15 18L9 12L15 6"
-                  stroke="#1B2A4A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div className="absolute right-4 top-1/2 z-30 -translate-y-1/2 md:right-0">
-            <button
-              onClick={goToPrev}
-              className="nav-btn flex h-14 w-14 items-center justify-center rounded-full md:h-16 md:w-16"
-              style={{
-                background: "#ffffff",
-                boxShadow: "0 10px 40px rgba(27,42,74,0.15)",
-                border: "1px solid rgba(27,42,74,0.1)",
-              }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M9 18L15 12L9 6"
-                  stroke="#1B2A4A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Product Thumbnails */}
+        {/* Category Filter Tabs */}
         <div
-          className="mb-12 flex items-center justify-center gap-4 overflow-x-auto pb-4"
+          className="mb-12 flex flex-wrap items-center justify-center gap-3"
           style={{
-            animation: isVisible ? "fadeInUp 0.8s ease-out 0.5s both" : "none",
+            animation: isVisible
+              ? "fadeInUp 0.8s ease-out 0.2s forwards"
+              : "none",
+            opacity: isVisible ? 1 : 0,
           }}
         >
-          {products.map((product, index) => (
+          {categories.map((category) => (
             <button
-              key={product.id}
-              onClick={() => goToIndex(index)}
-              className="group relative flex-shrink-0 transition-all duration-500"
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className="category-tab group relative flex items-center gap-2 rounded-full px-6 py-3 font-bold"
               style={{
+                background:
+                  activeCategory === category.id
+                    ? "linear-gradient(135deg, #C8963E 0%, #e8b85e 100%)"
+                    : "#ffffff",
+                color: activeCategory === category.id ? "#ffffff" : "#1B2A4A",
+                boxShadow:
+                  activeCategory === category.id
+                    ? "0 10px 30px rgba(200,150,62,0.35)"
+                    : "0 4px 15px rgba(27,42,74,0.08)",
+                border:
+                  activeCategory === category.id
+                    ? "none"
+                    : "1px solid rgba(27,42,74,0.1)",
                 transform:
-                  index === activeIndex
-                    ? "scale(1.1)"
-                    : hoveredCard === index
-                      ? "scale(1.05)"
-                      : "scale(1)",
+                  activeCategory === category.id ? "scale(1.05)" : "scale(1)",
               }}
             >
-              <div
-                className="relative h-20 w-20 overflow-hidden rounded-2xl md:h-24 md:w-24"
+              <span
+                className="transition-colors duration-300"
                 style={{
-                  border:
-                    index === activeIndex
-                      ? "3px solid #C8963E"
-                      : "2px solid rgba(27,42,74,0.1)",
-                  boxShadow:
-                    index === activeIndex
-                      ? "0 8px 30px rgba(200,150,62,0.3)"
-                      : "0 4px 15px rgba(27,42,74,0.08)",
+                  color: activeCategory === category.id ? "#ffffff" : "#C8963E",
                 }}
               >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+                <CategoryIcon type={category.icon} />
+              </span>
+              <span>{category.name}</span>
 
-                {/* Overlay */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-300"
+              {/* Active indicator dot */}
+              {activeCategory === category.id && (
+                <span
+                  className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white"
                   style={{
-                    background:
-                      index === activeIndex
-                        ? "transparent"
-                        : "rgba(27,42,74,0.3)",
-                    opacity: hoveredCard === index ? 0 : 1,
-                  }}
-                />
-              </div>
-
-              {/* Active indicator */}
-              {index === activeIndex && (
-                <div
-                  className="absolute -bottom-2 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full"
-                  style={{
-                    background: "linear-gradient(90deg, #C8963E, #e8b85e)",
+                    boxShadow: "0 2px 8px rgba(255,255,255,0.5)",
                   }}
                 />
               )}
@@ -797,21 +697,206 @@ export default function ProductsSection() {
           ))}
         </div>
 
-        {/* Progress Dots */}
-        <div className="flex items-center justify-center gap-3">
-          {products.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToIndex(index)}
-              className={`dot-indicator h-2.5 rounded-full ${index === activeIndex ? "active" : ""}`}
+        {/* Products Grid */}
+        <div
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          style={{
+            animation: isVisible
+              ? "fadeInUp 0.8s ease-out 0.4s forwards"
+              : "none",
+            opacity: isVisible ? 1 : 0,
+          }}
+        >
+          {filteredProducts.map((product, index) => (
+            <div
+              key={product.id}
+              className="product-card group relative overflow-hidden rounded-3xl"
               style={{
-                width: index === activeIndex ? "40px" : "10px",
-                background:
-                  index === activeIndex
-                    ? "linear-gradient(90deg, #C8963E, #e8b85e)"
-                    : "rgba(27,42,74,0.15)",
+                background: "linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%)",
+                border: "1px solid rgba(27,42,74,0.08)",
+                boxShadow:
+                  hoveredProduct === product.id
+                    ? "0 25px 60px rgba(27,42,74,0.15), 0 0 0 1px rgba(200,150,62,0.2)"
+                    : "0 10px 40px rgba(27,42,74,0.08)",
+                animation: `cardAppear 0.6s ease-out ${index * 0.1}s both`,
               }}
-            />
+              onMouseEnter={() => setHoveredProduct(product.id)}
+              onMouseLeave={() => setHoveredProduct(null)}
+            >
+              {/* Image Container */}
+              <div className="relative h-82 max-w-max overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+                {/* Overlay gradient */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, transparent 50%, rgba(27,42,74,0.8) 100%)",
+                    opacity: hoveredProduct === product.id ? 1 : 0.6,
+                  }}
+                />
+
+                {/* Category Badge */}
+                <div
+                  className="absolute right-4 top-4 rounded-full px-4 py-2 transition-all duration-300"
+                  style={{
+                    background: "rgba(200,150,62,0.95)",
+                    backdropFilter: "blur(10px)",
+                    transform:
+                      hoveredProduct === product.id
+                        ? "translateY(0) scale(1)"
+                        : "translateY(-5px) scale(0.95)",
+                    boxShadow: "0 4px 15px rgba(200,150,62,0.4)",
+                  }}
+                >
+                  <span className="text-sm font-bold text-white">
+                    {product.categoryName}
+                  </span>
+                </div>
+
+                {/* Hover Quick Action */}
+                <div
+                  className="absolute bottom-4 left-4 right-4 flex items-center justify-between transition-all duration-500"
+                  style={{
+                    opacity: hoveredProduct === product.id ? 1 : 0,
+                    transform:
+                      hoveredProduct === product.id
+                        ? "translateY(0)"
+                        : "translateY(20px)",
+                  }}
+                >
+                  <span className="text-lg font-bold text-white drop-shadow-lg">
+                    {product.name}
+                  </span>
+                  <button
+                    className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
+                    style={{
+                      background: "rgba(255,255,255,0.2)",
+                      backdropFilter: "blur(10px)",
+                    }}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                {/* Product Name */}
+                <h3
+                  className="mb-3 text-xl font-black transition-colors duration-300"
+                  style={{
+                    color:
+                      hoveredProduct === product.id ? "#C8963E" : "#1B2A4A",
+                  }}
+                >
+                  {product.name}
+                </h3>
+
+                {/* Description */}
+                <p
+                  className="mb-4 text-sm leading-relaxed"
+                  style={{ color: "rgba(27,42,74,0.6)" }}
+                >
+                  {product.description}
+                </p>
+
+                {/* Features */}
+                <div className="mb-5 flex flex-wrap gap-2">
+                  {product.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="feature-tag flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
+                      style={{
+                        background: "rgba(200,150,62,0.08)",
+                        color: "#1B2A4A",
+                      }}
+                    >
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        style={{ color: "#C8963E" }}
+                      >
+                        <path
+                          d="M11.5 3.5L5.5 10L2.5 7"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  className="group/btn relative w-full overflow-hidden rounded-xl px-6 py-3.5 font-bold text-white transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #1B2A4A 0%, #2a3f6a 100%)",
+                    boxShadow: "0 8px 25px rgba(27,42,74,0.25)",
+                  }}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    اطلب الآن
+                    <svg
+                      className="transition-transform duration-300 group-hover/btn:-translate-x-1"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M12 4L6 10L12 16"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+
+                  {/* Hover overlay */}
+                  <div
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #2a3f6a 0%, #3a5080 100%)",
+                    }}
+                  />
+                </button>
+              </div>
+
+              {/* Decorative corner accent */}
+              <div
+                className="absolute -left-4 -top-4 h-16 w-16 rounded-full opacity-0 transition-all duration-500 group-hover:opacity-100"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(200,150,62,0.15) 0%, transparent 70%)",
+                  transform:
+                    hoveredProduct === product.id ? "scale(3)" : "scale(1)",
+                }}
+              />
+            </div>
           ))}
         </div>
 
@@ -819,7 +904,7 @@ export default function ProductsSection() {
         <div
           className="mt-16 text-center"
           style={{
-            animation: isVisible ? "fadeInUp 1s ease-out 0.7s both" : "none",
+            animation: isVisible ? "fadeInUp 1s ease-out 0.6s both" : "none",
           }}
         >
           <a
@@ -831,7 +916,7 @@ export default function ProductsSection() {
             }}
           >
             <span className="relative z-10 text-lg text-white">
-              اطلب الآن !{" "}
+              اطلب الآن !
             </span>
             <div
               className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"

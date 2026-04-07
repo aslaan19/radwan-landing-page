@@ -11,7 +11,7 @@ const navLinks = [
 
 const GOLD = "#C8963E";
 const GOLD_LT = "#f4d03f";
-const NAV_BG = "#7EC8E3";
+const NAV_BG = "#19284A";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -351,7 +351,7 @@ export default function Header() {
           height: "100dvh",
           zIndex: 200,
           background:
-            "linear-gradient(165deg, #142040 0%, #1c3260 45%, #0d1a30 100%)",
+            "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)",
           borderLeft: "1px solid rgba(200,150,62,0.2)",
           boxShadow: "-20px 0 70px rgba(0,0,0,0.6)",
           transform: menuOpen ? "translateX(0)" : "translateX(105%)",

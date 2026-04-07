@@ -146,7 +146,7 @@ export default function ContactSection() {
       className="relative w-full py-24 md:py-32 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
+          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);",
       }}
     >
       {/* Animated Background Elements */}
@@ -272,7 +272,7 @@ export default function ContactSection() {
 
           <h2
             className="text-3xl md:text-5xl font-black mb-4 text-balance"
-            style={{ color: "#fffff0" }}
+            style={{ color: "#19284A" }}
           >
             نحن هنا{" "}
             <span

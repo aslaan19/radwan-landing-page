@@ -406,59 +406,6 @@ export default function Footer() {
         </div>
 
         {/* ── Newsletter bar ── */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 24,
-            padding: "30px 36px",
-            background: "rgba(255,255,255,0.07)",
-            border: "1px solid rgba(255,255,255,0.15)",
-            borderRadius: 22,
-            marginBottom: 40,
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <div style={{ flex: "1 1 200px" }}>
-            <p
-              style={{
-                fontSize: 17,
-                fontWeight: 900,
-                color: "#fff",
-                margin: 0,
-              }}
-            >
-              ابقَ على تواصل معنا
-            </p>
-            <p
-              style={{
-                fontSize: 13,
-                color: "rgba(255,255,255,0.5)",
-                margin: "5px 0 0",
-                fontWeight: 500,
-              }}
-            >
-              أرسل لنا بريدك لتصلك أحدث العروض والتصاميم
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              flex: "1 1 280px",
-              maxWidth: 440,
-            }}
-          >
-            <input
-              type="email"
-              placeholder="بريدك الإلكتروني"
-              className="newsletter-input"
-            />
-            <button className="newsletter-btn">اشترك</button>
-          </div>
-        </div>
 
         {/* ── Bottom bar ── */}
         <div

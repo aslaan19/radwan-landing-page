@@ -8,6 +8,8 @@ export default function HeroSection() {
   const [activeWord, setActiveWord] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
   const words = ["بإتقان", "باحتراف", "بإبداع", "بتميز"];
+  const GOLD = "#C8963E";
+  const GOLD_LT = "#f4d03f";
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -39,7 +41,7 @@ export default function HeroSection() {
       style={{
         direction: "rtl",
         background:
-          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
+          "linear-gradient(135deg, #0B1E3A 0%, #19284A 25%, #1F6F8B 80%);",
       }}
     >
       {/* Animated gradient orbs */}
@@ -210,6 +212,14 @@ export default function HeroSection() {
           0%, 100% { filter: drop-shadow(0 0 10px rgba(200,150,62,0.5)); }
           50% { filter: drop-shadow(0 0 25px rgba(200,150,62,0.8)); }
         }
+          @keyframes moveLine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-15px); }
@@ -218,7 +228,25 @@ export default function HeroSection() {
           from { stroke-dashoffset: 1000; }
           to { stroke-dashoffset: 0; }
         }
-        
+        .section-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #4A7DFF,
+    #7FB3FF,
+    #4A7DFF,
+    transparent
+  );
+
+  background-size: 200% 100%;
+  animation: moveLine 3s linear infinite;
+}
         .shimmer-text {
           background: linear-gradient(90deg, #C8963E 0%, #f4d03f 25%, #C8963E 50%, #f4d03f 75%, #C8963E 100%);
           background-size: 200% auto;
@@ -480,11 +508,12 @@ export default function HeroSection() {
 
             {/* Description */}
             <p
-              className="text-base md:text-lg  leading-relaxed max-w-lg"
+              className="text-base text-white md:text-lg  leading-relaxed max-w-lg"
               style={{
                 animation: isLoaded
                   ? "slideUp 0.8s ease-out 0.6s both"
                   : "none",
+                fontFamily: "'Cairo', sans-serif",
               }}
             >
               من المدارس إلى الشركات الصناعية والتجارية والمنشآت الطبية — نقدّم
@@ -541,7 +570,7 @@ export default function HeroSection() {
             >
               {[
                 { num: "+50", label: "شركة خدمناها", icon: "🏢" },
-                { num: "+5", label: "سنوات خبرة", icon: "⏳" },
+                { num: "+10", label: "سنوات خبرة", icon: "⏳" },
                 { num: "4", label: "فروع نشطة", icon: "📍" },
               ].map((stat, i) => (
                 <div
@@ -674,6 +703,7 @@ export default function HeroSection() {
           />
         </div>
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 }

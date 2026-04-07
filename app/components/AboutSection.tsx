@@ -11,7 +11,7 @@ const highlights = [
   {
     icon: "02",
     label: "خبرة عميقة",
-    desc: "أكثر من 5 سنوات من الإبداع والتميز في صناعة الأزياء",
+    desc: "أكثر من 10 سنوات من الإبداع والتميز في صناعة الأزياء",
   },
   {
     icon: "03",
@@ -57,7 +57,8 @@ export default function AboutSection() {
       y: (e.clientY - rect.top) / rect.height,
     });
   };
-
+  const GOLD = "#C8963E";
+  const GOLD_LT = "#f4d03f";
   return (
     <section
       ref={sectionRef}
@@ -66,7 +67,7 @@ export default function AboutSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #F0F8FF 0%, #C8E6FA 50%, #7EC8E3 100%)",
+          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);",
       }}
     >
       {/* Animated Background Grid */}
@@ -182,6 +183,25 @@ export default function AboutSection() {
             border-color: rgba(200, 150, 62, 0.6);
           }
         }
+        .section-divider {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 5px;
+
+          background: linear-gradient(
+            90deg,
+            transparent,
+            #4a7dff,
+            #7fb3ff,
+            #4a7dff,
+            transparent
+          );
+
+          background-size: 200% 100%;
+          animation: moveLine 3s linear infinite;
+        }
         .highlight-card {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -263,7 +283,7 @@ export default function AboutSection() {
                 className="text-4xl font-black text-center text-white"
                 style={{ lineHeight: 1 }}
               >
-                +5
+                +10
               </p>
               <p className="mt-1 text-sm font-semibold text-white/80">
                 سنوات من التميز
@@ -332,15 +352,19 @@ export default function AboutSection() {
             className="mb-6 text-3xl font-black leading-tight md:text-4xl lg:text-5xl"
             style={{ color: "#1A5F7A" }}
           >
+            {" "}
             نصنع
             <span
               className="relative mx-2"
               style={{
                 background: "linear-gradient(90deg, #C8963E, #e8b85e, #C8963E)",
-                backgroundSize: "200% auto",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 animation: "shimmer 3s linear infinite",
+                display: "inline-block",
+                direction: "rtl",
+                unicodeBidi: "isolate",
+                lineHeight: "1.5em",
               }}
             >
               الأناقة
@@ -467,7 +491,15 @@ export default function AboutSection() {
             />
           </a>
         </div>
+        <div
+          style={{
+            height: 3,
+            background: `linear-gradient(90deg, transparent, ${GOLD} 20%, ${GOLD_LT} 50%, ${GOLD} 80%, transparent)`,
+            backgroundSize: "200% auto",
+          }}
+        />
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 }
