@@ -375,7 +375,7 @@ export default function AboutSection() {
           {/* Description */}
           <p
             className="mb-10 max-w-lg text-lg leading-relaxed"
-            style={{ color: "#1A5F7A" }}
+            style={{ color: "#1A5F7A", fontFamily: "Cairo" }}
           >
             شركتنا هي وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
             والجودة. نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية،

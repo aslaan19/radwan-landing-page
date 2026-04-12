@@ -300,7 +300,7 @@ export default function ContactSection() {
 
           <p
             className="text-lg max-w-2xl mx-auto text-pretty"
-            style={{ color: "rgba(20,20,20,0.9)" }}
+            style={{ color: "rgba(20,20,20,0.9)", fontFamily: "Cairo" }}
           >
             شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في
             تقديم أفضل الحلول

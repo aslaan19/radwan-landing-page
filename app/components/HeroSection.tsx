@@ -410,6 +410,7 @@ export default function HeroSection() {
                   gap: 14,
                   flexWrap: "wrap",
                   marginBottom: 14,
+                  fontFamily: "Cairo",
                 }}
               >
                 {/* نصنع — letter by letter bounce */}
@@ -418,7 +419,11 @@ export default function HeroSection() {
                 <span
                   className="zayak-word"
                   data-text="نصنع زيّك الموحّد"
-                  style={{ fontSize: "clamp(30px,5vw,56px)", fontWeight: 900 }}
+                  style={{
+                    fontSize: "clamp(30px,5vw,56px)",
+                    fontWeight: 900,
+                    fontFamily: "Cairo",
+                  }}
                 >
                   نصنع زيّك الموحّد
                 </span>
@@ -462,7 +467,10 @@ export default function HeroSection() {
                   </span>
                 </span>
 
-                <span className="laa-word" style={{ color: "#ffffff" }}>
+                <span
+                  className="laa-word"
+                  style={{ color: "#ffffff", fontFamily: "Cairo" }}
+                >
                   لا مثيل له!!
                 </span>
               </div>

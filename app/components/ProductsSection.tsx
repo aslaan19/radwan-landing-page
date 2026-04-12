@@ -659,7 +659,7 @@ export default function ProductsSection() {
 
           <h2
             className="mb-6 text-4xl text-cyan-900 font-bold tight md:text-5xl lg:text-6xl"
-            style={{ color: "#1B2A4A", fontFamily: "Tajawal" }}
+            style={{ color: "#1B2A4A" }}
           >
             منتجاتنا
             <span
@@ -679,7 +679,7 @@ export default function ProductsSection() {
 
           <p
             className="mx-auto max-w-xl text-lg font-bold leading-relaxed md:text-xl"
-            style={{ color: "rgba(27,42,74,0.6)" }}
+            style={{ color: "rgba(27,42,74,0.6)", fontFamily: "Cairo" }}
           >
             نفخر بتقديم أرقى أنواع الأزياء الموحدة المصنعة بأيدٍ ماهرة وخامات
             فاخرة
