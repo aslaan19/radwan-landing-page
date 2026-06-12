@@ -143,10 +143,10 @@ export default function ContactSection() {
       ref={sectionRef}
       id="contact"
       onMouseMove={handleMouseMove}
-      className="relative w-full py-24 md:py-32 overflow-hidden"
+      className="relative w-full py-16 sm:py-24 md:py-32 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);",
+          "linear-gradient(135deg, #0B1E3A 0%, #19284A 50%, #1F4E8B 100%)",
       }}
     >
       {/* Animated Background Elements */}
@@ -272,7 +272,7 @@ export default function ContactSection() {
 
           <h2
             className="text-3xl md:text-5xl font-black mb-4 text-balance"
-            style={{ color: "#19284A" }}
+            style={{ color: "#ffffff" }}
           >
             نحن هنا{" "}
             <span
@@ -299,8 +299,8 @@ export default function ContactSection() {
           </h2>
 
           <p
-            className="text-lg max-w-2xl mx-auto text-pretty"
-            style={{ color: "rgba(20,20,20,0.9)", fontFamily: "Cairo" }}
+            className="text-base sm:text-lg max-w-2xl mx-auto text-pretty"
+            style={{ color: "rgba(255,255,255,0.75)", fontFamily: "Cairo" }}
           >
             شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في
             تقديم أفضل الحلول
@@ -331,7 +331,7 @@ export default function ContactSection() {
                 }
                 onMouseEnter={() => setActiveMethod(method.id)}
                 onMouseLeave={() => setActiveMethod(null)}
-                className="group relative max block p-5 rounded-2xl transition-all duration-500"
+                className="group relative block p-4 sm:p-5 rounded-2xl transition-all duration-500"
                 style={{
                   background:
                     activeMethod === method.id
@@ -353,10 +353,10 @@ export default function ContactSection() {
                   />
                 )}
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   {/* Icon Container */}
                   <div
-                    className="relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-500"
+                    className="relative flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 flex-shrink-0 rounded-xl transition-all duration-500"
                     style={{
                       background:
                         activeMethod === method.id
@@ -380,18 +380,18 @@ export default function ContactSection() {
                   </div>
 
                   {/* Text Content */}
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p
-                      className="text-sm font-medium mb-1"
-                      style={{ color: "rgba(15,10,12,1)" }}
+                      className="text-xs sm:text-sm font-medium mb-1"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
                     >
                       {method.label}
                     </p>
                     <p
-                      className="text-lg font-bold transition-colors duration-300"
+                      className="text-sm sm:text-base md:text-lg font-bold transition-colors duration-300 break-all"
                       style={{
                         color:
-                          activeMethod === method.id ? "#C8963E" : "#ffffff",
+                          activeMethod === method.id ? "#f4d03f" : "#ffffff",
                         direction: method.id === "email" ? "ltr" : "rtl",
                       }}
                     >
@@ -475,7 +475,7 @@ export default function ContactSection() {
             }`}
           >
             <div
-              className="relative p-8 rounded-3xl overflow-hidden"
+              className="relative p-5 sm:p-8 rounded-3xl overflow-hidden"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(27,42,74,0.5), rgba(15,24,41,0.8))",

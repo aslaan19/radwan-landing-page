@@ -119,7 +119,15 @@ export default function Footer() {
         }
 
         @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 36px !important;
+            margin-bottom: 32px !important;
+            padding-bottom: 28px !important;
+          }
+          .footer-main { padding: 48px 18px 0 !important; }
+          .footer-brand-name { font-size: 20px !important; }
+          .footer-contact-val { font-size: 13px !important; }
         }
       `}</style>
 
@@ -173,6 +181,7 @@ export default function Footer() {
 
       {/* ══════════════ MAIN CONTENT ══════════════ */}
       <div
+        className="footer-main"
         style={{
           maxWidth: 1280,
           margin: "0 auto",

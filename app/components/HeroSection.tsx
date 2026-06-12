@@ -41,7 +41,7 @@ export default function HeroSection() {
       style={{
         direction: "rtl",
         background:
-          "linear-gradient(135deg, #0B1E3A 0%, #19284A 25%, #1F6F8B 80%);",
+          "linear-gradient(135deg, #0B1E3A 0%, #19284A 45%, #1F4E8B 100%)",
       }}
     >
       {/* Animated gradient orbs */}
@@ -294,8 +294,8 @@ export default function HeroSection() {
       `}</style>
 
       {/* Main content */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-20 sm:py-24 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
           {/* Right side - Content */}
           <div
             className="flex flex-col gap-6"
@@ -315,13 +315,12 @@ export default function HeroSection() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-[#C8963E] rounded-full blur-md opacity-50" />
-                <div className="relative flex items-center gap-2 bg-gradient-to-r from-[#C8963E]/20 to-[#C8963E]/5 border border-[#C8963E]/40 text-[#C8963E] font-bold text-sm px-5 py-2.5 rounded-full backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8963E] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8963E]" />
+                <div className="relative flex items-center gap-2 bg-gradient-to-r from-[#C8963E]/25 to-[#C8963E]/10 border border-[#C8963E]/40 text-[#C8963E] font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2 flex-shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f4d03f] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f4d03f]" />
                   </span>
-                  <span className="text-xl text-[#1b1c13]">
-                    {" "}
+                  <span className="text-xs sm:text-sm md:text-base text-[#f4d03f] font-bold">
                     شركة خياط نسيج النهضة للخياطة
                   </span>
                 </div>
@@ -590,7 +589,7 @@ export default function HeroSection() {
                     <span className="text-2xl font-black text-[#C8963E]">
                       {stat.num}
                     </span>
-                    <span className=" text-black text-wrap  ">
+                    <span className="text-xs md:text-sm text-white/80 font-semibold whitespace-nowrap">
                       {stat.label}
                     </span>
                   </div>
@@ -608,7 +607,7 @@ export default function HeroSection() {
           >
             {/* Rotating glow ring */}
             <div
-              className="absolute w-[380px] h-[380px] md:w-[450px] md:h-[450px] rounded-full"
+              className="absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[450px] md:h-[450px] rounded-full"
               style={{
                 background:
                   "conic-gradient(from 0deg, transparent, rgba(200,150,62,0.3), transparent, rgba(200,150,62,0.3), transparent)",
@@ -622,7 +621,7 @@ export default function HeroSection() {
               <div className="absolute -inset-4 bg-gradient-to-r from-[#C8963E]/30 to-[#C8963E]/10 rounded-3xl blur-2xl" />
 
               {/* Image frame */}
-              <div className="glow-border relative w-[300px] h-[400px] md:w-[350px] md:h-[470px] rounded-3xl overflow-hidden border-2 border-[#C8963E]/40 bg-gradient-to-br from-[#1B2A4A] to-[#0f172a]">
+              <div className="glow-border relative w-[240px] h-[320px] sm:w-[300px] sm:h-[400px] md:w-[350px] md:h-[470px] rounded-3xl overflow-hidden border-2 border-[#C8963E]/40 bg-gradient-to-br from-[#1B2A4A] to-[#0f172a]">
                 {/* Corner decorations */}
                 <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#C8963E]/60 rounded-tr-lg" />
                 <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#C8963E]/60 rounded-tl-lg" />
@@ -653,13 +652,13 @@ export default function HeroSection() {
 
             {/* Floating badges */}
             <div
-              className="absolute -bottom-2 -left-4 md:left-0 z-20"
+              className="absolute -bottom-2 left-0 md:left-0 z-20"
               style={{ animation: "float 3s ease-in-out infinite" }}
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-[#C8963E] rounded-2xl blur-lg opacity-50" />
-                <div className="relative bg-gradient-to-r from-[#C8963E] to-[#daa84e] text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2">
-                  <span className="relative flex h-2 w-2">
+                <div className="relative bg-gradient-to-r from-[#C8963E] to-[#daa84e] text-white font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-xl flex items-center gap-2 whitespace-nowrap">
+                  <span className="relative flex h-2 w-2 flex-shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
                   </span>
@@ -669,20 +668,20 @@ export default function HeroSection() {
             </div>
 
             <div
-              className="absolute -top-2 -left-4 md:left-4 z-20"
+              className="absolute -top-2 left-0 md:left-4 z-20"
               style={{ animation: "float 3s ease-in-out infinite 0.5s" }}
             >
-              <div className="bg-[#1B2A4A]/90 backdrop-blur-sm border border-[#C8963E]/30 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-lg">
+              <div className="bg-[#1B2A4A]/90 backdrop-blur-sm border border-[#C8963E]/30 text-white font-semibold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl shadow-lg">
                 <div className="flex items-center gap-1 text-[#f4d03f]">
                   {"★".repeat(5)}
                 </div>
-                <span className="text-white/70 text-xs">تقييم عملائنا</span>
+                <span className="text-white/70 text-[10px] sm:text-xs">تقييم عملائنا</span>
               </div>
             </div>
 
             {/* Secondary floating image */}
             <div
-              className="absolute -bottom-8 -right-4 md:-right-8 w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#C8963E]/30 shadow-2xl z-10"
+              className="absolute -bottom-6 -right-2 sm:-bottom-8 sm:-right-4 md:-right-8 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#C8963E]/30 shadow-2xl z-10"
               style={{
                 animation: "float 4s ease-in-out infinite 1s",
               }}

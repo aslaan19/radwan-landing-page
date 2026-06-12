@@ -435,10 +435,10 @@ export default function ProductsSection() {
     <section
       ref={sectionRef}
       id="products"
-      className="relative w-full overflow-hidden py-24 md:py-32"
+      className="relative w-full overflow-hidden py-16 sm:py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);  ",
+          "linear-gradient(135deg, #F5FAFF 0%, #D6E7FF 50%, #A8C9F5 100%)",
         direction: "rtl",
       }}
       onMouseMove={handleMouseMove}
@@ -614,7 +614,7 @@ export default function ProductsSection() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         {/* Header */}
         <div
           className="mb-16 text-center"
@@ -700,7 +700,7 @@ export default function ProductsSection() {
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className="category-tab group relative flex items-center gap-2 rounded-full px-6 py-3 font-bold"
+              className="category-tab group relative flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-bold"
               style={{
                 background:
                   activeCategory === category.id
@@ -744,7 +744,7 @@ export default function ProductsSection() {
 
         {/* Products Grid */}
         <div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{
             animation: isVisible
               ? "fadeInUp 0.8s ease-out 0.4s forwards"
@@ -769,7 +769,7 @@ export default function ProductsSection() {
               onMouseLeave={() => setHoveredProduct(null)}
             >
               {/* Image Container */}
-              <div className="relative h-82 w-full overflow-hidden">
+              <div className="relative h-72 sm:h-80 w-full overflow-hidden">
                 <Image
                   src={product.image}
                   alt={product.name}

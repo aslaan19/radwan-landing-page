@@ -64,10 +64,10 @@ export default function AboutSection() {
       ref={sectionRef}
       id="about"
       onMouseMove={handleMouseMove}
-      className="relative w-full overflow-hidden py-24 md:py-32"
+      className="relative w-full overflow-hidden py-16 sm:py-24 md:py-32"
       style={{
         background:
-          "linear-gradient(135deg, #EAF4FF 0%, #BFD9FF 40%, #7FB3FF 100%);",
+          "linear-gradient(135deg, #F5FAFF 0%, #D6E7FF 50%, #A8C9F5 100%)",
       }}
     >
       {/* Animated Background Grid */}
@@ -272,7 +272,7 @@ export default function AboutSection() {
 
             {/* Floating Stats Badge */}
             <div
-              className="absolute -bottom-6 -right-6 rounded-2xl px-6 py-4"
+              className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-6 rounded-2xl px-4 py-3 sm:px-6 sm:py-4"
               style={{
                 background: "linear-gradient(135deg, #C8963E 0%, #9a7430 100%)",
                 boxShadow: "0 20px 40px -10px rgba(200,150,62,0.5)",
@@ -292,7 +292,7 @@ export default function AboutSection() {
 
             {/* Corner Accent */}
             <div
-              className="absolute -right-2 -top-2 flex h-16 w-16 items-center justify-center rounded-full"
+              className="absolute -right-1 -top-1 sm:-right-2 sm:-top-2 flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full"
               style={{
                 background: "linear-gradient(135deg, #1B2A4A 0%, #2a3f6a 100%)",
                 border: "3px solid rgba(200,150,62,0.5)",
@@ -414,16 +414,16 @@ export default function AboutSection() {
                   {item.icon}
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p
-                    className="mb-1 text-lg font-bold"
-                    style={{ color: "#5C3D1E" }}
+                    className="mb-1 text-base sm:text-lg font-bold"
+                    style={{ color: "#19284A" }}
                   >
                     {item.label}
                   </p>
                   <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: "#000012" }}
+                    className="text-xs sm:text-sm leading-relaxed"
+                    style={{ color: "rgba(25,40,74,0.75)" }}
                   >
                     {item.desc}
                   </p>
