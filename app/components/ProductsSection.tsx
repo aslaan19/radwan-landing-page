@@ -1,283 +1,320 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
 
-const categories = [
-  { id: "all", name: "الكل", icon: "grid" },
-  { id: "schools", name: "مدارس", icon: "school" },
-  { id: "coffee", name: "مطاعم ومقاهي ", icon: "food" },
-  { id: "factory", name: "شركات ومصانع", icon: "factory" },
-  { id: "shops", name: "محلات تجارية ", icon: "mall" },
+const categoryIconMap: Record<string, string> = {
+  all: "grid",
+  schools: "school",
+  coffee: "food",
+  factory: "factory",
+  shops: "mall",
+};
+
+interface ProductFeature {
+  ar: string;
+  en: string;
+}
+
+interface ProductData {
+  id: number;
+  name: { ar: string; en: string };
+  category: string;
+  image: string;
+  description: { ar: string; en: string };
+  features: ProductFeature[];
+}
+
+const SCHOOL_DESC_GIRLS = {
+  ar: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
+  en: "Elegant design for female students combining comfort and style",
+};
+const FACTORY_DESC = {
+  ar: "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
+  en: "Professional workwear solutions designed to meet companies and factories needs with top quality and durability",
+};
+const FACTORY_FEATS_A: ProductFeature[] = [
+  { ar: "خامات عالية التحمل", en: "High-durability fabrics" },
+  { ar: "جودة صناعية معتمدة", en: "Certified industrial quality" },
+  { ar: "تصميم يعكس الهوية المؤسسية", en: "Design reflecting corporate identity" },
+];
+const FACTORY_FEATS_B: ProductFeature[] = [
+  { ar: "خامات عالية الجودة", en: "Premium-grade fabrics" },
+  { ar: "جودة صناعية معتمدة", en: "Certified industrial quality" },
+  { ar: "تصميم يعكس الهوية", en: "Design reflecting identity" },
+];
+const SHOP_DESC = {
+  ar: "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
+  en: "Elegant modern uniform designed to fit retail environments, enhance customer experience and showcase your brand identity",
+};
+const SHOP_FEATS: ProductFeature[] = [
+  { ar: "تصميم جذاب يلفت الانتباه", en: "Eye-catching attractive design" },
+  { ar: "راحة طوال ساعات العمل", en: "Comfort throughout work hours" },
+  { ar: "يعكس هوية المحل بشكل مميز", en: "Distinctly reflects store identity" },
 ];
 
-const products = [
-  // Schools - مدارس
+const products: ProductData[] = [
   {
     id: 1,
-    name: "زي مدرسي فاخر",
+    name: { ar: "زي مدرسي فاخر", en: "Premium School Uniform" },
     category: "schools",
-    categoryName: "مدارس",
     image: "/images/products/schools/sample.png",
-    description: "تصميم عصري يجمع بين الأناقة والراحة للطلاب مع أجود الخامات",
-    features: ["قماش مقاوم للتجاعيد", "ألوان ثابتة", "راحة "],
+    description: {
+      ar: "تصميم عصري يجمع بين الأناقة والراحة للطلاب مع أجود الخامات",
+      en: "A modern design combining elegance and comfort for students with the finest fabrics",
+    },
+    features: [
+      { ar: "قماش مقاوم للتجاعيد", en: "Wrinkle-resistant fabric" },
+      { ar: "ألوان ثابتة", en: "Color-fast dyes" },
+      { ar: "راحة", en: "All-day comfort" },
+    ],
   },
   {
     id: 2,
-    name: "ماريول بناتي أنيق",
+    name: { ar: "ماريول بناتي أنيق", en: "Elegant Girls' School Pinafore" },
     category: "schools",
-    categoryName: "مدارس",
     image: "/images/products/schools/sample2.png",
-    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
-    features: ["مضاد للبكتيريا", "سهل الغسيل", "تصميم عصري"],
+    description: SCHOOL_DESC_GIRLS,
+    features: [
+      { ar: "مضاد للبكتيريا", en: "Anti-bacterial finish" },
+      { ar: "سهل الغسيل", en: "Easy to wash" },
+      { ar: "تصميم عصري", en: "Modern design" },
+    ],
   },
   {
     id: 3,
-    name: "ماريول بناتي أنيق",
+    name: { ar: "ماريول بناتي أنيق", en: "Elegant Girls' School Pinafore" },
     category: "schools",
-    categoryName: "مدارس",
     image: "/images/products/schools/sample3.png",
-    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
-    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
+    description: SCHOOL_DESC_GIRLS,
+    features: [
+      { ar: "قماش مرن", en: "Stretch fabric" },
+      { ar: "تهوية ممتازة", en: "Excellent breathability" },
+      { ar: "متانة عالية", en: "High durability" },
+    ],
   },
   {
     id: 4,
-    name: "ماريول بناتي أنيق",
+    name: { ar: "ماريول بناتي أنيق", en: "Elegant Girls' School Pinafore" },
     category: "schools",
-    categoryName: "مدارس",
     image: "/images/products/schools/sample4.png",
-    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
-    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
+    description: SCHOOL_DESC_GIRLS,
+    features: [
+      { ar: "قماش مرن", en: "Stretch fabric" },
+      { ar: "تهوية ممتازة", en: "Excellent breathability" },
+      { ar: "متانة عالية", en: "High durability" },
+    ],
   },
-  // Commercial - شركات تجارية
   {
     id: 5,
-    name: "ماريول بناتي أنيق",
+    name: { ar: "ماريول بناتي أنيق", en: "Elegant Girls' School Pinafore" },
     category: "schools",
-    categoryName: "مدارس",
     image: "/images/products/schools/sample5.png",
-    description: "تصميم أنيق للطالبات يوفر الراحة والأناقة معاً",
-    features: ["قماش مرن", "تهوية ممتازة", "متانة عالية"],
+    description: SCHOOL_DESC_GIRLS,
+    features: [
+      { ar: "قماش مرن", en: "Stretch fabric" },
+      { ar: "تهوية ممتازة", en: "Excellent breathability" },
+      { ar: "متانة عالية", en: "High durability" },
+    ],
   },
   {
     id: 6,
-    name: "يونيفورم قشطية",
+    name: { ar: "يونيفورم قشطية", en: "Qishtiya Café Uniform" },
     category: "coffee",
-    categoryName: "مطاعم ومقاهي",
     image: "/images/products/coffee/coffee1.jpeg",
-    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
-    features: ["قماش مرن", "جودة مضمونة", "متانة عالية"],
+    description: {
+      ar: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+      en: "Modern design matching your brand identity with premium fabrics",
+    },
+    features: [
+      { ar: "قماش مرن", en: "Stretch fabric" },
+      { ar: "جودة مضمونة", en: "Guaranteed quality" },
+      { ar: "متانة عالية", en: "High durability" },
+    ],
   },
   {
     id: 7,
-    name: "يونيفورم مارتي",
+    name: { ar: "يونيفورم مارتي", en: "Marty Café Uniform" },
     category: "coffee",
-    categoryName: "مطاعم ومقاهي",
     image: "/images/products/coffee/coffee2.jpeg",
-    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
-    features: ["قماش مرن", "جودة مضمونة", "تصميم أنيق"],
+    description: {
+      ar: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+      en: "Modern design matching your brand identity with premium fabrics",
+    },
+    features: [
+      { ar: "قماش مرن", en: "Stretch fabric" },
+      { ar: "جودة مضمونة", en: "Guaranteed quality" },
+      { ar: "تصميم أنيق", en: "Elegant design" },
+    ],
   },
   {
     id: 8,
-    name: "يونيفورم عنوان القهوة",
+    name: { ar: "يونيفورم عنوان القهوة", en: "Onwan Coffee Uniform" },
     category: "coffee",
-    categoryName: "مطاعم ومقاهي",
     image: "/images/products/coffee/coffee3.png",
-    description: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
-    features: ["قماش ممتاز", "جودة مضمونة", "تصميم راقي"],
+    description: {
+      ar: "تصميم عصري ناسب هوية الشركة مع خامات عالية الجودة",
+      en: "Modern design matching your brand identity with premium fabrics",
+    },
+    features: [
+      { ar: "قماش ممتاز", en: "Excellent fabric" },
+      { ar: "جودة مضمونة", en: "Guaranteed quality" },
+      { ar: "تصميم راقي", en: "Refined design" },
+    ],
   },
   {
     id: 9,
-    name: "يونيفورم مصنع",
+    name: { ar: "يونيفورم مصنع", en: "Factory Workwear Uniform" },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory1.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية التحمل",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية المؤسسية",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_A,
   },
   {
     id: 10,
-    name: "يونيفورم الهيئة السعودية للسياحة",
+    name: {
+      ar: "يونيفورم الهيئة السعودية للسياحة",
+      en: "Saudi Tourism Authority Uniform",
+    },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory2.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية التحمل",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية المؤسسية",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_A,
   },
   {
     id: 11,
-    name: "يونيفورم فريق تقني",
+    name: { ar: "يونيفورم فريق تقني", en: "Tech Team Uniform" },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory3.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية التحمل",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية المؤسسية",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_A,
   },
   {
     id: 12,
-    name: "يونيفورم عمال مصانع",
+    name: { ar: "يونيفورم عمال مصانع", en: "Factory Workers Uniform" },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory4.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية التحمل",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية المؤسسية",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_A,
   },
   {
     id: 13,
-    name: "يونيفورم قوات الدفاع الجوي الملكي السعودي",
+    name: {
+      ar: "يونيفورم قوات الدفاع الجوي الملكي السعودي",
+      en: "Royal Saudi Air Defense Forces Uniform",
+    },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory5.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية الجودة",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية ",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_B,
   },
   {
     id: 14,
-    name: "يونيفورم وزارة السياحة",
+    name: { ar: "يونيفورم وزارة السياحة", en: "Ministry of Tourism Uniform" },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory6.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية الجودة",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية ",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_B,
   },
   {
     id: 15,
-    name: "يونيفورم شركة كرام السياحية",
+    name: {
+      ar: "يونيفورم شركة كرام السياحية",
+      en: "Karam Tourism Co. Uniform",
+    },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory7.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: ["خامات عالية الجودة", "جودة صناعية فائقة", "تصميم يعكس الهوية "],
+    description: FACTORY_DESC,
+    features: [
+      { ar: "خامات عالية الجودة", en: "Premium-grade fabrics" },
+      { ar: "جودة صناعية فائقة", en: "Superior industrial quality" },
+      { ar: "تصميم يعكس الهوية", en: "Design reflecting identity" },
+    ],
   },
   {
     id: 17,
-    name: "يونيفورم شركة RS للالكترونيات",
+    name: {
+      ar: "يونيفورم شركة RS للالكترونيات",
+      en: "RS Electronics Co. Uniform",
+    },
     category: "factory",
-    categoryName: "شركات ومصانع",
     image: "/images/products/factory/factory8.jpeg",
-    description:
-      "حلول ملابس عمل احترافية مصممة لتلبية احتياجات الشركات والمصانع بأعلى معايير الجودة والمتانة",
-    features: [
-      "خامات عالية التحمل",
-      "جودة صناعية معتمدة",
-      "تصميم يعكس الهوية المؤسسية",
-    ],
+    description: FACTORY_DESC,
+    features: FACTORY_FEATS_A,
   },
   {
     id: 20,
-    name: "يونيفورم محل",
+    name: { ar: "يونيفورم محل", en: "Retail Store Uniform" },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops1.jpeg",
-    description:
-      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
-    features: [
-      "تصميم جذاب يلفت الانتباه",
-      "راحة طوال ساعات العمل",
-      "يعكس هوية المحل بشكل مميز",
-    ],
+    description: SHOP_DESC,
+    features: SHOP_FEATS,
   },
   {
     id: 21,
-    name: "يونيفورم عالم جمولي",
+    name: { ar: "يونيفورم عالم جمولي", en: "Alam Jamouli Store Uniform" },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops2.jpeg",
-    description:
-      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
-    features: [
-      "تصميم جذاب يلفت الانتباه",
-      "راحة طوال ساعات العمل",
-      "يعكس هوية المحل بشكل مميز",
-    ],
+    description: SHOP_DESC,
+    features: SHOP_FEATS,
   },
   {
     id: 22,
-    name: "يونيفورم دكنة للعطور",
+    name: { ar: "يونيفورم دكنة للعطور", en: "Diknah Perfumes Uniform" },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops3.jpeg",
-    description:
-      "نقدم ملابس عمل أنيقة للمحلات تجمع بين الراحة والمظهر الاحترافي لتعزيز حضور علامتك التجارية أمام العملاء",
+    description: {
+      ar: "نقدم ملابس عمل أنيقة للمحلات تجمع بين الراحة والمظهر الاحترافي لتعزيز حضور علامتك التجارية أمام العملاء",
+      en: "Elegant retail workwear that combines comfort and a professional look to strengthen your brand presence",
+    },
     features: [
-      "مظهر عصري وأنيق",
-      "خامات مريحة للاستخدام اليومي",
-      "تصميم متناسق مع هوية البراند",
+      { ar: "مظهر عصري وأنيق", en: "Modern, elegant look" },
+      { ar: "خامات مريحة للاستخدام اليومي", en: "Comfortable everyday fabrics" },
+      { ar: "تصميم متناسق مع هوية البراند", en: "Design aligned with brand identity" },
     ],
   },
   {
     id: 23,
-    name: "uniform A. Abo abaid",
+    name: { ar: "يونيفورم A. Abo abaid", en: "A. Abo Abaid Uniform" },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops4.jpeg",
-    description:
-      "يونيفورم أنيق وعصري مصمم ليتناسب مع طبيعة المحلات ويعزز تجربة العملاء ويبرز هوية علامتك التجارية",
-    features: [
-      "تصميم جذاب يلفت الانتباه",
-      "راحة طوال ساعات العمل",
-      "يعكس هوية المحل بشكل مميز",
-    ],
+    description: SHOP_DESC,
+    features: SHOP_FEATS,
   },
   {
     id: 24,
-    name: "يونيفورم مخازن",
+    name: { ar: "يونيفورم مخازن", en: "Warehouse Uniform" },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops5.jpeg",
-    description:
-      "يونيفورم عملي وأنيق مصمم ليتحمل طبيعة العمل اليومية داخل المحلات مع الحفاظ على مظهر احترافي مميز",
+    description: {
+      ar: "يونيفورم عملي وأنيق مصمم ليتحمل طبيعة العمل اليومية داخل المحلات مع الحفاظ على مظهر احترافي مميز",
+      en: "Practical, elegant uniform built for daily retail operations while keeping a professional look",
+    },
     features: [
-      "مناسب للاستخدام اليومي",
-      "خامات مريحة وعملية",
-      "مظهر احترافي للعملاء",
+      { ar: "مناسب للاستخدام اليومي", en: "Suitable for daily use" },
+      { ar: "خامات مريحة وعملية", en: "Comfortable practical fabrics" },
+      { ar: "مظهر احترافي للعملاء", en: "Professional look for customers" },
     ],
   },
   {
     id: 28,
-    name: "يونيفورم اّني وداني للحلويات",
+    name: {
+      ar: "يونيفورم اّني وداني للحلويات",
+      en: "Ani & Dani Sweets Uniform",
+    },
     category: "shops",
-    categoryName: "محلات تجارية",
     image: "/images/products/shops/shops6.jpeg",
-    description:
-      "ملابس عمل أنيقة ومريحة للمحلات توفر مظهراً موحداً يعكس الاحترافية ويساعد على تنظيم بيئة العمل",
+    description: {
+      ar: "ملابس عمل أنيقة ومريحة للمحلات توفر مظهراً موحداً يعكس الاحترافية ويساعد على تنظيم بيئة العمل",
+      en: "Elegant, comfortable retail workwear providing a unified, professional look for an organized work environment",
+    },
     features: [
-      "راحة في الحركة طوال اليوم",
-      "مظهر موحد للفريق",
-      "تصميم بسيط وأنيق",
+      { ar: "راحة في الحركة طوال اليوم", en: "All-day freedom of movement" },
+      { ar: "مظهر موحد للفريق", en: "Unified team appearance" },
+      { ar: "تصميم بسيط وأنيق", en: "Simple, elegant design" },
     ],
   },
-  // Medical - مستشفيات ومستلزمات طبية
 ];
 
 const CategoryIcon = ({ type }: { type: string }) => {
@@ -391,9 +428,23 @@ const CategoryIcon = ({ type }: { type: string }) => {
   }
 };
 
-export default function ProductsSection() {
+interface ProductsProps {
+  lang: Lang;
+}
+
+const INITIAL_COUNT = 6;
+const PAGE_SIZE = 6;
+
+export default function ProductsSection({ lang }: ProductsProps) {
+  const tr = t[lang];
+  const dir: "rtl" | "ltr" = lang === "ar" ? "rtl" : "ltr";
+  const categories = tr.products.categories.map((c) => ({
+    ...c,
+    icon: categoryIconMap[c.id] || "grid",
+  }));
   const [activeCategory, setActiveCategory] = useState("all");
-  const [isVisible, setIsVisible] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const [animateEntry, setAnimateEntry] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -403,22 +454,38 @@ export default function ProductsSection() {
       ? products
       : products.filter((p) => p.category === activeCategory);
 
-  // Intersection Observer
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hiddenCount = Math.max(0, filteredProducts.length - visibleCount);
+  const canExpand = hiddenCount > 0;
+  const canCollapse = visibleCount > INITIAL_COUNT;
+
+  const changeCategory = (id: string) => {
+    setActiveCategory(id);
+    setVisibleCount(INITIAL_COUNT);
+  };
+
+  // Intersection Observer with reliable fallback so cards always render on mobile
   useEffect(() => {
+    let fired = false;
+    const trigger = () => {
+      if (!fired) {
+        fired = true;
+        setAnimateEntry(true);
+      }
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) trigger();
       },
-      { threshold: 0.1 },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" },
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    // Safety net: if observer never fires (some mobile browsers), force after 800ms
+    const fallback = window.setTimeout(trigger, 800);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   // Mouse tracking
@@ -435,11 +502,12 @@ export default function ProductsSection() {
     <section
       ref={sectionRef}
       id="products"
+      aria-labelledby="products-heading"
       className="relative w-full overflow-hidden py-16 sm:py-24 md:py-32"
       style={{
         background:
           "linear-gradient(135deg, #F5FAFF 0%, #D6E7FF 50%, #A8C9F5 100%)",
-        direction: "rtl",
+        direction: dir,
       }}
       onMouseMove={handleMouseMove}
     >
@@ -619,8 +687,9 @@ export default function ProductsSection() {
         <div
           className="mb-16 text-center"
           style={{
-            animation: isVisible ? "fadeInUp 0.8s ease-out forwards" : "none",
-            opacity: isVisible ? 1 : 0,
+            animation: animateEntry
+              ? "fadeInUp 0.8s ease-out forwards"
+              : "none",
           }}
         >
           {/* Badge */}
@@ -653,15 +722,16 @@ export default function ProductsSection() {
               className="text-sm font-bold tracking-wider"
               style={{ color: "#1B2A4A" }}
             >
-              تشكيلة حصرية
+              {tr.products.badge}
             </span>
           </div>
 
           <h2
+            id="products-heading"
             className="mb-6 text-4xl text-cyan-900 font-bold tight md:text-5xl lg:text-6xl"
             style={{ color: "#1B2A4A" }}
           >
-            منتجاتنا
+            {tr.products.titlePart1}
             <span
               className="relative mx-3 inline-block"
               style={{
@@ -673,16 +743,18 @@ export default function ProductsSection() {
                 animation: "shimmer 3s linear infinite",
               }}
             >
-              المميزة
+              {tr.products.titleGold}
             </span>
           </h2>
 
           <p
             className="mx-auto max-w-xl text-lg font-bold leading-relaxed md:text-xl"
-            style={{ color: "rgba(27,42,74,0.6)", fontFamily: "Cairo" }}
+            style={{
+              color: "rgba(27,42,74,0.75)",
+              fontFamily: lang === "ar" ? "Cairo" : "Inter, sans-serif",
+            }}
           >
-            نفخر بتقديم أرقى أنواع الأزياء الموحدة المصنعة بأيدٍ ماهرة وخامات
-            فاخرة
+            {tr.products.description}
           </p>
         </div>
 
@@ -690,16 +762,15 @@ export default function ProductsSection() {
         <div
           className="mb-12 flex flex-wrap items-center justify-center gap-3"
           style={{
-            animation: isVisible
+            animation: animateEntry
               ? "fadeInUp 0.8s ease-out 0.2s forwards"
               : "none",
-            opacity: isVisible ? 1 : 0,
           }}
         >
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setActiveCategory(category.id)}
+              onClick={() => changeCategory(category.id)}
               className="category-tab group relative flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-bold"
               style={{
                 background:
@@ -746,15 +817,16 @@ export default function ProductsSection() {
         <div
           className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{
-            animation: isVisible
+            animation: animateEntry
               ? "fadeInUp 0.8s ease-out 0.4s forwards"
               : "none",
-            opacity: isVisible ? 1 : 0,
           }}
         >
-          {filteredProducts.map((product, index) => (
-            <div
+          {visibleProducts.map((product, index) => (
+            <article
               key={product.id}
+              itemScope
+              itemType="https://schema.org/Product"
               className="product-card group relative overflow-hidden rounded-3xl"
               style={{
                 background: "linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%)",
@@ -768,12 +840,23 @@ export default function ProductsSection() {
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
+              <meta
+                itemProp="brand"
+                content={lang === "ar" ? "خياط نسيج النهضة" : "Naseej Al Nahda"}
+              />
+              <meta
+                itemProp="category"
+                content={tr.products.categoryNames[product.category as keyof typeof tr.products.categoryNames] || ""}
+              />
               {/* Image Container */}
               <div className="relative h-72 sm:h-80 w-full overflow-hidden">
                 <Image
                   src={product.image}
-                  alt={product.name}
+                  alt={`${product.name[lang]} - ${tr.products.categoryNames[product.category as keyof typeof tr.products.categoryNames] || ""} - ${tr.products.altSuffix}`}
+                  itemProp="image"
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading={index < 3 ? "eager" : "lazy"}
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -801,7 +884,7 @@ export default function ProductsSection() {
                   }}
                 >
                   <span className="text-sm font-bold text-white">
-                    {product.categoryName}
+                    {tr.products.categoryNames[product.category as keyof typeof tr.products.categoryNames] || ""}
                   </span>
                 </div>
 
@@ -817,7 +900,7 @@ export default function ProductsSection() {
                   }}
                 >
                   <span className="text-lg font-bold text-white drop-shadow-lg">
-                    {product.name}
+                    {product.name[lang]}
                   </span>
                   <button
                     className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
@@ -844,28 +927,30 @@ export default function ProductsSection() {
               <div className="p-6">
                 {/* Product Name */}
                 <h3
+                  itemProp="name"
                   className="mb-3 text-xl font-black transition-colors duration-300"
                   style={{
                     color:
                       hoveredProduct === product.id ? "#C8963E" : "#1B2A4A",
                   }}
                 >
-                  {product.name}
+                  {product.name[lang]}
                 </h3>
 
                 {/* Description */}
                 <p
+                  itemProp="description"
                   className="mb-4 text-sm leading-relaxed"
-                  style={{ color: "rgba(27,42,74,0.6)" }}
+                  style={{ color: "rgba(27,42,74,0.7)" }}
                 >
-                  {product.description}
+                  {product.description[lang]}
                 </p>
 
                 {/* Features */}
                 <div className="mb-5 flex flex-wrap gap-2">
-                  {product.features.map((feature) => (
+                  {product.features.map((feature, fi) => (
                     <span
-                      key={feature}
+                      key={`${product.id}-feat-${fi}`}
                       className="feature-tag flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
                       style={{
                         background: "rgba(200,150,62,0.08)",
@@ -887,7 +972,7 @@ export default function ProductsSection() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      {feature}
+                      {feature[lang]}
                     </span>
                   ))}
                 </div>
@@ -902,13 +987,16 @@ export default function ProductsSection() {
                   }}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    اطلب الآن
+                    {tr.products.orderButton}
                     <svg
                       className="transition-transform duration-300 group-hover/btn:-translate-x-1"
                       width="18"
                       height="18"
                       viewBox="0 0 20 20"
                       fill="none"
+                      style={{
+                        transform: lang === "en" ? "scaleX(-1)" : undefined,
+                      }}
                     >
                       <path
                         d="M12 4L6 10L12 16"
@@ -941,15 +1029,116 @@ export default function ProductsSection() {
                     hoveredProduct === product.id ? "scale(3)" : "scale(1)",
                 }}
               />
-            </div>
+            </article>
           ))}
         </div>
+
+        {/* See More / Show Less controls */}
+        {(canExpand || canCollapse) && (
+          <div className="mt-12 flex flex-col items-center gap-3">
+            {canExpand && (
+              <button
+                type="button"
+                onClick={() =>
+                  setVisibleCount((c) =>
+                    Math.min(c + PAGE_SIZE, filteredProducts.length),
+                  )
+                }
+                aria-label={tr.products.seeMore}
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-7 sm:px-9 py-3.5 sm:py-4 font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #ffffff 0%, #f4f7fc 100%)",
+                  color: "#1B2A4A",
+                  border: "2px solid rgba(200,150,62,0.5)",
+                  boxShadow:
+                    "0 10px 30px rgba(27,42,74,0.12), 0 0 0 4px rgba(200,150,62,0.08)",
+                }}
+              >
+                {/* shine sweep */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "linear-gradient(110deg, transparent 35%, rgba(244,208,63,0.35) 50%, transparent 65%)",
+                    transition: "opacity .3s",
+                  }}
+                />
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="transition-transform duration-300 group-hover:translate-y-0.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14" />
+                    <path d="M5 12l7 7 7-7" />
+                  </svg>
+                  {tr.products.seeMore}
+                </span>
+                <span
+                  className="relative z-10 inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-black"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #C8963E 0%, #f4d03f 100%)",
+                    color: "#0b1424",
+                    boxShadow: "0 4px 12px rgba(200,150,62,0.4)",
+                  }}
+                >
+                  {tr.products.seeMoreCount(hiddenCount)}
+                </span>
+              </button>
+            )}
+
+            {canCollapse && (
+              <button
+                type="button"
+                onClick={() => {
+                  setVisibleCount(INITIAL_COUNT);
+                  sectionRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+                aria-label={tr.products.showLess}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-300 hover:scale-105"
+                style={{
+                  background: "transparent",
+                  color: "#1B2A4A",
+                  border: "1px solid rgba(27,42,74,0.25)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12l7-7 7 7" />
+                </svg>
+                {tr.products.showLess}
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Bottom CTA */}
         <div
           className="mt-16 text-center"
           style={{
-            animation: isVisible ? "fadeInUp 1s ease-out 0.6s both" : "none",
+            animation: animateEntry ? "fadeInUp 1s ease-out 0.6s both" : "none",
           }}
         >
           <a
@@ -961,7 +1150,7 @@ export default function ProductsSection() {
             }}
           >
             <span className="relative z-10 text-lg text-white">
-              اطلب الآن !
+              {tr.products.finalCta}
             </span>
             <div
               className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
@@ -973,6 +1162,7 @@ export default function ProductsSection() {
                 height="20"
                 viewBox="0 0 20 20"
                 fill="none"
+                style={{ transform: lang === "en" ? "scaleX(-1)" : undefined }}
               >
                 <path
                   d="M12 4L6 10L12 16"

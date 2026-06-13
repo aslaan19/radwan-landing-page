@@ -2,14 +2,18 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
 
-const contactMethods = [
+const buildContactMethods = (lang: Lang) => {
+  const m = t[lang].contact.methods;
+  return [
   {
     id: "mobile",
-    label: "الجوال",
+    label: m.mobileLabel,
     value: "0544868983",
     href: "tel:+966544868983",
-    description: "متاح على مدار الساعة",
+    description: m.mobileDesc,
     icon: (
       <svg
         className="w-6 h-6"
@@ -28,10 +32,10 @@ const contactMethods = [
   },
   {
     id: "landline",
-    label: "الهاتف الأرضي",
+    label: m.landlineLabel,
     value: "0112408697",
     href: "tel:+966112408697",
-    description: "أوقات العمل الرسمية",
+    description: m.landlineDesc,
     icon: (
       <svg
         className="w-6 h-6"
@@ -50,10 +54,10 @@ const contactMethods = [
   },
   {
     id: "email",
-    label: "البريد الإلكتروني",
+    label: m.emailLabel,
     value: "Nasejalnahdat@gmail.com",
     href: "mailto:Nasejalnahdat@gmail.com",
-    description: "نرد خلال 24 ساعة",
+    description: m.emailDesc,
     icon: (
       <svg
         className="w-6 h-6"
@@ -72,10 +76,10 @@ const contactMethods = [
   },
   {
     id: "location",
-    label: "العنوان",
-    value: "حي النسيم الغربي - الرياض",
+    label: m.locationLabel,
+    value: m.locationValue,
     href: "https://maps.app.goo.gl/FkTH7ep39PhjsEV6A",
-    description: "مبنى 8986 - شارع عبدالله بن مسعود",
+    description: m.locationDesc,
     icon: (
       <svg
         className="w-6 h-6"
@@ -98,9 +102,16 @@ const contactMethods = [
       </svg>
     ),
   },
-];
+  ];
+};
 
-export default function ContactSection() {
+interface ContactProps {
+  lang: Lang;
+}
+
+export default function ContactSection({ lang }: ContactProps) {
+  const tr = t[lang];
+  const contactMethods = buildContactMethods(lang);
   const [isVisible, setIsVisible] = useState(false);
   const [activeMethod, setActiveMethod] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -143,6 +154,7 @@ export default function ContactSection() {
       ref={sectionRef}
       id="contact"
       onMouseMove={handleMouseMove}
+      aria-labelledby="contact-heading"
       className="relative w-full py-16 sm:py-24 md:py-32 overflow-hidden"
       style={{
         background:
@@ -243,9 +255,10 @@ export default function ContactSection() {
             >
               <Image
                 src="/images/mainLogo.jpeg"
-                alt="شركة خياط نسيج النهضة"
+                alt={tr.brand.name}
                 width={80}
                 height={80}
+                sizes="80px"
                 className="object-contain rounded-xl transition-all duration-500 transform hover:scale-105"
               />
               {/* Glow Effect */}
@@ -267,14 +280,15 @@ export default function ContactSection() {
               border: "1px solid rgba(200,150,62,0.3)",
             }}
           >
-            تواصل معنا
+            {tr.contact.badge}
           </span>
 
           <h2
+            id="contact-heading"
             className="text-3xl md:text-5xl font-black mb-4 text-balance"
             style={{ color: "#ffffff" }}
           >
-            نحن هنا{" "}
+            {tr.contact.titlePart1}{" "}
             <span
               className="relative inline-block"
               style={{
@@ -286,7 +300,7 @@ export default function ContactSection() {
                 animation: "shimmer 3s linear infinite",
               }}
             >
-              لخدمتك
+              {tr.contact.titleGold}
               <span
                 className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
                 style={{
@@ -300,25 +314,27 @@ export default function ContactSection() {
 
           <p
             className="text-base sm:text-lg max-w-2xl mx-auto text-pretty"
-            style={{ color: "rgba(255,255,255,0.75)", fontFamily: "Cairo" }}
+            style={{
+              color: "rgba(255,255,255,0.75)",
+              fontFamily: lang === "ar" ? "Cairo" : "Inter, sans-serif",
+            }}
           >
-            شركة خياط نسيج النهضة للخياطة والزي الموحد - خبرة تمتد لسنوات في
-            تقديم أفضل الحلول
+            {tr.contact.description}
           </p>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Methods */}
-          <div
-            className={`space-y-4 transition-all duration-1000 delay-200 ${
+          <address
+            className={`not-italic space-y-4 transition-all duration-1000 delay-200 ${
               isVisible
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-10"
             }`}
           >
             <h3 className="text-xl font-bold mb-6" style={{ color: "#ffffff" }}>
-              طرق التواصل
+              {tr.contact.methodsHeading}
             </h3>
 
             {contactMethods.map((method, index) => (
@@ -459,12 +475,12 @@ export default function ContactSection() {
                 }}
               />
 
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
               </svg>
-              <span>تواصل معنا عبر واتساب</span>
+              <span>{tr.contact.whatsapp}</span>
             </a>
-          </div>
+          </address>
 
           {/* Contact Form */}
           <div
@@ -502,34 +518,42 @@ export default function ContactSection() {
                 className="relative text-2xl font-bold mb-2"
                 style={{ color: "#ffffff" }}
               >
-                أرسل لنا رسالة
+                {tr.contact.formTitle}
               </h3>
               <p
                 className="relative text-sm mb-8"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+                style={{ color: "rgba(255,255,255,0.6)" }}
               >
-                سنرد عليك في أقرب وقت ممكن
+                {tr.contact.formSubtitle}
               </p>
 
-              <form className="relative space-y-5">
+              <form
+                className="relative space-y-5"
+                aria-label={tr.contact.formAriaLabel}
+              >
                 {/* Name Field */}
                 <div className="relative">
                   <label
+                    htmlFor="contact-name"
                     className="block text-sm font-semibold mb-2"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
+                    style={{ color: "rgba(255,255,255,0.8)" }}
                   >
-                    الاسم الكريم
+                    {tr.contact.nameLabel}
                   </label>
                   <div className="relative">
                     <input
+                      id="contact-name"
+                      name="name"
                       type="text"
+                      autoComplete="name"
+                      required
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
                       onFocus={() => setFocusedInput("name")}
                       onBlur={() => setFocusedInput(null)}
-                      placeholder="أدخل اسمك"
+                      placeholder={tr.contact.namePlaceholder}
                       className="w-full px-5 py-4 rounded-xl text-base outline-none transition-all duration-300"
                       style={{
                         background: "rgba(255,255,255,0.05)",
@@ -553,14 +577,20 @@ export default function ContactSection() {
                 {/* Phone Field */}
                 <div className="relative">
                   <label
+                    htmlFor="contact-phone"
                     className="block text-sm font-semibold mb-2"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
+                    style={{ color: "rgba(255,255,255,0.8)" }}
                   >
-                    رقم الجوال
+                    {tr.contact.phoneLabel}
                   </label>
                   <div className="relative">
                     <input
+                      id="contact-phone"
+                      name="phone"
                       type="tel"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      required
                       value={formData.phone}
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
@@ -586,20 +616,24 @@ export default function ContactSection() {
                 {/* Message Field */}
                 <div className="relative">
                   <label
+                    htmlFor="contact-message"
                     className="block text-sm font-semibold mb-2"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
+                    style={{ color: "rgba(255,255,255,0.8)" }}
                   >
-                    رسالتك
+                    {tr.contact.messageLabel}
                   </label>
                   <div className="relative">
                     <textarea
+                      id="contact-message"
+                      name="message"
+                      required
                       value={formData.message}
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
                       onFocus={() => setFocusedInput("message")}
                       onBlur={() => setFocusedInput(null)}
-                      placeholder="أخبرنا عن احتياجك..."
+                      placeholder={tr.contact.messagePlaceholder}
                       rows={4}
                       className="w-full px-5 py-4 rounded-xl text-base outline-none transition-all duration-300 resize-none"
                       style={{
@@ -635,7 +669,7 @@ export default function ContactSection() {
                     }}
                   />
                   <span className="relative flex items-center justify-center gap-2">
-                    إرسال الرسالة
+                    {tr.contact.submit}
                     <svg
                       className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
                       fill="none"
@@ -687,7 +721,7 @@ export default function ContactSection() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="موقع شركة خياط نسيج النهضة"
+              title={tr.contact.mapTitle}
             />
 
             {/* Location Pin Overlay */}
@@ -721,7 +755,7 @@ export default function ContactSection() {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              <span className="font-bold">افتح في خرائط جوجل</span>
+              <span className="font-bold">{tr.contact.mapButton}</span>
             </a>
           </div>
         </div>

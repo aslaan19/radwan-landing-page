@@ -1,25 +1,33 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
-const navLinks = [
-  { label: "الرئيسية", href: "#home" },
-  { label: "من نحن", href: "#about" },
-  { label: "منتجاتنا", href: "#products" },
-  { label: "تواصل معنا", href: "#contact" },
-];
+import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
+import LanguageToggle from "./LanguageToggle";
 
 const GOLD = "#C8963E";
 const GOLD_LT = "#f4d03f";
 const NAV_BG = "#19284A";
 
-export default function Header() {
+interface Props {
+  lang: Lang;
+}
+
+export default function Header({ lang }: Props) {
+  const tr = t[lang];
+  const dir: "rtl" | "ltr" = lang === "ar" ? "rtl" : "ltr";
+  const navLinks = [
+    { label: tr.nav.home, href: "#home" },
+    { label: tr.nav.about, href: "#about" },
+    { label: tr.nav.products, href: "#products" },
+    { label: tr.nav.contact, href: "#contact" },
+  ];
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("#home");
   const [isMobile, setIsMobile] = useState(false);
 
-  /* detect mobile */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     const update = () => setIsMobile(mq.matches);
@@ -46,6 +54,8 @@ export default function Header() {
     setMenuOpen(false);
   };
 
+  const arrowChar = lang === "ar" ? "←" : "→";
+
   return (
     <>
       <style>{`
@@ -58,7 +68,6 @@ export default function Header() {
           to   { opacity: 1; }
         }
 
-        /* ── desktop nav link ── */
         .dnl {
           position: relative;
           font-size: 15px; font-weight: 700;
@@ -78,19 +87,17 @@ export default function Header() {
         .dnl:hover, .dnl.on { color: ${GOLD}; }
         .dnl:hover::after, .dnl.on::after { width: 100%; }
 
-        /* ── mobile nav link ── */
         .mnl {
           display: flex; align-items: center; justify-content: space-between;
           padding: 17px 0; font-size: 17px; font-weight: 700;
           color: rgba(255,255,255,0.85); text-decoration: none;
           border-bottom: 1px solid rgba(255,255,255,0.07);
-          transition: color .2s, padding-right .25s;
+          transition: color .2s, padding-${dir === "rtl" ? "right" : "left"} .25s;
         }
-        .mnl:hover, .mnl.on { color: ${GOLD}; padding-right: 10px; }
+        .mnl:hover, .mnl.on { color: ${GOLD}; padding-${dir === "rtl" ? "right" : "left"}: 10px; }
         .mnl .arr { color: ${GOLD}; font-size: 14px; opacity: 0; transition: opacity .2s; }
         .mnl:hover .arr, .mnl.on .arr { opacity: 1; }
 
-        /* ── CTA button ── */
         .cta-hdr {
           position: relative; overflow: hidden;
           background: linear-gradient(135deg, ${GOLD}, ${GOLD_LT});
@@ -111,7 +118,6 @@ export default function Header() {
         .cta-hdr:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,150,62,0.5); }
         .cta-hdr:hover::before { left: 100%; }
 
-        /* ── hamburger lines ── */
         .hb-line {
           display: block; width: 26px; height: 2.5px;
           background: #fff; border-radius: 3px;
@@ -120,9 +126,10 @@ export default function Header() {
         }
       `}</style>
 
-      {/* ════════════════════ HEADER BAR ════════════════════ */}
       <header
-        dir="rtl"
+        dir={dir}
+        role="banner"
+        aria-label={tr.brand.name}
         style={{
           position: "fixed",
           top: 0,
@@ -143,7 +150,6 @@ export default function Header() {
           padding: isScrolled ? "8px 0" : "12px 0",
         }}
       >
-        {/* shimmer top line when scrolled */}
         {isScrolled && (
           <div
             style={{
@@ -170,7 +176,6 @@ export default function Header() {
             gap: 16,
           }}
         >
-          {/* ─── LOGO ─── */}
           <a
             href="#home"
             onClick={() => go("#home")}
@@ -201,7 +206,7 @@ export default function Header() {
             >
               <Image
                 src="/images/circlelogo.png"
-                alt="شعار رضوان"
+                alt={`${tr.brand.name} - ${tr.hero.badge}`}
                 width={58}
                 height={58}
                 style={{
@@ -223,7 +228,7 @@ export default function Header() {
                   letterSpacing: isMobile ? "0.2px" : "0.5px",
                 }}
               >
-                خياط نسيج النهضة
+                {tr.brand.name}
                 <span style={{ color: GOLD }}>.</span>
               </span>
               <span
@@ -234,20 +239,23 @@ export default function Header() {
                   letterSpacing: "2px",
                 }}
               >
-                UNIFORMS
+                {tr.brand.tagline}
               </span>
             </div>
           </a>
 
-          {/* ─── DESKTOP NAV (hidden on mobile) ─── */}
           {!isMobile && (
-            <nav style={{ display: "flex", alignItems: "center", gap: 28 }}>
+            <nav
+              aria-label={tr.nav.menuLabel}
+              style={{ display: "flex", alignItems: "center", gap: 28 }}
+            >
               {navLinks.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
                   className={`dnl${active === l.href ? " on" : ""}`}
                   onClick={() => go(l.href)}
+                  aria-current={active === l.href ? "page" : undefined}
                 >
                   {l.label}
                 </a>
@@ -255,7 +263,6 @@ export default function Header() {
             </nav>
           )}
 
-          {/* ─── RIGHT: CTA (desktop) + HAMBURGER (mobile) ─── */}
           <div
             style={{
               display: "flex",
@@ -264,67 +271,70 @@ export default function Header() {
               flexShrink: 0,
             }}
           >
+            {!isMobile && <LanguageToggle lang={lang} />}
+
             {!isMobile && (
               <a
                 href="#contact"
                 className="cta-hdr"
                 onClick={() => go("#contact")}
               >
-                احجز الآن ↗
+                {tr.nav.bookNow} ↗
               </a>
             )}
 
-            {/* HAMBURGER — only on mobile */}
             {isMobile && (
-              <button
-                aria-label="القائمة"
-                onClick={() => setMenuOpen((v) => !v)}
-                style={{
-                  background: menuOpen
-                    ? "rgba(200,150,62,0.12)"
-                    : "rgba(255,255,255,0.06)",
-                  border: `1px solid ${menuOpen ? "rgba(200,150,62,0.4)" : "rgba(255,255,255,0.12)"}`,
-                  borderRadius: 10,
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 5,
-                  padding: "9px 10px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: "all .3s",
-                }}
-              >
-                <span
-                  className="hb-line"
+              <>
+                <LanguageToggle lang={lang} variant="mobile" />
+                <button
+                  aria-label={tr.nav.menuLabel}
+                  onClick={() => setMenuOpen((v) => !v)}
                   style={{
-                    transform: menuOpen
-                      ? "rotate(45deg) translate(0, 7.5px)"
-                      : "none",
+                    background: menuOpen
+                      ? "rgba(200,150,62,0.12)"
+                      : "rgba(255,255,255,0.06)",
+                    border: `1px solid ${menuOpen ? "rgba(200,150,62,0.4)" : "rgba(255,255,255,0.12)"}`,
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    padding: "9px 10px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "all .3s",
                   }}
-                />
-                <span
-                  className="hb-line"
-                  style={{
-                    opacity: menuOpen ? 0 : 1,
-                    transform: menuOpen ? "scaleX(0)" : "none",
-                  }}
-                />
-                <span
-                  className="hb-line"
-                  style={{
-                    transform: menuOpen
-                      ? "rotate(-45deg) translate(0, -7.5px)"
-                      : "none",
-                  }}
-                />
-              </button>
+                >
+                  <span
+                    className="hb-line"
+                    style={{
+                      transform: menuOpen
+                        ? "rotate(45deg) translate(0, 7.5px)"
+                        : "none",
+                    }}
+                  />
+                  <span
+                    className="hb-line"
+                    style={{
+                      opacity: menuOpen ? 0 : 1,
+                      transform: menuOpen ? "scaleX(0)" : "none",
+                    }}
+                  />
+                  <span
+                    className="hb-line"
+                    style={{
+                      transform: menuOpen
+                        ? "rotate(-45deg) translate(0, -7.5px)"
+                        : "none",
+                    }}
+                  />
+                </button>
+              </>
             )}
           </div>
         </div>
       </header>
 
-      {/* ════════════════════ MOBILE OVERLAY ════════════════════ */}
       {menuOpen && (
         <div
           onClick={() => setMenuOpen(false)}
@@ -340,28 +350,34 @@ export default function Header() {
         />
       )}
 
-      {/* ════════════════════ MOBILE SLIDE PANEL ════════════════════ */}
       <div
-        dir="rtl"
+        dir={dir}
         style={{
           position: "fixed",
           top: 0,
-          right: 0,
+          [dir === "rtl" ? "right" : "left"]: 0,
           width: "min(310px, 88vw)",
           height: "100dvh",
           zIndex: 200,
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)",
-          borderLeft: "1px solid rgba(200,150,62,0.2)",
-          boxShadow: "-20px 0 70px rgba(0,0,0,0.6)",
-          transform: menuOpen ? "translateX(0)" : "translateX(105%)",
+            "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%), #0d1a36",
+          [dir === "rtl" ? "borderLeft" : "borderRight"]:
+            "1px solid rgba(200,150,62,0.2)",
+          boxShadow:
+            dir === "rtl"
+              ? "-20px 0 70px rgba(0,0,0,0.6)"
+              : "20px 0 70px rgba(0,0,0,0.6)",
+          transform: menuOpen
+            ? "translateX(0)"
+            : dir === "rtl"
+              ? "translateX(105%)"
+              : "translateX(-105%)",
           transition: "transform .42s cubic-bezier(.4,0,.2,1)",
           display: "flex",
           flexDirection: "column",
           overflowY: "auto",
         }}
       >
-        {/* Panel top */}
         <div
           style={{
             display: "flex",
@@ -387,7 +403,7 @@ export default function Header() {
             >
               <Image
                 src="/images/circlelogo.png"
-                alt="شعار رضوان"
+                alt={tr.brand.name}
                 width={46}
                 height={46}
                 style={{
@@ -408,7 +424,8 @@ export default function Header() {
                   lineHeight: 1.2,
                 }}
               >
-                خياط نسيج النهضة<span style={{ color: GOLD }}>.</span>
+                {tr.brand.name}
+                <span style={{ color: GOLD }}>.</span>
               </p>
               <p
                 style={{
@@ -419,14 +436,14 @@ export default function Header() {
                   fontWeight: 700,
                 }}
               >
-                UNIFORMS
+                {tr.brand.tagline}
               </p>
             </div>
           </div>
 
           <button
             onClick={() => setMenuOpen(false)}
-            aria-label="إغلاق"
+            aria-label={tr.nav.closeLabel}
             style={{
               width: 36,
               height: 36,
@@ -446,7 +463,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Gold shimmer divider */}
         <div
           style={{
             height: 2,
@@ -457,8 +473,7 @@ export default function Header() {
           }}
         />
 
-        {/* Nav links */}
-        <nav style={{ padding: "4px 20px 0", flex: 1 }}>
+        <nav aria-label={tr.nav.menuLabel} style={{ padding: "4px 20px 0", flex: 1 }}>
           {navLinks.map((l) => (
             <a
               key={l.href}
@@ -467,12 +482,11 @@ export default function Header() {
               onClick={() => go(l.href)}
             >
               <span>{l.label}</span>
-              <span className="arr">←</span>
+              <span className="arr">{arrowChar}</span>
             </a>
           ))}
         </nav>
 
-        {/* Bottom: CTA + contact */}
         <div
           style={{
             padding: "18px 20px 24px",
@@ -491,7 +505,7 @@ export default function Header() {
               padding: "13px",
             }}
           >
-            احجز موعدك الآن ↗
+            {tr.nav.bookAppointment} ↗
           </a>
 
           <div
@@ -505,13 +519,13 @@ export default function Header() {
             {[
               {
                 icon: "📞",
-                label: "الهاتف",
+                label: tr.contact.methods.mobileLabel,
                 val: "0544868983",
                 href: "tel:0544868983",
               },
               {
                 icon: "✉️",
-                label: "البريد",
+                label: tr.contact.methods.emailLabel,
                 val: "Nasejalnahdat@gmail.com",
                 href: "mailto:Nasejalnahdat@gmail.com",
               },

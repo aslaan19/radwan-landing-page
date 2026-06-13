@@ -1,26 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
 
-const highlights = [
-  {
-    icon: "01",
-    label: "جودة استثنائية",
-    desc: "نستخدم أفضل الخامات المستوردة والمحلية المعتمدة عالمياً",
-  },
-  {
-    icon: "02",
-    label: "خبرة عميقة",
-    desc: "أكثر من 10 سنوات من الإبداع والتميز في صناعة الأزياء",
-  },
-  {
-    icon: "03",
-    label: "التزام مطلق",
-    desc: "نضمن تسليم طلباتك في الموعد المحدد دون أي تأخير",
-  },
-];
+interface Props {
+  lang: Lang;
+}
 
-export default function AboutSection() {
+export default function AboutSection({ lang }: Props) {
+  const tr = t[lang];
+  const highlights = tr.about.highlights;
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeHighlight, setActiveHighlight] = useState(0);
@@ -64,6 +54,7 @@ export default function AboutSection() {
       ref={sectionRef}
       id="about"
       onMouseMove={handleMouseMove}
+      aria-labelledby="about-heading"
       className="relative w-full overflow-hidden py-16 sm:py-24 md:py-32"
       style={{
         background:
@@ -253,9 +244,10 @@ export default function AboutSection() {
             >
               <Image
                 src="/images/machine.png"
-                alt="ورشة الخياطة"
+                alt={tr.about.machineAlt}
                 width={600}
                 height={450}
+                sizes="(max-width: 768px) 100vw, 600px"
                 className="h-auto w-full object-cover"
                 style={{ aspectRatio: "4/3" }}
               />
@@ -283,10 +275,10 @@ export default function AboutSection() {
                 className="text-4xl font-black text-center text-white"
                 style={{ lineHeight: 1 }}
               >
-                +10
+                {tr.about.yearsBadge}
               </p>
               <p className="mt-1 text-sm font-semibold text-white/80">
-                سنوات من التميز
+                {tr.about.yearsLabel}
               </p>
             </div>
 
@@ -343,17 +335,17 @@ export default function AboutSection() {
               className="text-sm font-bold tracking-wider"
               style={{ color: "#C8963E" }}
             >
-              من نحن
+              {tr.about.badge}
             </span>
           </div>
 
           {/* Title with Gradient */}
           <h2
+            id="about-heading"
             className="mb-6 text-3xl font-black leading-tight md:text-4xl lg:text-5xl"
-            style={{ color: "#1A5F7A" }}
+            style={{ color: "#19284A" }}
           >
-            {" "}
-            نصنع
+            {tr.about.titlePart1}
             <span
               className="relative mx-2"
               style={{
@@ -362,24 +354,25 @@ export default function AboutSection() {
                 WebkitTextFillColor: "transparent",
                 animation: "shimmer 3s linear infinite",
                 display: "inline-block",
-                direction: "rtl",
+                direction: lang === "ar" ? "rtl" : "ltr",
                 unicodeBidi: "isolate",
                 lineHeight: "1.5em",
               }}
             >
-              الأناقة
+              {tr.about.titleGold}
             </span>
-            بأيدٍ ماهرة
+            {tr.about.titlePart2}
           </h2>
 
           {/* Description */}
           <p
             className="mb-10 max-w-lg text-lg leading-relaxed"
-            style={{ color: "#1A5F7A", fontFamily: "Cairo" }}
+            style={{
+              color: "#19284A",
+              fontFamily: lang === "ar" ? "Cairo" : "Inter, sans-serif",
+            }}
           >
-            شركتنا هي وجهتك الأولى للحصول على زيٍّ موحّد يجمع بين الأناقة
-            والجودة. نقدم خدمات خياطة احترافية للمدارس والشركات والمنشآت الطبية،
-            مع الاهتمام بأدق التفاصيل وضمان رضا العملاء في كل مرحلة.
+            {tr.about.description}
           </p>
 
           {/* Animated Highlights */}
@@ -465,13 +458,14 @@ export default function AboutSection() {
               boxShadow: "0 10px 30px -10px rgba(200,150,62,0.5)",
             }}
           >
-            <span className="relative z-10 text-white">اكتشف المزيد عنّا</span>
+            <span className="relative z-10 text-white">{tr.about.cta}</span>
             <svg
               className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1"
               width="20"
               height="20"
               viewBox="0 0 20 20"
               fill="none"
+              style={{ transform: lang === "en" ? "scaleX(-1)" : undefined }}
             >
               <path
                 d="M12 4L6 10L12 16"

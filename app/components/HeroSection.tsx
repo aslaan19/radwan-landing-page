@@ -1,15 +1,21 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
 
-export default function HeroSection() {
+interface Props {
+  lang: Lang;
+}
+
+export default function HeroSection({ lang }: Props) {
+  const tr = t[lang];
+  const dir: "rtl" | "ltr" = lang === "ar" ? "rtl" : "ltr";
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeWord, setActiveWord] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
-  const words = ["بإتقان", "باحتراف", "بإبداع", "بتميز"];
-  const GOLD = "#C8963E";
-  const GOLD_LT = "#f4d03f";
+  const words = tr.hero.cyclingWords;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -39,7 +45,7 @@ export default function HeroSection() {
       id="home"
       className="relative w-full min-h-screen overflow-hidden flex items-center"
       style={{
-        direction: "rtl",
+        direction: dir,
         background:
           "linear-gradient(135deg, #0B1E3A 0%, #19284A 45%, #1F4E8B 100%)",
       }}
@@ -321,7 +327,7 @@ export default function HeroSection() {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f4d03f]" />
                   </span>
                   <span className="text-xs sm:text-sm md:text-base text-[#f4d03f] font-bold">
-                    شركة خياط نسيج النهضة للخياطة
+                    {tr.hero.badge}
                   </span>
                 </div>
               </div>
@@ -398,7 +404,7 @@ export default function HeroSection() {
     .slot-enter { animation: slotDown 0.45s cubic-bezier(0,0,0.2,1) forwards !important; }
   `}</style>
 
-              {/* Line 1: نصنع زيّك الموحّد */}
+              {/* SEO-optimized hidden H1 (visually conveyed via styled spans below) */}
               <h1
                 style={{
                   fontSize: "clamp(30px,5vw,56px)",
@@ -412,19 +418,33 @@ export default function HeroSection() {
                   fontFamily: "Cairo",
                 }}
               >
-                {/* نصنع — letter by letter bounce */}
-
-                {/* زيّك الموحّد — stroke outline then fill sweeps in */}
+                <span
+                  className="sr-only"
+                  style={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: -1,
+                    overflow: "hidden",
+                    clip: "rect(0,0,0,0)",
+                    whiteSpace: "nowrap",
+                    border: 0,
+                  }}
+                >
+                  {tr.hero.h1Sr}
+                </span>
                 <span
                   className="zayak-word"
-                  data-text="نصنع زيّك الموحّد"
+                  data-text={tr.hero.headlineLine1}
+                  aria-hidden="true"
                   style={{
                     fontSize: "clamp(30px,5vw,56px)",
                     fontWeight: 900,
-                    fontFamily: "Cairo",
+                    fontFamily: lang === "ar" ? "Cairo" : "Inter, sans-serif",
                   }}
                 >
-                  نصنع زيّك الموحّد
+                  {tr.hero.headlineLine1}
                 </span>
               </h1>
 
@@ -468,9 +488,12 @@ export default function HeroSection() {
 
                 <span
                   className="laa-word"
-                  style={{ color: "#ffffff", fontFamily: "Cairo" }}
+                  style={{
+                    color: "#ffffff",
+                    fontFamily: lang === "ar" ? "Cairo" : "Inter, sans-serif",
+                  }}
                 >
-                  لا مثيل له!!
+                  {tr.hero.headlineTail}
                 </span>
               </div>
 
@@ -520,12 +543,11 @@ export default function HeroSection() {
                 animation: isLoaded
                   ? "slideUp 0.8s ease-out 0.6s both"
                   : "none",
-                fontFamily: "'Cairo', sans-serif",
+                fontFamily:
+                  lang === "ar" ? "'Cairo', sans-serif" : "Inter, sans-serif",
               }}
             >
-              من المدارس إلى الشركات الصناعية والتجارية والمنشآت الطبية — نقدّم
-              يونيفورم راقي يعكس هويتك ويُبهر من يراه بجودة استثنائية وتصاميم
-              عصرية.
+              {tr.hero.description}
             </p>
 
             {/* CTA Buttons */}
@@ -542,9 +564,9 @@ export default function HeroSection() {
                 className="btn-primary relative bg-gradient-to-r from-[#C8963E] to-[#daa84e] text-white font-bold text-base px-8 py-4 rounded-full transition-all duration-300 shadow-lg shadow-[#C8963E]/30"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  تواصل معنا الآن
+                  {tr.hero.ctaContact}
                   <svg
-                    className="w-5 h-5 rotate-180"
+                    className={`w-5 h-5 ${lang === "ar" ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -562,7 +584,7 @@ export default function HeroSection() {
                 href="#products"
                 className="btn-secondary bg-transparent text-white font-semibold text-base px-8 py-4 rounded-full border-2 border-white/20 transition-all duration-300 backdrop-blur-sm hover:text-[#C8963E]"
               >
-                استعرض المنتجات
+                {tr.hero.ctaProducts}
               </a>
             </div>
 
@@ -575,13 +597,9 @@ export default function HeroSection() {
                   : "none",
               }}
             >
-              {[
-                { num: "+50", label: "شركة خدمناها", icon: "🏢" },
-                { num: "+10", label: "سنوات خبرة", icon: "⏳" },
-                { num: "4", label: "فروع نشطة", icon: "📍" },
-              ].map((stat, i) => (
+              {tr.hero.stats.map((stat, i) => (
                 <div
-                  key={stat.num}
+                  key={`${stat.num}-${i}`}
                   className="stat-card flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-5 py-3 transition-all duration-300 cursor-default"
                 >
                   <span className="text-2xl">{stat.icon}</span>
@@ -631,8 +649,9 @@ export default function HeroSection() {
                 {/* Main image */}
                 <Image
                   src="/images/hero.png"
-                  alt="Professional uniform tailoring"
+                  alt={tr.hero.h1Sr}
                   fill
+                  sizes="(max-width: 640px) 240px, (max-width: 768px) 300px, 350px"
                   className="object-cover"
                   priority
                 />
@@ -644,7 +663,7 @@ export default function HeroSection() {
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex items-center gap-2 text-white/80 text-sm font-medium">
                     <div className="w-8 h-[2px] bg-[#C8963E]" />
-                    صناعة يدوية متقنة
+                    {tr.hero.craftLabel}
                   </div>
                 </div>
               </div>
@@ -662,7 +681,7 @@ export default function HeroSection() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
                   </span>
-                  جودة مضمونة 100%
+                  {tr.hero.qualityBadge}
                 </div>
               </div>
             </div>
@@ -675,7 +694,7 @@ export default function HeroSection() {
                 <div className="flex items-center gap-1 text-[#f4d03f]">
                   {"★".repeat(5)}
                 </div>
-                <span className="text-white/70 text-[10px] sm:text-xs">تقييم عملائنا</span>
+                <span className="text-white/70 text-[10px] sm:text-xs">{tr.hero.ratingLabel}</span>
               </div>
             </div>
 
@@ -688,8 +707,13 @@ export default function HeroSection() {
             >
               <Image
                 src="/images/idk.png"
-                alt="Premium fabric detail"
+                alt={
+                  lang === "ar"
+                    ? "تفاصيل خامات فاخرة لليونيفورم - خياط نسيج النهضة الرياض"
+                    : "Premium uniform fabric details - Naseej Al Nahda Riyadh"
+                }
                 fill
+                sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 128px"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1B2A4A]/60 to-transparent" />
@@ -701,7 +725,7 @@ export default function HeroSection() {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
         <span className="text-white/15 text-xs tracking-widest uppercase">
-          اكتشف أكثر
+          {tr.hero.scrollHint}
         </span>
         <div className="relative w-6 h-10 border-2 border-white/20 rounded-full flex justify-center">
           <div
