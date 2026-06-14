@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import type { Lang } from "../lib/i18n";
-import { t } from "../lib/i18n";
+import { t, WHATSAPP_NUMBER_DISPLAY, whatsappLink } from "../lib/i18n";
 
 const GOLD = "#C8963E";
 const GOLD_LT = "#f4d03f";
@@ -26,22 +26,25 @@ export default function Footer({ lang }: Props) {
 
   const contacts = [
     {
-      icon: "📞",
+      icon: "💬",
       label: tr.footer.contacts.phone,
-      val: "0544868983",
-      href: "tel:0544868983",
+      val: WHATSAPP_NUMBER_DISPLAY,
+      href: whatsappLink(lang),
+      external: true,
     },
     {
       icon: "✉️",
       label: tr.footer.contacts.email,
       val: "Nasejalnahdat@gmail.com",
       href: "mailto:Nasejalnahdat@gmail.com",
+      external: false,
     },
     {
       icon: "📍",
       label: tr.footer.contacts.location,
       val: tr.footer.contacts.locationVal,
       href: "#contact",
+      external: false,
     },
   ];
   return (
@@ -350,7 +353,13 @@ export default function Footer({ lang }: Props) {
               }}
             >
               {contacts.map((c) => (
-                <a key={c.val} href={c.href} className="contact-row">
+                <a
+                  key={c.val}
+                  href={c.href}
+                  target={c.external ? "_blank" : undefined}
+                  rel={c.external ? "noopener noreferrer" : undefined}
+                  className="contact-row"
+                >
                   <div
                     style={{
                       width: 44,
@@ -397,7 +406,7 @@ export default function Footer({ lang }: Props) {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/966544868983"
+              href={whatsappLink(lang)}
               target="_blank"
               rel="noopener noreferrer"
               style={{

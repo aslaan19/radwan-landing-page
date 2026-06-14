@@ -3,7 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { Lang } from "../lib/i18n";
-import { t } from "../lib/i18n";
+import {
+  t,
+  WHATSAPP_NUMBER_DISPLAY,
+  whatsappLink,
+} from "../lib/i18n";
 
 const buildContactMethods = (lang: Lang) => {
   const m = t[lang].contact.methods;
@@ -11,8 +15,8 @@ const buildContactMethods = (lang: Lang) => {
   {
     id: "mobile",
     label: m.mobileLabel,
-    value: "0544868983",
-    href: "tel:+966544868983",
+    value: WHATSAPP_NUMBER_DISPLAY,
+    href: whatsappLink(lang),
     description: m.mobileDesc,
     icon: (
       <svg
@@ -341,9 +345,15 @@ export default function ContactSection({ lang }: ContactProps) {
               <a
                 key={method.id}
                 href={method.href}
-                target={method.id === "location" ? "_blank" : undefined}
+                target={
+                  method.id === "location" || method.id === "mobile"
+                    ? "_blank"
+                    : undefined
+                }
                 rel={
-                  method.id === "location" ? "noopener noreferrer" : undefined
+                  method.id === "location" || method.id === "mobile"
+                    ? "noopener noreferrer"
+                    : undefined
                 }
                 onMouseEnter={() => setActiveMethod(method.id)}
                 onMouseLeave={() => setActiveMethod(null)}
@@ -455,7 +465,7 @@ export default function ContactSection({ lang }: ContactProps) {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/966544868983"
+              href={whatsappLink(lang)}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center justify-center gap-3 mt-8 p-4 rounded-2xl font-bold text-lg overflow-hidden transition-all duration-500 hover:scale-105"

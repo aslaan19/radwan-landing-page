@@ -140,7 +140,7 @@ const faqJsonLd = {
       name: "How can I contact you to order uniforms?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can reach us via WhatsApp or mobile at +966544868983, landline +966112408697, or email Nasejalnahdat@gmail.com.",
+        text: "You can reach us via WhatsApp or mobile at +966558231071, landline +966112408697, or email Nasejalnahdat@gmail.com.",
       },
     },
   ],

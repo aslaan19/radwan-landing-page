@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import type { Lang } from "../lib/i18n";
-import { t } from "../lib/i18n";
+import { t, WHATSAPP_NUMBER_DISPLAY, whatsappLink } from "../lib/i18n";
 import LanguageToggle from "./LanguageToggle";
 
 const GOLD = "#C8963E";
@@ -518,21 +518,25 @@ export default function Header({ lang }: Props) {
           >
             {[
               {
-                icon: "📞",
+                icon: "💬",
                 label: tr.contact.methods.mobileLabel,
-                val: "0544868983",
-                href: "tel:0544868983",
+                val: WHATSAPP_NUMBER_DISPLAY,
+                href: whatsappLink(lang),
+                external: true,
               },
               {
                 icon: "✉️",
                 label: tr.contact.methods.emailLabel,
                 val: "Nasejalnahdat@gmail.com",
                 href: "mailto:Nasejalnahdat@gmail.com",
+                external: false,
               },
             ].map((c) => (
               <a
                 key={c.val}
                 href={c.href}
+                target={c.external ? "_blank" : undefined}
+                rel={c.external ? "noopener noreferrer" : undefined}
                 style={{
                   display: "flex",
                   alignItems: "center",

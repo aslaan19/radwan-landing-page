@@ -126,7 +126,7 @@ function localBusinessJsonLd(lang: "ar" | "en") {
     priceRange: "$$",
     currenciesAccepted: "SAR",
     paymentAccepted: "Cash, Credit Card, Bank Transfer",
-    telephone: "+966544868983",
+    telephone: "+966558231071",
     email: "Nasejalnahdat@gmail.com",
     address: {
       "@type": "PostalAddress",
@@ -166,13 +166,13 @@ function localBusinessJsonLd(lang: "ar" | "en") {
       },
     ],
     sameAs: [
-      "https://wa.me/966544868983",
+      "https://wa.me/966558231071",
       "https://maps.app.goo.gl/FkTH7ep39PhjsEV6A",
     ],
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+966544868983",
+        telephone: "+966558231071",
         contactType: "customer service",
         areaServed: "SA",
         availableLanguage: ["Arabic", "English"],

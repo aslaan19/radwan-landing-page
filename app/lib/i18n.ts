@@ -18,6 +18,25 @@ export function getLangPath(lang: Lang): string {
   return lang === "ar" ? "/" : "/en";
 }
 
+/* ───────── WhatsApp business number ─────────
+ * Display value: 0558231071
+ * E.164:         +966558231071
+ * wa.me path:    966558231071  (no leading +, no leading 0)
+ */
+export const WHATSAPP_NUMBER_DISPLAY = "0558231071";
+export const WHATSAPP_NUMBER_E164 = "+966558231071";
+export const WHATSAPP_NUMBER_WA = "966558231071";
+
+const WA_GREETING: Record<Lang, string> = {
+  ar: "السلام عليكم، أرغب في الاستفسار عن خدمات تفصيل اليونيفورم لدى خياط نسيج النهضة.",
+  en: "Hello, I would like to inquire about Naseej Al Nahda uniform tailoring services.",
+};
+
+export function whatsappLink(lang: Lang, customText?: string): string {
+  const text = customText ?? WA_GREETING[lang];
+  return `https://wa.me/${WHATSAPP_NUMBER_WA}?text=${encodeURIComponent(text)}`;
+}
+
 export const t = {
   ar: {
     htmlLang: "ar-SA",
