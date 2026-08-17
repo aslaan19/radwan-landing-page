@@ -5,35 +5,55 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ProductsSection from "./components/ProductsSection";
+import AtelierIntro from "./components/AtelierIntro";
+import StatsSection from "./components/StatsSection";
 
-const SITE_URL = "https://nasejalnahdat.com";
+const SITE_URL = "https://naseejalnahdat.com";
 const LANG = "ar" as const;
 
 export const metadata: Metadata = {
-  title:
-    "يونيفورم مدارس وشركات ومطاعم بالرياض | خياط نسيج النهضة لتفصيل الزي الموحد",
+  title: {
+    absolute:
+      "خياط نسيج النهضة | يونيفورم وزي موحد بالرياض - تفصيل احترافي",
+  },
   description:
-    "اطلب يونيفورمك الموحد من خياط نسيج النهضة بالرياض - تفصيل احترافي لمدارس، شركات، مصانع، مطاعم ومحلات تجارية بأجود الخامات. خبرة +10 سنوات وتسليم في الموعد.",
+    "خياط نسيج النهضة بالرياض - تفصيل وخياطة يونيفورم وزي موحد للمدارس والشركات والمصانع والمطاعم والمقاهي والمحلات التجارية. خامات فاخرة، خبرة +10 سنوات، وتسليم في الموعد. اطلب الآن عبر واتساب.",
   keywords: [
     "يونيفورم",
     "يونيفورم الرياض",
     "خياطة يونيفورم",
     "خياط الرياض",
     "تفصيل يونيفورم",
+    "تفصيل يونيفورم الرياض",
     "يونيفورم مدارس",
+    "يونيفورم مدارس الرياض",
     "زي مدرسي",
+    "زي مدرسي موحد",
     "زي موحد",
+    "زي موحد للشركات",
+    "زي موحد الرياض",
     "يونيفورم شركات",
+    "يونيفورم شركات الرياض",
     "يونيفورم مصانع",
     "يونيفورم مطاعم",
     "يونيفورم مقاهي",
+    "يونيفورم كافيه",
     "يونيفورم محلات تجارية",
+    "يونيفورم محلات",
     "ملابس عمل",
+    "ملابس عمل الرياض",
     "بدلات عمل",
     "تصميم يونيفورم",
     "يونيفورم بالجملة",
+    "يونيفورم مخصص",
+    "خياطة بالرياض",
     "خياط نسيج النهضة",
     "نسيج النهضة",
+    "نسيج النهضة الرياض",
+    "افضل خياط يونيفورم بالرياض",
+    "يونيفورم سعودية",
+    "تطريز يونيفورم",
+    "شعار شركة على يونيفورم",
   ],
   alternates: {
     canonical: SITE_URL,
@@ -69,6 +89,72 @@ export const metadata: Metadata = {
     description:
       "تفصيل اليونيفورم والزي الموحد بالرياض. خبرة +10 سنوات. مدارس، شركات، مصانع، مطاعم، محلات تجارية.",
     images: ["/images/hero.png"],
+  },
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "تفصيل وخياطة اليونيفورم والزي الموحد",
+  provider: { "@id": `${SITE_URL}/#organization` },
+  areaServed: {
+    "@type": "Country",
+    name: "المملكة العربية السعودية",
+  },
+  audience: {
+    "@type": "BusinessAudience",
+    audienceType:
+      "مدارس، شركات، مصانع، مطاعم، مقاهي، محلات تجارية، منشآت طبية",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "خدمات خياط نسيج النهضة",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "تفصيل يونيفورم مدارس",
+        itemOffered: {
+          "@type": "Service",
+          name: "يونيفورم مدارس وزي مدرسي موحد",
+          description:
+            "تفصيل زي مدرسي موحد للبنين والبنات بأقمشة فاخرة وتصاميم عصرية لجميع المراحل الدراسية في الرياض.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "تفصيل يونيفورم شركات ومصانع",
+        itemOffered: {
+          "@type": "Service",
+          name: "يونيفورم شركات ومصانع",
+          description:
+            "ملابس عمل احترافية للشركات والمصانع مع تطريز الشعار وألوان الهوية المؤسسية.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "تفصيل يونيفورم مطاعم ومقاهي",
+        itemOffered: {
+          "@type": "Service",
+          name: "يونيفورم مطاعم ومقاهي",
+          description:
+            "زي موحد عصري لطاقم المطاعم والكافيهات يجمع بين الأناقة والراحة.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "تفصيل يونيفورم محلات تجارية",
+        itemOffered: {
+          "@type": "Service",
+          name: "يونيفورم محلات تجارية",
+          description:
+            "زي موحد للمحلات التجارية والمتاجر يعزز هوية البراند ويوحّد مظهر الفريق.",
+          areaServed: "SA",
+        },
+      },
+    ],
   },
 };
 
@@ -149,13 +235,19 @@ export default function Home() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <div dir="rtl" className="font-sans antialiased">
+        <AtelierIntro lang={LANG} />
         <Header lang={LANG} />
         <main id="main-content">
           <HeroSection lang={LANG} />
           <AboutSection lang={LANG} />
+          <StatsSection lang={LANG} />
           <ProductsSection lang={LANG} />
           <ContactSection lang={LANG} />
         </main>

@@ -5,39 +5,52 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import ProductsSection from "../components/ProductsSection";
+import AtelierIntro from "../components/AtelierIntro";
+import StatsSection from "../components/StatsSection";
 
-const SITE_URL = "https://nasejalnahdat.com";
+const SITE_URL = "https://naseejalnahdat.com";
 const PAGE_URL = `${SITE_URL}/en`;
 const LANG = "en" as const;
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Custom Uniforms in Riyadh | Naseej Al Nahda - Schools, Companies, Restaurants Tailoring",
+    absolute: "Custom Uniforms in Riyadh | Naseej Al Nahda Uniforms",
   },
   description:
-    "Order custom uniforms from Naseej Al Nahda in Riyadh - professional tailoring for schools, companies, factories, restaurants and retail stores. Premium fabrics, 10+ years of experience, on-time delivery.",
+    "Naseej Al Nahda — premium uniform tailoring in Riyadh, Saudi Arabia for schools, companies, factories, restaurants, cafés & retail. Custom designs, embroidered logos, 10+ years of experience. Order on WhatsApp.",
   keywords: [
     "uniforms Riyadh",
+    "custom uniforms Riyadh",
     "custom uniforms Saudi Arabia",
     "uniform tailoring Riyadh",
+    "uniform manufacturer Riyadh",
+    "uniform manufacturer Saudi Arabia",
+    "uniform supplier Riyadh",
     "school uniforms Riyadh",
     "school uniforms Saudi Arabia",
-    "corporate uniforms",
+    "girls school uniform Riyadh",
+    "boys school uniform Riyadh",
+    "corporate uniforms Riyadh",
     "company uniforms Riyadh",
+    "office uniforms Saudi Arabia",
     "factory uniforms Saudi Arabia",
-    "restaurant uniforms",
+    "industrial workwear Riyadh",
+    "restaurant uniforms Riyadh",
     "cafe uniforms Riyadh",
-    "retail uniforms",
+    "barista uniforms Saudi Arabia",
+    "hospitality uniforms Riyadh",
+    "retail uniforms Riyadh",
+    "store staff uniforms",
     "workwear Riyadh",
-    "uniform manufacturer Saudi Arabia",
     "wholesale uniforms Riyadh",
+    "bulk uniforms Saudi Arabia",
     "custom embroidered uniforms",
+    "logo embroidery uniforms Riyadh",
+    "uniform design Saudi Arabia",
     "Naseej Al Nahda",
     "Naseej Al Nahda Uniforms",
-    "uniform supplier Riyadh",
-    "uniform design Saudi Arabia",
-    "bulk uniforms Riyadh",
+    "best uniform tailor Riyadh",
+    "uniform supplier Saudi Arabia",
   ],
   alternates: {
     canonical: PAGE_URL,
@@ -77,6 +90,69 @@ export const metadata: Metadata = {
   },
   other: {
     "content-language": "en",
+  },
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Custom uniform tailoring & manufacturing",
+  provider: { "@id": `${SITE_URL}/#organization` },
+  areaServed: { "@type": "Country", name: "Saudi Arabia" },
+  audience: {
+    "@type": "BusinessAudience",
+    audienceType:
+      "Schools, companies, factories, restaurants, cafés, retail stores, medical facilities",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Naseej Al Nahda Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "School uniform tailoring",
+        itemOffered: {
+          "@type": "Service",
+          name: "School uniforms — boys & girls",
+          description:
+            "Custom-tailored school uniforms with premium, durable fabrics and modern designs for every grade level in Riyadh.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "Corporate & factory uniform tailoring",
+        itemOffered: {
+          "@type": "Service",
+          name: "Company & factory uniforms",
+          description:
+            "Professional workwear with embroidered logos and corporate-identity color matching for businesses and industrial sites.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "Restaurant & café uniform tailoring",
+        itemOffered: {
+          "@type": "Service",
+          name: "Hospitality uniforms",
+          description:
+            "Modern unified attire for restaurant and café staff, blending elegance with all-day comfort.",
+          areaServed: "SA",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "Retail uniform tailoring",
+        itemOffered: {
+          "@type": "Service",
+          name: "Retail store uniforms",
+          description:
+            "Unified uniforms for shops and retail stores that reinforce brand identity and elevate team appearance.",
+          areaServed: "SA",
+        },
+      },
+    ],
   },
 };
 
@@ -210,6 +286,10 @@ export default function HomeEnglish() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <script
@@ -219,10 +299,12 @@ export default function HomeEnglish() {
         }}
       />
       <div dir="ltr" className="font-sans antialiased">
+        <AtelierIntro lang={LANG} />
         <Header lang={LANG} />
         <main id="main-content">
           <HeroSection lang={LANG} />
           <AboutSection lang={LANG} />
+          <StatsSection lang={LANG} />
           <ProductsSection lang={LANG} />
           <ContactSection lang={LANG} />
         </main>

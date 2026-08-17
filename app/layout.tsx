@@ -32,7 +32,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://nasejalnahdat.com";
+const SITE_URL = "https://naseejalnahdat.com";
 const SITE_NAME_AR = "خياط نسيج النهضة";
 const SITE_NAME_EN = "Naseej Al Nahda Uniforms";
 
@@ -72,14 +72,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/images/circlelogo.png", type: "image/png" },
-    ],
-    apple: [{ url: "/images/circlelogo.png" }],
-    shortcut: "/favicon.ico",
-  },
+  // Icons are auto-detected from app/icon.png and app/apple-icon.png (App Router file convention).
+  // Next.js emits <link rel="icon"> / <link rel="apple-touch-icon"> with proper sizes.
   manifest: "/manifest.webmanifest",
   formatDetection: {
     telephone: true,
@@ -218,11 +212,7 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} dir={dir}>
       <head>
-        <link rel="canonical" href={`${SITE_URL}${lang === "en" ? "/en" : "/"}`} />
-        <link rel="alternate" hrefLang="ar-SA" href={`${SITE_URL}/`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} />
-        <meta name="format-detection" content="telephone=yes, email=yes, address=yes" />
+        {/* canonical + hreflang are emitted by each page via metadata.alternates */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
