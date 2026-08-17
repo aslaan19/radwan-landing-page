@@ -9,10 +9,15 @@ import LanguageToggle from "./LanguageToggle";
 export default function Header({ lang }: { lang: Lang }) {
   const tr = t[lang];
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 28);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 28);
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(maxScroll > 0 ? Math.min(100, (window.scrollY / maxScroll) * 100) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -32,6 +37,10 @@ export default function Header({ lang }: { lang: Lang }) {
 
   return (
     <header className={`atelier-header ${scrolled ? "is-scrolled" : ""}`}>
+      <span className="scroll-seam" aria-hidden="true">
+        <i style={{ width: `${scrollProgress}%` }} />
+        <b style={{ left: `calc(${scrollProgress}% - 12px)` }} />
+      </span>
       <div className="header-shell">
         <a href="#home" className="brand-lockup" aria-label={tr.brand.name}>
           <span className="brand-seal">
