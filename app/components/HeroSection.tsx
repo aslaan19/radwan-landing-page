@@ -104,7 +104,7 @@ export default function HeroSection({ lang }: { lang: Lang }) {
       <div className="sector-marquee" aria-hidden="true">
         <div>
           {[...c.sectors, ...c.sectors].map((sector, index) => (
-            <span key={`${sector}-${index}`}>{sector}<i>✂</i></span>
+            <span key={`${sector}-${index}`}>{sector}<i>✂︎</i></span>
           ))}
         </div>
       </div>

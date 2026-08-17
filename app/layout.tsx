@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cairo } from "next/font/google";
-import { Tajawal, Playpen_Sans_Arabic, Inter } from "next/font/google";
+import { Tajawal, Inter } from "next/font/google";
 import { headers } from "next/headers";
 
 import "./globals.css";
@@ -16,13 +16,6 @@ const tajawal = Tajawal({
   subsets: ["arabic"],
   weight: ["400", "700", "900"],
   variable: "--font-heading",
-  display: "swap",
-});
-
-const plex = Playpen_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["300", "400", "500"],
-  variable: "--font-body",
   display: "swap",
 });
 
@@ -227,7 +220,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${cairo.variable} ${tajawal.variable} ${plex.variable} ${inter.variable} antialiased`}
+        className={`${cairo.variable} ${tajawal.variable} ${inter.variable} antialiased`}
       >
         {children}
       </body>

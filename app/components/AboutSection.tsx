@@ -48,7 +48,7 @@ export default function AboutSection({ lang }: { lang: Lang }) {
             <Image src="/images/machine.png" alt={c.machineAlt} fill sizes="(max-width: 900px) 92vw, 45vw" className="machine-photo" />
           </div>
           <div className="tailor-stamp">
-            <span>✂</span><strong>{c.note}</strong><small>EST. 2015 • RIYADH</small>
+            <span>✂︎</span><strong>{c.note}</strong><small>EST. 2015 • RIYADH</small>
           </div>
         </div>
 

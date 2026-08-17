@@ -50,7 +50,7 @@ export default function ContactSection({ lang }: { lang: Lang }) {
         </div>
 
         <div className="contact-form-wrap reveal-on-view">
-          <div className="contact-form-top"><span>ORDER SHEET / 01</span><i>✂</i></div>
+          <div className="contact-form-top"><span>ORDER SHEET / 01</span><i>✂︎</i></div>
           <form onSubmit={submit} aria-label={tr.contact.formAriaLabel}>
             <label>{c.name}<input name="name" required autoComplete="name" placeholder={tr.contact.namePlaceholder} /></label>
             <label>{c.phone}<input name="phone" required inputMode="tel" autoComplete="tel" placeholder="05xxxxxxxx" /></label>

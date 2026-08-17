@@ -112,7 +112,7 @@ export default function LanguageToggle({ lang, variant = "header" }: Props) {
           padding: `0 ${segPaddingX}px`,
           fontSize: segFontSize,
           letterSpacing: "0.4px",
-          color: isAr ? "#0b1424" : hovered === "ar" ? GOLD_LT : "rgba(255,255,255,0.7)",
+          color: isAr ? "#0B1E3A" : hovered === "ar" ? GOLD_LT : "rgba(255,255,255,0.7)",
           fontFamily: "'Cairo', sans-serif",
           textShadow: isAr ? "0 1px 0 rgba(255,255,255,0.25)" : "none",
         }}
@@ -143,7 +143,7 @@ export default function LanguageToggle({ lang, variant = "header" }: Props) {
           padding: `0 ${segPaddingX}px`,
           fontSize: segFontSize,
           letterSpacing: "0.4px",
-          color: !isAr ? "#0b1424" : hovered === "en" ? GOLD_LT : "rgba(255,255,255,0.7)",
+          color: !isAr ? "#0B1E3A" : hovered === "en" ? GOLD_LT : "rgba(255,255,255,0.7)",
           fontFamily: "system-ui, sans-serif",
           textShadow: !isAr ? "0 1px 0 rgba(255,255,255,0.25)" : "none",
         }}
