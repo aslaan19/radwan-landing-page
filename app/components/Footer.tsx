@@ -10,12 +10,12 @@ export default function Footer({ lang }: { lang: Lang }) {
       <div className="footer-shell">
         <div className="footer-brand">
           <span className="footer-logo"><Image src="/images/circlelogo.png" alt="" fill sizes="64px" /></span>
-          <div><strong>{tr.brand.name}</strong><small>{lang === "ar" ? "نخيط الهوية منذ 2015" : "TAILORING IDENTITY SINCE 2015"}</small></div>
+          <div><strong>{tr.brand.name}</strong><small>{tr.brand.tagline}</small></div>
         </div>
         <nav aria-label={tr.footer.quickLinks}>{links.map(([href, label]) => <a href={href} key={href}>{label}</a>)}</nav>
-        <a className="footer-whatsapp" href={whatsappLink(lang)} target="_blank" rel="noopener noreferrer">WhatsApp <span>↗︎</span></a>
+        <a className="footer-whatsapp" href={whatsappLink(lang)} target="_blank" rel="noopener noreferrer">{tr.footer.whatsapp} <span>↗︎</span></a>
       </div>
-      <div className="footer-bottom"><span>{tr.footer.copyright}</span><span>RIYADH • SAUDI ARABIA</span></div>
+      <div className="footer-bottom"><span>{tr.footer.copyright}</span><span>{tr.footer.madeIn}</span></div>
     </footer>
   );
 }

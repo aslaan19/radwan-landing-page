@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/i18n";
+import { t } from "../lib/i18n";
 
 export default function AtelierIntro({ lang }: { lang: Lang }) {
+  const tr = t[lang];
   const [leaving, setLeaving] = useState(false);
   const [hidden, setHidden] = useState(false);
 
@@ -27,11 +29,11 @@ export default function AtelierIntro({ lang }: { lang: Lang }) {
       <div className="intro-panel intro-panel--bottom" />
       <div className="intro-mark">
         <span className="intro-kicker">
-          {lang === "ar" ? "تفصيل • خياطة • تطريز" : "CUT • SEW • EMBROIDER"}
+          {tr.hero.craftLabel}
         </span>
-        <strong>{lang === "ar" ? "نسيج النهضة" : "NASEEJ AL NAHDA"}</strong>
+        <strong>{tr.brand.name}</strong>
         <span className="intro-stitch"><i /></span>
-        <small>{lang === "ar" ? "نخيط الهوية" : "WE TAILOR IDENTITY"}</small>
+        <small>{tr.brand.tagline}</small>
       </div>
     </div>
   );

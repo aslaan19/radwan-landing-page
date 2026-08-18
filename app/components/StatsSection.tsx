@@ -1,23 +1,17 @@
 import type { Lang } from "../lib/i18n";
-
-const stats = {
-  ar: [
-    ["10+", "سنوات خبرة"], ["50+", "شركة ومؤسسة"], ["5K+", "قطعة تم تسليمها"], ["4.9", "تقييم عملائنا"],
-  ],
-  en: [
-    ["10+", "Years of expertise"], ["50+", "Organizations served"], ["5K+", "Pieces delivered"], ["4.9", "Customer rating"],
-  ],
-} as const;
+import { t } from "../lib/i18n";
 
 export default function StatsSection({ lang }: { lang: Lang }) {
+  const tr = t[lang].hero;
+  const stats = [...tr.stats, { num: "4.9", label: tr.ratingLabel }];
   return (
-    <section className="atelier-stats" aria-label={lang === "ar" ? "إنجازاتنا بالأرقام" : "Our achievements"}>
+    <section className="atelier-stats" aria-label={tr.qualityBadge}>
       <div className="stats-shell">
-        <p>{lang === "ar" ? "أرقام من أرض الواقع" : "NUMBERS FROM THE WORKROOM"}</p>
+        <p>{tr.qualityBadge}</p>
         <div className="stats-grid">
-          {stats[lang].map(([value, label], index) => (
-            <div key={label} className="stat-item">
-              <span>0{index + 1}</span><strong>{value}</strong><small>{label}</small>
+          {stats.map((stat, index) => (
+            <div key={stat.label} className="stat-item">
+              <span>0{index + 1}</span><strong>{stat.num}</strong><small>{stat.label}</small>
             </div>
           ))}
         </div>

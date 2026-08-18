@@ -48,7 +48,7 @@ export default function Header({ lang }: { lang: Lang }) {
           </span>
           <span className="brand-type">
             <strong>{tr.brand.name}</strong>
-            <small>{lang === "ar" ? "تفصيل الزي الموحّد" : "UNIFORM ATELIER"}</small>
+            <small>{tr.brand.tagline}</small>
           </span>
         </a>
 

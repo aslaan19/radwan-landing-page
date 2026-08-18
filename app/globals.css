@@ -48,7 +48,7 @@ button, input, textarea { font: inherit; }
 .intro-panel--bottom { bottom: 0; border-top: 1px dashed rgba(200,150,62,.65); }
 .intro-mark { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; transition: opacity .3s ease, transform .5s ease; }
 .intro-kicker { color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: .18em; animation: introFade .6s ease .15s both; }
-.intro-mark strong { margin: 14px 0 8px; font-size: clamp(38px, 7vw, 86px); line-height: 1; font-family: var(--font-heading); animation: introFade .7s ease .3s both; }
+.intro-mark strong { margin: 14px 0 8px; padding-block: .08em .16em; font-size: clamp(38px, 7vw, 86px); line-height: 1.12; font-family: var(--font-heading); animation: introFade .7s ease .3s both; }
 .intro-mark small { font-size: 10px; letter-spacing: .5em; color: rgba(255,255,255,.55); animation: introFade .6s ease 1.2s both; }
 .intro-stitch { position: relative; width: min(440px, 70vw); height: 30px; overflow: hidden; }
 .intro-stitch::before { content: ""; position: absolute; top: 14px; left: 0; width: 100%; border-top: 2px dashed var(--rust); transform: translateX(-105%); animation: sewLine 1.05s cubic-bezier(.65,0,.35,1) .55s forwards; }
@@ -104,13 +104,14 @@ button, input, textarea { font: inherit; }
 .hero-copy { max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 11px; padding: 8px 13px; border: 1px solid rgba(200,150,62,.38); background: rgba(200,150,62,.08); color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: .08em; box-shadow: inset 0 0 20px rgba(31,78,139,.2); animation: eyebrowGlow 3.2s ease-in-out infinite; }
 .spool-dot { width: 9px; height: 9px; border: 2px solid var(--rust); border-radius: 50%; box-shadow: 0 0 0 4px rgba(200,150,62,.14), 0 0 18px rgba(244,208,63,.35); }
-.hero-title { margin: 28px 0 26px; font-size: clamp(54px, 7vw, 108px); font-weight: 800; line-height: .96; letter-spacing: -.035em; text-wrap: balance; font-family: var(--font-heading), "Alexandria", sans-serif; }
-html[lang^="ar"] .hero-title { line-height: 1.04; letter-spacing: 0; }
-.hero-title-line { display: block; opacity: 0; transform: translateY(55px); animation: heroReveal .85s cubic-bezier(.16,1,.3,1) 2.45s forwards; }
+.hero-title { margin: 28px 0 26px; font-size: clamp(50px, 6.2vw, 96px); font-weight: 800; line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; font-family: var(--font-heading), "Alexandria", sans-serif; }
+html[lang^="ar"] .hero-title { line-height: 1.16; letter-spacing: 0; }
+.hero-title-line { display: block; padding-block: .03em .17em; opacity: 0; transform: translateY(55px); animation: heroReveal .85s cubic-bezier(.16,1,.3,1) 2.45s forwards; }
 .hero-title-line:nth-child(2) { animation-delay: 2.6s; }
-.hero-title-line.hero-title-accent { position: relative; width: max-content; max-width: 100%; color: var(--gold); background: linear-gradient(100deg, #C8963E 0%, #f4d03f 36%, #ffffff 50%, #f4d03f 64%, #C8963E 100%); background-size: 230% auto; background-position: 120% center; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; animation: heroReveal .85s cubic-bezier(.16,1,.3,1) 2.6s forwards, goldText 5s linear 3.2s infinite; }
-.hero-title-accent::after { content: ""; position: absolute; right: 0; bottom: -10px; width: 100%; border-top: 3px dashed var(--gold); transform: scaleX(0); transform-origin: right; animation: lineReveal .8s ease 3.1s forwards; }
+.hero-title-line.hero-title-accent { position: relative; width: max-content; max-width: 100%; padding-bottom: .32em; color: var(--gold); background: linear-gradient(100deg, #C8963E 0%, #f4d03f 36%, #ffffff 50%, #f4d03f 64%, #C8963E 100%); background-size: 230% auto; background-position: 120% center; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; animation: heroReveal .85s cubic-bezier(.16,1,.3,1) 2.6s forwards, goldText 5s linear 3.2s infinite; }
+.hero-title-accent::after { content: ""; position: absolute; right: 0; bottom: .04em; width: 100%; border-top: 3px dashed var(--gold); transform: scaleX(0); transform-origin: right; animation: lineReveal .8s ease 3.1s forwards; }
 html[dir="ltr"] .hero-title-accent::after { transform-origin: left; }
+.hero-word-cycle { position: relative; display: inline-block; will-change: transform, filter, clip-path; animation: wordTailorIn .72s cubic-bezier(.16,1,.3,1) both; }
 .hero-description { max-width: 640px; margin-bottom: 30px; color: rgba(255,255,255,.74); font-size: clamp(15px, 1.4vw, 18px); font-weight: 520; line-height: 2.05; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 22px; min-height: 54px; padding: 0 25px; border: 1px solid transparent; border-radius: 2px; text-decoration: none; font-size: 13px; font-weight: 900; cursor: pointer; transition: transform .25s, box-shadow .25s, background .25s, color .25s; }
@@ -177,6 +178,7 @@ html[dir="ltr"] .hero-title-accent::after { transform-origin: left; }
 .section-kicker--warm { color: var(--rust); }
 .section-title { max-width: 720px; margin: 20px 0 24px; color: var(--ink); font-family: var(--font-heading), "Alexandria", sans-serif; font-size: clamp(42px, 5vw, 72px); font-weight: 760; line-height: 1.14; letter-spacing: -.025em; text-wrap: balance; }
 html[lang^="ar"] .section-title { line-height: 1.18; letter-spacing: 0; }
+.section-title em { color: var(--gold); font-style: normal; background: linear-gradient(100deg, #C8963E, #f4d03f 45%, #ffffff 52%, #f4d03f 60%, #C8963E); background-size: 240% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: goldText 6s linear infinite; }
 .section-title--light { color: var(--paper-2); }
 .section-lead { max-width: 660px; color: rgba(27,42,74,.72); font-size: 16px; font-weight: 500; line-height: 2; }
 .process-block { margin-top: 46px; }
@@ -289,6 +291,7 @@ html[dir="ltr"] .product-card:hover .product-meta h3 { transform: translateX(5px
 @keyframes atelierGlow { from { transform: scale(1); opacity: .78; } to { transform: scale(1.06); opacity: 1; } }
 @keyframes tapeDrift { to { background-position: 420px 0; } }
 @keyframes goldText { from { background-position: 120% center; } to { background-position: -120% center; } }
+@keyframes wordTailorIn { 0% { opacity: 0; filter: blur(8px); transform: translateY(.45em) skewX(-7deg); clip-path: inset(0 0 100% 0); } 58% { opacity: 1; filter: blur(0); } 100% { opacity: 1; transform: none; clip-path: inset(0); } }
 @keyframes atelierScan { 0%,15% { transform: translateX(-38%); opacity: 0; } 38%,62% { opacity: 1; } 85%,100% { transform: translateX(38%); opacity: 0; } }
 @keyframes seamPulse { 50% { border-color: rgba(244,208,63,.7); box-shadow: inset 0 0 24px rgba(31,78,139,.18); } }
 @keyframes swatchFloat { 50% { transform: translateY(-9px) rotate(10deg); } }
@@ -343,7 +346,8 @@ html[dir="ltr"] .product-card:hover .product-meta h3 { transform: translateX(5px
   .header-actions { gap: 5px; }
   .header-actions > a:first-child { transform: scale(.78); transform-origin: center; margin-inline: -11px; }
   .menu-button { width: 40px; height: 40px; }
-  .hero-title { font-size: clamp(47px,14vw,70px); line-height: .98; }
+  .hero-title { font-size: clamp(43px,12vw,64px); line-height: 1.05; }
+  html[lang^="ar"] .hero-title { line-height: 1.2; }
   .hero-eyebrow { font-size: 9px; }
   .hero-actions { flex-direction: column; }
   .hero-actions .button { width: 100%; }
