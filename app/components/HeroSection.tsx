@@ -34,8 +34,8 @@ export default function HeroSection({ lang }: { lang: Lang }) {
           <h1 id="hero-title" className="hero-title">
             <span className="hero-title-line">{tr.hero.headlineLine1}</span>
             <span className="hero-title-line hero-title-accent">
-              <span key={`${lang}-${activeWord}`} className="hero-word-cycle">{tr.hero.cyclingWords[activeWord]}</span>{" "}
-              <span>{tr.hero.headlineTail}</span>
+              <span key={`${lang}-${activeWord}`} className="hero-word-cycle" dir={lang === "ar" ? "rtl" : "ltr"}>{tr.hero.cyclingWords[activeWord]}</span>
+              <span className="hero-title-tail" dir={lang === "ar" ? "rtl" : "ltr"}>{tr.hero.headlineTail}</span>
             </span>
           </h1>
 
