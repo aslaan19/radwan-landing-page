@@ -19,13 +19,13 @@ export function getLangPath(lang: Lang): string {
 }
 
 /* ───────── WhatsApp business number ─────────
- * Display value: 0558231071
- * E.164:         +966558231071
- * wa.me path:    966558231071  (no leading +, no leading 0)
+ * Display value: 0544868983
+ * E.164:         +966544868983
+ * wa.me path:    966544868983  (no leading +, no leading 0)
  */
-export const WHATSAPP_NUMBER_DISPLAY = "0558231071";
-export const WHATSAPP_NUMBER_E164 = "+966558231071";
-export const WHATSAPP_NUMBER_WA = "966558231071";
+export const WHATSAPP_NUMBER_DISPLAY = "0544868983";
+export const WHATSAPP_NUMBER_E164 = "+966544868983";
+export const WHATSAPP_NUMBER_WA = "966544868983";
 
 const WA_GREETING: Record<Lang, string> = {
   ar: "السلام عليكم، أرغب في الاستفسار عن خدمات تفصيل اليونيفورم لدى خياط نسيج النهضة.",

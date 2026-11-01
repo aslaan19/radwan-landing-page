@@ -3,7 +3,7 @@
 import Image from "next/image";
 import type { FormEvent } from "react";
 import type { Lang } from "../lib/i18n";
-import { WHATSAPP_NUMBER_WA, t, whatsappLink } from "../lib/i18n";
+import { WHATSAPP_NUMBER_DISPLAY, WHATSAPP_NUMBER_E164, WHATSAPP_NUMBER_WA, t, whatsappLink } from "../lib/i18n";
 
 export default function ContactSection({ lang }: { lang: Lang }) {
   const tr = t[lang];
@@ -28,8 +28,8 @@ export default function ContactSection({ lang }: { lang: Lang }) {
           <p>{c.description}</p>
 
           <div className="contact-links">
-            <a href={whatsappLink(lang)} target="_blank" rel="noopener noreferrer"><span>WA</span><div><small>{c.methods.mobileLabel}</small><strong>055 823 1071</strong></div><b>↗︎</b></a>
-            <a href="tel:+966112408697"><span>TL</span><div><small>{c.methods.landlineLabel}</small><strong>011 240 8697</strong></div><b>↗︎</b></a>
+            <a href={whatsappLink(lang)} target="_blank" rel="noopener noreferrer"><span>WA</span><div><small>{c.methods.mobileLabel}</small><strong>{WHATSAPP_NUMBER_DISPLAY.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")}</strong></div><b>↗︎</b></a>
+            <a href={`tel:${WHATSAPP_NUMBER_E164}`}><span>TL</span><div><small>{c.methods.landlineLabel}</small><strong>{WHATSAPP_NUMBER_DISPLAY.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")}</strong></div><b>↗︎</b></a>
             <a href="mailto:Nasejalnahdat@gmail.com"><span>EM</span><div><small>{c.methods.emailLabel}</small><strong>Nasejalnahdat@gmail.com</strong></div><b>↗︎</b></a>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Alexandria, Cairo, Manrope } from "next/font/google";
 import { headers } from "next/headers";
 
 import "./globals.css";
-import { getLangFromPath, getDirFromLang, t } from "./lib/i18n";
+import { getLangFromPath, getDirFromLang, t, WHATSAPP_NUMBER_E164, WHATSAPP_NUMBER_WA } from "./lib/i18n";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -113,7 +113,7 @@ function localBusinessJsonLd(lang: "ar" | "en") {
     priceRange: "$$",
     currenciesAccepted: "SAR",
     paymentAccepted: "Cash, Credit Card, Bank Transfer",
-    telephone: "+966558231071",
+    telephone: WHATSAPP_NUMBER_E164,
     email: "Nasejalnahdat@gmail.com",
     address: {
       "@type": "PostalAddress",
@@ -153,13 +153,13 @@ function localBusinessJsonLd(lang: "ar" | "en") {
       },
     ],
     sameAs: [
-      "https://wa.me/966558231071",
+      `https://wa.me/${WHATSAPP_NUMBER_WA}`,
       "https://maps.app.goo.gl/FkTH7ep39PhjsEV6A",
     ],
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+966558231071",
+        telephone: WHATSAPP_NUMBER_E164,
         contactType: "customer service",
         areaServed: "SA",
         availableLanguage: ["Arabic", "English"],
