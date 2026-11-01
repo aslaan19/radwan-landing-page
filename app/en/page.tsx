@@ -216,7 +216,7 @@ const faqJsonLd = {
       name: "How can I contact you to order uniforms?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can reach us via WhatsApp or mobile at +966544868983, or email Nasejalnahdat@gmail.com.",
+        text: "You can reach us via WhatsApp or mobile at +966 54 486 8983, or email Nasejalnahdat@gmail.com.",
       },
     },
   ],

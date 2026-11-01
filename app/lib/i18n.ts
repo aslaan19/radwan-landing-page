@@ -19,11 +19,11 @@ export function getLangPath(lang: Lang): string {
 }
 
 /* ───────── WhatsApp business number ─────────
- * Display value: 0544868983
+ * Display value: +966 54 486 8983
  * E.164:         +966544868983
  * wa.me path:    966544868983  (no leading +, no leading 0)
  */
-export const WHATSAPP_NUMBER_DISPLAY = "0544868983";
+export const WHATSAPP_NUMBER_DISPLAY = "+966 54 486 8983";
 export const WHATSAPP_NUMBER_E164 = "+966544868983";
 export const WHATSAPP_NUMBER_WA = "966544868983";
 
