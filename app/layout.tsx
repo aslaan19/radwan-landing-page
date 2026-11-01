@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Alexandria, Cairo, Manrope } from "next/font/google";
 import { headers } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import { getLangFromPath, getDirFromLang, t, WHATSAPP_NUMBER_E164, WHATSAPP_NUMBER_WA } from "./lib/i18n";
@@ -223,6 +224,7 @@ export default async function RootLayout({
         className={`${cairo.variable} ${alexandria.variable} ${manrope.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
